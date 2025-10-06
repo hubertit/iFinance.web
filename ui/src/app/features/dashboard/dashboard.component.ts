@@ -55,32 +55,32 @@ export interface ChartOptions {
       <div class="quick-actions">
         <h3>Quick Actions</h3>
         <div class="actions-grid">
-          <button class="action-btn" (click)="quickAction('collect')">
+          <button class="action-btn" (click)="quickAction('send-money')">
             <div class="action-icon">
-              <app-feather-icon name="truck" size="20px"></app-feather-icon>
+              <app-feather-icon name="send" size="20px"></app-feather-icon>
             </div>
-            <span class="action-label">Collect Milk</span>
+            <span class="action-label">Send Money</span>
           </button>
           
-          <button class="action-btn" (click)="quickAction('sell')">
+          <button class="action-btn" (click)="quickAction('request-money')">
             <div class="action-icon">
-              <app-feather-icon name="shopping-cart" size="20px"></app-feather-icon>
+              <app-feather-icon name="dollar-sign" size="20px"></app-feather-icon>
             </div>
-            <span class="action-label">Sell Milk</span>
+            <span class="action-label">Request Money</span>
           </button>
           
-          <button class="action-btn" (click)="quickAction('supplier')">
+          <button class="action-btn" (click)="quickAction('top-up')">
             <div class="action-icon">
-              <app-feather-icon name="user-plus" size="20px"></app-feather-icon>
+              <app-feather-icon name="credit-card" size="20px"></app-feather-icon>
             </div>
-            <span class="action-label">Add Supplier</span>
+            <span class="action-label">Top Up Wallet</span>
           </button>
           
-          <button class="action-btn" (click)="quickAction('customer')">
+          <button class="action-btn" (click)="quickAction('apply-loan')">
             <div class="action-icon">
-              <app-feather-icon name="users" size="20px"></app-feather-icon>
+              <app-feather-icon name="trending-up" size="20px"></app-feather-icon>
             </div>
-            <span class="action-label">Add Customer</span>
+            <span class="action-label">Apply for Loan</span>
           </button>
         </div>
       </div>
@@ -640,21 +640,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
    */
   quickAction(action: string) {
     switch(action) {
-      case 'collect':
-        // Navigate to collections screen
-        this.router.navigate(['/collections']);
+      case 'send-money':
+        // Navigate to transactions screen for sending money
+        this.router.navigate(['/transactions']);
         break;
-      case 'sell':
-        // Navigate to sales screen
-        this.router.navigate(['/sales']);
+      case 'request-money':
+        // Navigate to transactions screen for requesting money
+        this.router.navigate(['/transactions']);
         break;
-      case 'supplier':
-        // Open add supplier modal
-        this.openAddSupplierModal();
+      case 'top-up':
+        // Navigate to ikofi (wallets) for top-up
+        this.router.navigate(['/ikofi']);
         break;
-      case 'customer':
-        // Open add customer modal
-        this.openAddCustomerModal();
+      case 'apply-loan':
+        // Navigate to loans screen
+        this.router.navigate(['/loans']);
         break;
     }
   }
