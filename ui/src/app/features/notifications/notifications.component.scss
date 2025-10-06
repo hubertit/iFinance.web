@@ -76,18 +76,21 @@
     }
 
     .btn-secondary {
-      background: $gray-100;
+      background: white;
       color: $text-primary-color;
       border: 1px solid $border-color;
 
       &:hover:not(:disabled) {
-        background: $gray-200;
+        background: $gray-100;
         border-color: $primary;
+        color: $primary;
       }
 
       &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
+        background: $gray-200;
+        color: $text-disabled-color;
       }
     }
   }
