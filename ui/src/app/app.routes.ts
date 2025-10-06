@@ -12,6 +12,7 @@ import { TransactionsComponent } from './features/transactions/transactions.comp
 import { LoansComponent } from './features/loans/loans.component';
 import { SavingsComponent } from './features/savings/savings.component';
 import { InsuranceComponent } from './features/insurance/insurance.component';
+import { NotificationsComponent } from './features/notifications/notifications.component';
 import { CustomersListComponent } from './features/customers/customers-list/customers-list.component';
 import { AddCustomerComponent } from './features/customers/add-customer/add-customer.component';
 import { SoldMilkComponent } from './features/customers/sold-milk/sold-milk.component';
@@ -83,6 +84,10 @@ export const routes: Routes = [
             {
               path: 'insurance',
               component: InsuranceComponent
+            },
+            {
+              path: 'notifications',
+              component: NotificationsComponent
             },
       {
         path: 'customers/list',

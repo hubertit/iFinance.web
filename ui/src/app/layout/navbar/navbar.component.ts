@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService, Account } from '../../core/services/auth.service';
 import { WalletService, Wallet } from '../../core/services/wallet.service';
+import { NotificationService, TransactionNotification } from '../../core/services/notification.service';
 import { FeatherIconComponent } from '../../shared/components/feather-icon/feather-icon.component';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -26,25 +28,28 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
         <div class="nav-item notification-item" (click)="toggleNotificationPanel()">
           <button class="icon-button">
             <app-feather-icon name="bell" size="16px"></app-feather-icon>
-            <span class="badge">3</span>
+            <span class="badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
           </button>
 
           <!-- Notification Panel -->
           <div class="notification-panel" *ngIf="showNotificationPanel">
             <div class="panel-header">
               <h6>Notifications</h6>
-              <span class="notification-count">3 new</span>
+              <span class="notification-count" *ngIf="unreadCount > 0">{{ unreadCount }} new</span>
             </div>
             
             <div class="notification-list">
-              <div class="notification-item" *ngFor="let notification of notifications">
-                <div class="notification-avatar">
+              <div class="notification-item" 
+                   *ngFor="let notification of notifications"
+                   [class.unread]="!notification.read"
+                   (click)="markAsRead(notification.id)">
+                <div class="notification-avatar" [class]="getNotificationClass(notification.type)">
                   <app-feather-icon [name]="notification.icon" size="16px"></app-feather-icon>
                 </div>
                 <div class="notification-content">
                   <div class="notification-title">{{ notification.title }}</div>
                   <div class="notification-message">{{ notification.message }}</div>
-                  <div class="notification-time">{{ notification.time }}</div>
+                  <div class="notification-time">{{ formatNotificationTime(notification.timestamp) }}</div>
                 </div>
                 <div class="notification-status" [class.unread]="!notification.read"></div>
               </div>
@@ -192,6 +197,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Input() isSidebarCollapsed = false;
   @Output() toggleSidebar = new EventEmitter<void>();
 
+  private destroy$ = new Subject<void>();
+
   userName: string;
   userRole: string;
   showUserMenu = false;
@@ -206,32 +213,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   currentDate: string = '';
   private timeInterval: any;
 
-  notifications = [
-    {
-      id: 1,
-      title: 'New Customer Added',
-      message: 'John Doe has been added to your customer list',
-      time: '2 minutes ago',
-      icon: 'user-plus',
-      read: false
-    },
-    {
-      id: 2,
-      title: 'Payment Received',
-      message: 'Payment of RWF 15,000 received from Jane Smith',
-      time: '1 hour ago',
-      icon: 'dollar-sign',
-      read: false
-    },
-    {
-      id: 3,
-      title: 'System Update',
-      message: 'Your system has been updated to version 2.1.0',
-      time: '3 hours ago',
-      icon: 'download',
-      read: true
-    }
-  ];
+  // Notification properties
+  notifications: TransactionNotification[] = [];
+  unreadCount: number = 0;
 
   messages = [
     {
@@ -304,6 +288,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private walletService: WalletService,
+    private notificationService: NotificationService,
     private router: Router
   ) {
     const user = this.authService.getCurrentUser();
@@ -312,6 +297,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     // Load wallet data from WalletService
     this.loadWalletData();
+    
+    // Load notification data
+    this.loadNotificationData();
   }
 
   ngOnInit() {
@@ -323,6 +311,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+    
     if (this.timeInterval) {
       clearInterval(this.timeInterval);
     }
@@ -374,8 +365,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   viewAllNotifications(): void {
     this.showNotificationPanel = false;
-    // TODO: Navigate to full notifications page
-    console.log('View all notifications clicked');
+    this.router.navigate(['/notifications']);
   }
 
   viewAllMessages(): void {
@@ -447,5 +437,60 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.showUserMenu = false;
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  // Notification methods
+  private loadNotificationData(): void {
+    this.notificationService.getNotifications()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(notifications => {
+        this.notifications = notifications;
+      });
+
+    this.notificationService.getUnreadCount()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(count => {
+        this.unreadCount = count;
+      });
+  }
+
+  markAsRead(notificationId: string): void {
+    this.notificationService.markAsRead(notificationId);
+  }
+
+  getNotificationClass(type: string): string {
+    switch(type) {
+      case 'transaction_received':
+      case 'payment_completed':
+      case 'loan_approved':
+      case 'savings_goal_reached':
+      case 'insurance_claim_approved':
+        return 'success';
+      case 'transaction_sent':
+        return 'info';
+      case 'payment_failed':
+      case 'loan_rejected':
+      case 'insurance_claim_rejected':
+        return 'danger';
+      default:
+        return 'neutral';
+    }
+  }
+
+  formatNotificationTime(timestamp: Date): string {
+    const now = new Date();
+    const diffInMinutes = Math.floor((now.getTime() - timestamp.getTime()) / (1000 * 60));
+    
+    if (diffInMinutes < 1) {
+      return 'Just now';
+    } else if (diffInMinutes < 60) {
+      return `${diffInMinutes}m ago`;
+    } else if (diffInMinutes < 1440) {
+      const hours = Math.floor(diffInMinutes / 60);
+      return `${hours}h ago`;
+    } else {
+      const days = Math.floor(diffInMinutes / 1440);
+      return `${days}d ago`;
+    }
   }
 }
