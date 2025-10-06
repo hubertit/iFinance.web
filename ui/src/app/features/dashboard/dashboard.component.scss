@@ -830,3 +830,105 @@
     padding: 16px;
   }
 }
+
+// Recent Transactions
+.recent-transactions {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  margin-top: 24px;
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e2e8f0;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: $text-primary-color;
+      margin: 0;
+    }
+
+    .view-all-btn {
+      background: none;
+      border: none;
+      color: $primary;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba($primary, 0.1);
+      }
+    }
+  }
+
+  .transactions-list {
+    .transaction-item {
+      display: flex;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background: #f8fafc;
+      }
+
+      .transaction-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $text-secondary-color;
+        margin-right: 12px;
+        flex-shrink: 0;
+      }
+
+      .transaction-details {
+        flex-grow: 1;
+
+        .transaction-title {
+          font-size: 14px;
+          font-weight: 500;
+          color: $text-primary-color;
+          margin-bottom: 2px;
+        }
+
+        .transaction-date {
+          font-size: 12px;
+          color: $text-secondary-color;
+        }
+      }
+
+      .transaction-amount {
+        font-size: 16px;
+        font-weight: 600;
+        text-align: right;
+
+        &.positive {
+          color: $success;
+        }
+
+        &.negative {
+          color: $danger;
+        }
+      }
+    }
+  }
+}

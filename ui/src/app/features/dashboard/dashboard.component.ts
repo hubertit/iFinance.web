@@ -219,29 +219,29 @@ export interface ChartOptions {
         </div>
       </div>
 
-      <!-- Recent Activity -->
-      <div class="recent-activity" *ngIf="overview?.recent_transactions?.length" [class.loading-overlay]="isRefreshing">
-        <div class="activity-header">
-          <h3>Recent Activity</h3>
-          <button class="btn-link" (click)="navigateToTransactions()">View All</button>
+      <!-- Recent Transactions -->
+      <div class="recent-transactions" *ngIf="overview?.recent_transactions?.length" [class.loading-overlay]="isRefreshing">
+        <div class="section-header">
+          <h3>Recent Transactions</h3>
+          <button class="view-all-btn" (click)="navigateToTransactions()">View All</button>
         </div>
-        <div class="activity-list">
-          <div class="activity-item" 
+        <div class="transactions-list">
+          <div class="transaction-item" 
                *ngFor="let transaction of (overview?.recent_transactions || []).slice(0, 5)"
                (click)="viewTransactionDetails(transaction)">
-            <div class="activity-icon" [class]="transaction.type.toLowerCase()">
+            <div class="transaction-icon">
               <app-feather-icon 
-                [name]="transaction.type.toLowerCase() === 'collection' ? 'truck' : 'shopping-cart'" 
+                [name]="getTransactionIcon(transaction.type)" 
                 size="16px">
               </app-feather-icon>
             </div>
-            <div class="activity-content">
-              <div class="activity-title">
-                {{ transaction.type }} from {{ getTransactionAccount(transaction) }}
+            <div class="transaction-details">
+              <div class="transaction-title">
+                {{ getTransactionTitle(transaction) }}
               </div>
-              <div class="activity-time">{{ formatDate(transaction.transaction_at || transaction.created_at) }}</div>
+              <div class="transaction-date">{{ formatDate(transaction.transaction_at || transaction.created_at) }}</div>
             </div>
-            <div class="activity-amount" [class]="transaction.type.toLowerCase()">
+            <div class="transaction-amount" [class]="getTransactionAmountClass(transaction.type)">
               {{ formatCurrency(transaction.amount) }}
             </div>
           </div>
@@ -737,6 +737,57 @@ export class DashboardComponent implements OnInit, OnDestroy {
   viewTransactionDetails(transaction: any) {
     console.log('View transaction details:', transaction);
     // TODO: Show transaction details modal
+  }
+
+  getTransactionIcon(type: string): string {
+    switch(type.toLowerCase()) {
+      case 'send':
+        return 'send';
+      case 'receive':
+        return 'download';
+      case 'loan':
+        return 'dollar-sign';
+      case 'savings':
+        return 'trending-up';
+      case 'payment':
+        return 'credit-card';
+      default:
+        return 'send';
+    }
+  }
+
+  getTransactionTitle(transaction: any): string {
+    const type = transaction.type.toLowerCase();
+    const account = this.getTransactionAccount(transaction);
+    
+    switch(type) {
+      case 'send':
+        return `Sent to ${account}`;
+      case 'receive':
+        return `Received from ${account}`;
+      case 'loan':
+        return `Loan payment to ${account}`;
+      case 'savings':
+        return `Savings deposit`;
+      case 'payment':
+        return `Payment to ${account}`;
+      default:
+        return `${transaction.type} ${account}`;
+    }
+  }
+
+  getTransactionAmountClass(type: string): string {
+    switch(type.toLowerCase()) {
+      case 'send':
+      case 'loan':
+      case 'payment':
+        return 'negative';
+      case 'receive':
+      case 'savings':
+        return 'positive';
+      default:
+        return 'positive';
+    }
   }
 
   /**
