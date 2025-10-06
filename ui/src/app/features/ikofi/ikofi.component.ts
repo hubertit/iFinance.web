@@ -15,8 +15,9 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
           <p class="page-description">Manage your financial services and transactions</p>
         </div>
         <div class="header-actions">
-          <button class="icon-btn" (click)="createWallet()" title="Create Wallet">
-            <app-feather-icon name="plus" size="20px"></app-feather-icon>
+          <button class="btn-primary" (click)="createWallet()">
+            <app-feather-icon name="plus" size="16px"></app-feather-icon>
+            <span>Create Wallet</span>
           </button>
         </div>
       </div>

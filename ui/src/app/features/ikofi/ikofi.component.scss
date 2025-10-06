@@ -49,34 +49,27 @@
       justify-content: stretch;
     }
 
-    .icon-btn {
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
       background: $primary;
       color: white;
       border: none;
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border-radius: 8px;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba($primary, 0.3);
+      transition: $transition-base;
 
       &:hover {
-        background: color.adjust($primary, $lightness: -5%);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba($primary, 0.4);
-      }
-
-      &:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 8px rgba($primary, 0.3);
+        background: darken($primary, 10%);
+        transform: translateY(-1px);
       }
 
       @media (max-width: 768px) {
-        width: 44px;
-        height: 44px;
+        flex: 1;
+        justify-content: center;
       }
     }
   }
