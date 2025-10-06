@@ -1,0 +1,53 @@
+@use '../../../styles/variables' as *;
+
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-wrapper {
+  margin-top: calc(#{$header-height} + 10px);
+  margin-left: $sidebar-width;
+  background: #f1f2f3;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
+
+.main-container.sidebar-collapsed .page-wrapper {
+  margin-left: $sidebar-mini-width;
+}
+
+// Responsive behavior
+@media (max-width: 991px) {
+  .page-wrapper {
+    margin-left: 0;
+    padding: 8px;
+  }
+  
+  .main-container.sidebar-collapsed .page-wrapper {
+    margin-left: 0;
+  }
+}
+
+// Mobile overlay for sidebar
+@media (max-width: 991px) {
+  .main-container.sidebar-collapsed::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-wrapper {
+    padding: 6px;
+  }
+}

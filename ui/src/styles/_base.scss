@@ -1,0 +1,107 @@
+@import 'variables';
+
+// Reset and base styles
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: $font-size-base;
+  height: 100%;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $gray-800;
+  background-color: $gray-100;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.5rem;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+  color: $gray-900;
+}
+
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.875rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+// Links
+a {
+  color: $primary;
+  text-decoration: none;
+  transition: $transition-base;
+
+  &:hover {
+    color: darken($primary, 10%);
+    text-decoration: none;
+  }
+}
+
+// Lists
+ul, ol {
+  padding-left: 2rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+// Images
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Utility classes
+.text-primary { color: $primary !important; }
+.text-secondary { color: $secondary !important; }
+.text-success { color: $success !important; }
+.text-info { color: $info !important; }
+.text-warning { color: $warning !important; }
+.text-danger { color: $danger !important; }
+.text-light { color: $light !important; }
+.text-dark { color: $dark !important; }
+
+.bg-primary { background-color: $primary !important; }
+.bg-secondary { background-color: $secondary !important; }
+.bg-success { background-color: $success !important; }
+.bg-info { background-color: $info !important; }
+.bg-warning { background-color: $warning !important; }
+.bg-danger { background-color: $danger !important; }
+.bg-light { background-color: $light !important; }
+.bg-dark { background-color: $dark !important; }
+
+.d-flex { display: flex !important; }
+.d-none { display: none !important; }
+.flex-column { flex-direction: column !important; }
+.justify-content-between { justify-content: space-between !important; }
+.align-items-center { align-items: center !important; }
+
+.w-100 { width: 100% !important; }
+.h-100 { height: 100% !important; }
+
+.m-0 { margin: 0 !important; }
+.p-0 { padding: 0 !important; }
+
+// Responsive breakpoints
+@media (min-width: 576px) { }
+@media (min-width: 768px) { }
+@media (min-width: 992px) { }
+@media (min-width: 1200px) { }

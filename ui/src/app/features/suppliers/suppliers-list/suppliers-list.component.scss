@@ -1,0 +1,373 @@
+@use '../../../../styles/variables' as *;
+
+.suppliers-container {
+  padding: 12px;
+  min-height: auto;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
+}
+
+// Page Header
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .header-content {
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0 0 8px 0;
+    }
+
+    .page-description {
+      color: #64748b;
+      font-size: 16px;
+      margin: 0;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      justify-content: stretch;
+    }
+  }
+}
+
+// Stats Grid
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #004AAD;
+    flex-shrink: 0;
+  }
+
+  .stat-content {
+    flex: 1;
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 500;
+    }
+  }
+}
+
+// Card Styles
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+
+  .card-header {
+    padding: 24px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f8fafc;
+
+    .card-title-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+
+      h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1e293b;
+        margin: 0;
+      }
+
+      .supplier-count {
+        background: #e2e8f0;
+        color: #64748b;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .card-body {
+    padding: 0;
+  }
+}
+
+// Supplier Info Styles
+.supplier-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .supplier-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f1f5f9;
+  }
+
+  .supplier-details {
+    .supplier-name {
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .supplier-id {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+  }
+}
+
+// Business Type Styles
+.business-type {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.individual {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  &.cooperative {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  &.farm {
+    background: #fef3c7;
+    color: #92400e;
+  }
+}
+
+// Status Badge Styles
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.active {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  &.inactive {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+}
+
+// Amount Styles
+.amount {
+  font-weight: 600;
+  color: #059669;
+  font-size: 14px;
+}
+
+// Action Buttons
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    background: #f8fafc;
+    color: #64748b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+
+    &.danger:hover {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+  }
+}
+
+// Buttons
+.btn-primary {
+  background: #004AAD;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+
+  &:hover {
+    background: #003d8f;
+    transform: translateY(-1px);
+  }
+
+  app-feather-icon {
+    color: white;
+  }
+}
+
+.btn-secondary {
+  background: white;
+  color: #64748b;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+
+  &:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+    color: #1e293b;
+  }
+
+  app-feather-icon {
+    color: #64748b;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .page-header {
+    .header-actions {
+      .btn-primary,
+      .btn-secondary {
+        flex: 1;
+        justify-content: center;
+      }
+    }
+  }
+
+  .stats-grid {
+    .stat-card {
+      padding: 20px;
+      
+      .stat-icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .stat-content {
+        .stat-value {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .suppliers-container {
+    padding: 12px;
+  }
+
+  .page-header {
+    .header-content {
+      h1 {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .stats-grid {
+    .stat-card {
+      padding: 16px;
+      flex-direction: column;
+      text-align: center;
+      gap: 12px;
+
+      .stat-icon {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  }
+}

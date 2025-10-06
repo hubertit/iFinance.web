@@ -1,0 +1,11 @@
+[23-Aug-2025 17:59:51 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"Could not interpret numbers after plus-sign.","data":null}
+[23-Aug-2025 17:59:54 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"You have exceeded your sending limit.","data":null}
+[23-Aug-2025 17:59:57 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"You have exceeded your sending limit.","data":null}
+[23-Aug-2025 18:00:00 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"You have exceeded your sending limit.","data":null}
+[23-Aug-2025 18:00:03 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"You have exceeded your sending limit.","data":null}
+[23-Aug-2025 18:00:07 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"You have exceeded your sending limit.","data":null}
+[23-Aug-2025 18:00:11 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"You have exceeded your sending limit.","data":null}
+[23-Aug-2025 18:00:13 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"You have exceeded your sending limit.","data":null}
+[23-Aug-2025 18:00:17 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"You have exceeded your sending limit.","data":null}
+[23-Aug-2025 18:06:18 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"You have exceeded your sending limit.","data":null}
+[26-Aug-2025 10:24:45 Africa/Kigali] SMS sending failed: HTTP 404, Response: {"status":"error","message":"You have exceeded your sending limit.","data":null}

@@ -1,0 +1,297 @@
+[25-Aug-2025 15:39:17 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Default Account ID: 91
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: User role: supplier
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Query executed for account ID: 91
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Employee Test Employee 2 - Role from DB: ''
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Employee Test Employee 2 - Access ID: 276
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Employee Test Employee - Role from DB: ''
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Employee Test Employee - Access ID: 275
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'supplier'
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 274
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 273
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Role from DB: 'admin'
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Access ID: 91
+[25-Aug-2025 15:39:17 Africa/Kigali] DEBUG: Total employees found: 5
+[25-Aug-2025 15:39:17 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[25-Aug-2025 15:39:25 Africa/Kigali] === EMPLOYEE CREATE DEBUG START ===
+[25-Aug-2025 15:39:25 Africa/Kigali] DEBUG: Role received: viewer
+[25-Aug-2025 15:39:25 Africa/Kigali] DEBUG: Role after escape: viewer
+[25-Aug-2025 15:39:25 Africa/Kigali] DEBUG: Permissions: ["view_sales","view_reports"]
+[25-Aug-2025 15:39:25 Africa/Kigali] DEBUG: Account ID: 91
+[25-Aug-2025 15:39:25 Africa/Kigali] DEBUG: Created new user ID: 273
+[25-Aug-2025 15:39:25 Africa/Kigali] DEBUG: Insert access query: 
+    INSERT INTO user_accounts (user_id, account_id, role, permissions, status, created_at, created_by) 
+    VALUES (273, 91, 'viewer', '["view_sales","view_reports"]', 'active', NOW(), 3)
+
+[25-Aug-2025 15:39:25 Africa/Kigali] DEBUG: Created access ID: 277
+[25-Aug-2025 15:39:25 Africa/Kigali] DEBUG: Verified role in DB: 
+[25-Aug-2025 15:39:25 Africa/Kigali] DEBUG: Verified permissions in DB: ["view_sales","view_reports"]
+[25-Aug-2025 15:39:25 Africa/Kigali] === EMPLOYEE CREATE DEBUG END ===
+[25-Aug-2025 15:39:31 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Default Account ID: 91
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: User role: supplier
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Query executed for account ID: 91
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee Test Employee 3 - Role from DB: ''
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee Test Employee 3 - Access ID: 277
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee Test Employee 2 - Role from DB: ''
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee Test Employee 2 - Access ID: 276
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee Test Employee - Role from DB: ''
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee Test Employee - Access ID: 275
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'supplier'
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 274
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 273
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Role from DB: 'admin'
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Access ID: 91
+[25-Aug-2025 15:39:31 Africa/Kigali] DEBUG: Total employees found: 6
+[25-Aug-2025 15:39:31 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[25-Aug-2025 15:40:11 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Default Account ID: 159
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Query executed for account ID: 159
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 272
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Employee Test Employee - Role from DB: 'admin'
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Employee Test Employee - Access ID: 271
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'owner'
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 270
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Employee GAHENGERI MCC - Role from DB: 'customer'
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Employee GAHENGERI MCC - Access ID: 159
+[25-Aug-2025 15:40:11 Africa/Kigali] DEBUG: Total employees found: 4
+[25-Aug-2025 15:40:11 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[25-Aug-2025 15:41:14 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:41:14 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:41:14 Africa/Kigali] DEBUG: Default Account ID: 3
+[25-Aug-2025 15:41:14 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:41:14 Africa/Kigali] DEBUG: Query executed for account ID: 3
+[25-Aug-2025 15:41:14 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'owner'
+[25-Aug-2025 15:41:14 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 3
+[25-Aug-2025 15:41:14 Africa/Kigali] DEBUG: Total employees found: 1
+[25-Aug-2025 15:41:14 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[25-Aug-2025 15:42:31 Africa/Kigali] === EMPLOYEE CREATE DEBUG START ===
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Role received: admin
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Role after escape: admin
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Permissions: ["view_sales","create_sales","manage_suppliers","view_reports","manage_users","view_all_data","manage_accounts"]
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Account ID: 3
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Created new user ID: 274
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Insert access query: 
+    INSERT INTO user_accounts (user_id, account_id, role, permissions, status, created_at, created_by) 
+    VALUES (274, 3, 'admin', '["view_sales","create_sales","manage_suppliers","view_reports","manage_users","view_all_data","manage_accounts"]', 'active', NOW(), 3)
+
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Created access ID: 278
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Verified role in DB: admin
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Verified permissions in DB: ["view_sales","create_sales","manage_suppliers","view_reports","manage_users","view_all_data","manage_accounts"]
+[25-Aug-2025 15:42:31 Africa/Kigali] === EMPLOYEE CREATE DEBUG END ===
+[25-Aug-2025 15:42:31 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Default Account ID: 3
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Query executed for account ID: 3
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Employee Test - Role from DB: 'admin'
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Employee Test - Access ID: 278
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'owner'
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 3
+[25-Aug-2025 15:42:31 Africa/Kigali] DEBUG: Total employees found: 2
+[25-Aug-2025 15:42:31 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[25-Aug-2025 15:46:43 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:46:43 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:46:43 Africa/Kigali] DEBUG: Default Account ID: 3
+[25-Aug-2025 15:46:43 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:46:43 Africa/Kigali] DEBUG: Query executed for account ID: 3
+[25-Aug-2025 15:46:43 Africa/Kigali] DEBUG: Employee Test - Role from DB: 'admin'
+[25-Aug-2025 15:46:43 Africa/Kigali] DEBUG: Employee Test - Access ID: 278
+[25-Aug-2025 15:46:43 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'owner'
+[25-Aug-2025 15:46:43 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 3
+[25-Aug-2025 15:46:43 Africa/Kigali] DEBUG: Total employees found: 2
+[25-Aug-2025 15:46:43 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[25-Aug-2025 15:46:53 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:46:53 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:46:53 Africa/Kigali] DEBUG: Default Account ID: 3
+[25-Aug-2025 15:46:53 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:46:53 Africa/Kigali] DEBUG: Query executed for account ID: 3
+[25-Aug-2025 15:46:53 Africa/Kigali] DEBUG: Employee Test - Role from DB: 'admin'
+[25-Aug-2025 15:46:53 Africa/Kigali] DEBUG: Employee Test - Access ID: 278
+[25-Aug-2025 15:46:53 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'owner'
+[25-Aug-2025 15:46:53 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 3
+[25-Aug-2025 15:46:53 Africa/Kigali] DEBUG: Total employees found: 2
+[25-Aug-2025 15:46:53 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[25-Aug-2025 15:46:57 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:46:57 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:46:57 Africa/Kigali] DEBUG: Default Account ID: 3
+[25-Aug-2025 15:46:57 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:46:57 Africa/Kigali] DEBUG: Query executed for account ID: 3
+[25-Aug-2025 15:46:57 Africa/Kigali] DEBUG: Employee Test - Role from DB: 'admin'
+[25-Aug-2025 15:46:57 Africa/Kigali] DEBUG: Employee Test - Access ID: 278
+[25-Aug-2025 15:46:57 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'owner'
+[25-Aug-2025 15:46:57 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 3
+[25-Aug-2025 15:46:57 Africa/Kigali] DEBUG: Total employees found: 2
+[25-Aug-2025 15:46:57 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[25-Aug-2025 15:46:59 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:46:59 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:46:59 Africa/Kigali] DEBUG: Default Account ID: 3
+[25-Aug-2025 15:46:59 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:46:59 Africa/Kigali] DEBUG: Query executed for account ID: 3
+[25-Aug-2025 15:46:59 Africa/Kigali] DEBUG: Employee Test - Role from DB: 'admin'
+[25-Aug-2025 15:46:59 Africa/Kigali] DEBUG: Employee Test - Access ID: 278
+[25-Aug-2025 15:46:59 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'owner'
+[25-Aug-2025 15:46:59 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 3
+[25-Aug-2025 15:46:59 Africa/Kigali] DEBUG: Total employees found: 2
+[25-Aug-2025 15:46:59 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[25-Aug-2025 15:49:10 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:49:10 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:49:10 Africa/Kigali] DEBUG: Default Account ID: 3
+[25-Aug-2025 15:49:10 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:49:10 Africa/Kigali] DEBUG: Query executed for account ID: 3
+[25-Aug-2025 15:49:10 Africa/Kigali] DEBUG: Employee Test - Role from DB: 'admin'
+[25-Aug-2025 15:49:10 Africa/Kigali] DEBUG: Employee Test - Access ID: 278
+[25-Aug-2025 15:49:10 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'owner'
+[25-Aug-2025 15:49:10 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 3
+[25-Aug-2025 15:49:10 Africa/Kigali] DEBUG: Total employees found: 2
+[25-Aug-2025 15:49:10 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[25-Aug-2025 15:56:18 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[25-Aug-2025 15:56:18 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:56:18 Africa/Kigali] DEBUG: Default Account ID: 3
+[25-Aug-2025 15:56:18 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:56:18 Africa/Kigali] DEBUG: Query executed for account ID: 3
+[25-Aug-2025 15:56:18 Africa/Kigali] DEBUG: Employee Test - Role from DB: 'admin'
+[25-Aug-2025 15:56:18 Africa/Kigali] DEBUG: Employee Test - Access ID: 278
+[25-Aug-2025 15:56:18 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'owner'
+[25-Aug-2025 15:56:18 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 3
+[25-Aug-2025 15:56:18 Africa/Kigali] DEBUG: Total employees found: 2
+[25-Aug-2025 15:56:18 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[26-Aug-2025 12:28:25 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: User ID: 91
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: Default Account ID: 91
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: Query executed for account ID: 91
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'supplier'
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 274
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 273
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Role from DB: 'admin'
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Access ID: 91
+[26-Aug-2025 12:28:25 Africa/Kigali] DEBUG: Total employees found: 3
+[26-Aug-2025 12:28:25 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[26-Aug-2025 12:29:42 Africa/Kigali] === EMPLOYEE CREATE DEBUG START ===
+[26-Aug-2025 12:29:42 Africa/Kigali] DEBUG: Role received: admin
+[26-Aug-2025 12:29:42 Africa/Kigali] DEBUG: Role after escape: admin
+[26-Aug-2025 12:29:42 Africa/Kigali] DEBUG: Permissions: ["view_sales","create_sales","manage_suppliers","view_reports","manage_users","view_all_data","manage_accounts"]
+[26-Aug-2025 12:29:42 Africa/Kigali] DEBUG: Account ID: 91
+[26-Aug-2025 12:29:42 Africa/Kigali] DEBUG: Using existing user ID: 53
+[26-Aug-2025 12:29:42 Africa/Kigali] DEBUG: Insert access query: 
+    INSERT INTO user_accounts (user_id, account_id, role, permissions, status, created_at, created_by) 
+    VALUES (53, 91, 'admin', '["view_sales","create_sales","manage_suppliers","view_reports","manage_users","view_all_data","manage_accounts"]', 'active', NOW(), 91)
+
+[26-Aug-2025 12:29:42 Africa/Kigali] DEBUG: Created access ID: 279
+[26-Aug-2025 12:29:42 Africa/Kigali] DEBUG: Verified role in DB: admin
+[26-Aug-2025 12:29:42 Africa/Kigali] DEBUG: Verified permissions in DB: ["view_sales","create_sales","manage_suppliers","view_reports","manage_users","view_all_data","manage_accounts"]
+[26-Aug-2025 12:29:42 Africa/Kigali] === EMPLOYEE CREATE DEBUG END ===
+[26-Aug-2025 12:29:43 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: User ID: 91
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Default Account ID: 91
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Query executed for account ID: 91
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Employee Corneille - Role from DB: 'admin'
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Employee Corneille - Access ID: 279
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'supplier'
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 274
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 273
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Role from DB: 'admin'
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Access ID: 91
+[26-Aug-2025 12:29:43 Africa/Kigali] DEBUG: Total employees found: 4
+[26-Aug-2025 12:29:43 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[26-Aug-2025 12:30:04 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: User ID: 91
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Default Account ID: 91
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Query executed for account ID: 91
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Corneille - Role from DB: 'admin'
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Corneille - Access ID: 279
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'supplier'
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 274
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 273
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Role from DB: 'admin'
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Access ID: 91
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Total employees found: 4
+[26-Aug-2025 12:30:04 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[26-Aug-2025 12:30:04 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: User ID: 91
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Default Account ID: 91
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Query executed for account ID: 91
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Corneille - Role from DB: 'admin'
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Corneille - Access ID: 279
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'supplier'
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 274
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 273
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Role from DB: 'admin'
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Access ID: 91
+[26-Aug-2025 12:30:04 Africa/Kigali] DEBUG: Total employees found: 4
+[26-Aug-2025 12:30:04 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[26-Aug-2025 12:30:07 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: User ID: 91
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Default Account ID: 91
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Query executed for account ID: 91
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Employee Corneille - Role from DB: 'admin'
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Employee Corneille - Access ID: 279
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'supplier'
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 274
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 273
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Role from DB: 'admin'
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Access ID: 91
+[26-Aug-2025 12:30:07 Africa/Kigali] DEBUG: Total employees found: 4
+[26-Aug-2025 12:30:07 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[26-Aug-2025 12:30:08 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: User ID: 91
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Default Account ID: 91
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Query executed for account ID: 91
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Employee Corneille - Role from DB: 'admin'
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Employee Corneille - Access ID: 279
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'supplier'
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 274
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 273
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Role from DB: 'admin'
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Access ID: 91
+[26-Aug-2025 12:30:08 Africa/Kigali] DEBUG: Total employees found: 4
+[26-Aug-2025 12:30:08 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[26-Aug-2025 15:18:42 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: User ID: 53
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Default Account ID: 91
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Query executed for account ID: 91
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Employee Corneille - Role from DB: 'admin'
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Employee Corneille - Access ID: 275
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'supplier'
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 274
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 273
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Role from DB: 'admin'
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Employee KOPERATIVE KOZAMGI - Access ID: 91
+[26-Aug-2025 15:18:42 Africa/Kigali] DEBUG: Total employees found: 4
+[26-Aug-2025 15:18:42 Africa/Kigali] === EMPLOYEE GET DEBUG END ===
+[29-Aug-2025 11:45:21 Africa/Kigali] === EMPLOYEE GET DEBUG START ===
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: User ID: 3
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Default Account ID: 159
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: User role: owner
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Query executed for account ID: 159
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Employee Alex Ntare - Role from DB: 'admin'
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Employee Alex Ntare - Access ID: 272
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Employee Test Employee - Role from DB: 'admin'
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Employee Test Employee - Access ID: 271
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Employee Hubert - Role from DB: 'owner'
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Employee Hubert - Access ID: 270
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Employee GAHENGERI MCC - Role from DB: 'owner'
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Employee GAHENGERI MCC - Access ID: 159
+[29-Aug-2025 11:45:21 Africa/Kigali] DEBUG: Total employees found: 4
+[29-Aug-2025 11:45:21 Africa/Kigali] === EMPLOYEE GET DEBUG END ===

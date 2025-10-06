@@ -1,0 +1,11 @@
+{
+  "/api/*": {
+    "target": "https://api.gemura.rw",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

@@ -1,0 +1,1297 @@
+[17-Aug-2025 23:52:04 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[17-Aug-2025 23:52:10 Africa/Kigali] === NOTIFICATIONS CREATE DEBUG START ===
+[17-Aug-2025 23:52:16 Africa/Kigali] === NOTIFICATIONS UPDATE DEBUG START ===
+[17-Aug-2025 23:52:22 Africa/Kigali] === NOTIFICATIONS DELETE DEBUG START ===
+[18-Aug-2025 00:10:33 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 00:21:59 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 05:08:23 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 05:21:47 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 05:35:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 05:50:26 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 05:53:40 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 05:53:40 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 05:53:40 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 05:53:40 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 05:53:40 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 05:53:40 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:03:03 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:03:03 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:03:03 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:03:03 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:03:03 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 06:03:03 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:07:37 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:07:37 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:07:37 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:07:37 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:07:37 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 06:07:37 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:07:42 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:07:42 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:07:42 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:07:42 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:07:42 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[18-Aug-2025 06:07:42 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:08:44 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:08:44 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:08:44 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:08:44 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:08:44 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 06:08:44 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:08:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:08:56 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:08:56 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:08:56 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:08:56 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[18-Aug-2025 06:08:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:09:03 Africa/Kigali] === NOTIFICATIONS UPDATE DEBUG START ===
+[18-Aug-2025 06:09:03 Africa/Kigali] DEBUG: Update Query: UPDATE notifications SET status = 'read', updated_at = CURRENT_TIMESTAMP WHERE id = 1
+[18-Aug-2025 06:09:03 Africa/Kigali] === NOTIFICATIONS UPDATE DEBUG END ===
+[18-Aug-2025 06:09:03 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:09:03 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:09:03 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:09:03 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:09:03 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[18-Aug-2025 06:09:03 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:09:04 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:09:04 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:09:04 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:09:04 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:09:04 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 06:09:04 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:09:07 Africa/Kigali] === NOTIFICATIONS UPDATE DEBUG START ===
+[18-Aug-2025 06:09:07 Africa/Kigali] DEBUG: Update Query: UPDATE notifications SET status = 'read', updated_at = CURRENT_TIMESTAMP WHERE id = 2
+[18-Aug-2025 06:09:07 Africa/Kigali] === NOTIFICATIONS UPDATE DEBUG END ===
+[18-Aug-2025 06:09:07 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:09:07 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:09:07 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:09:07 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:09:07 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[18-Aug-2025 06:09:07 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:09:08 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:09:08 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:09:08 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:09:08 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:09:08 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 06:09:08 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:09:10 Africa/Kigali] === NOTIFICATIONS UPDATE DEBUG START ===
+[18-Aug-2025 06:09:10 Africa/Kigali] DEBUG: Update Query: UPDATE notifications SET status = 'read', updated_at = CURRENT_TIMESTAMP WHERE id = 3
+[18-Aug-2025 06:09:10 Africa/Kigali] === NOTIFICATIONS UPDATE DEBUG END ===
+[18-Aug-2025 06:09:11 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:09:11 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:09:11 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:09:11 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:09:11 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[18-Aug-2025 06:09:11 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:09:11 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:09:11 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:09:11 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:09:11 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:09:11 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 06:09:11 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:09:13 Africa/Kigali] === NOTIFICATIONS UPDATE DEBUG START ===
+[18-Aug-2025 06:09:13 Africa/Kigali] DEBUG: Update Query: UPDATE notifications SET status = 'read', updated_at = CURRENT_TIMESTAMP WHERE id = 4
+[18-Aug-2025 06:09:13 Africa/Kigali] === NOTIFICATIONS UPDATE DEBUG END ===
+[18-Aug-2025 06:09:13 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:09:13 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:09:13 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:09:13 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:09:13 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[18-Aug-2025 06:09:13 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:09:14 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:09:14 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:09:14 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:09:14 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:09:14 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 06:09:14 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:09:24 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:09:24 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:09:24 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:09:24 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:09:24 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 06:09:24 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 06:09:42 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 06:09:42 Africa/Kigali] DEBUG: Requested Account ID: 18
+[18-Aug-2025 06:09:42 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 06:09:42 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 06:09:42 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 18 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[18-Aug-2025 06:09:42 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 08:35:23 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 09:02:30 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 09:08:06 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 09:36:37 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 09:36:37 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 09:36:37 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 09:36:37 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 09:36:37 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 09:36:37 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 09:45:15 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 09:45:15 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 09:45:15 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 09:45:15 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 09:45:15 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 09:45:15 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 09:47:13 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 09:47:13 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 09:47:13 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 09:47:13 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 09:47:13 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 09:47:13 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 09:51:31 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 09:51:31 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 09:51:31 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 09:51:31 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 09:51:31 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 09:51:31 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 09:53:15 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 09:53:15 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 09:53:15 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 09:53:15 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 09:53:15 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 09:53:15 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 09:53:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 09:53:56 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 09:53:56 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 09:53:56 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 09:53:56 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 09:53:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 10:53:11 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 10:53:11 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 10:53:11 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 10:53:11 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 10:53:11 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 10:53:11 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 10:59:19 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 10:59:19 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 10:59:19 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 10:59:19 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 10:59:19 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 10:59:19 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 11:17:05 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 11:41:22 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 11:41:22 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 11:41:22 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 11:41:22 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 11:41:22 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 11:41:22 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 11:43:10 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 11:43:10 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 11:43:10 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 11:43:10 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 11:43:10 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 11:43:10 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 16:31:29 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 16:35:48 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 16:35:48 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 16:35:48 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 16:35:48 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 16:35:48 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 16:35:48 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 16:38:48 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 16:38:48 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 16:38:48 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 16:38:48 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 16:38:48 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 16:38:48 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 16:41:36 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 16:41:36 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 16:41:36 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 16:41:36 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 16:41:36 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 16:41:36 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 16:44:01 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 16:44:01 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 16:44:01 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 16:44:01 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 16:44:01 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 16:44:01 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 16:44:53 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 16:44:53 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 16:44:53 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 16:44:53 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 16:44:53 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[18-Aug-2025 16:44:53 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 16:59:04 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 16:59:04 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 16:59:04 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 16:59:04 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 16:59:04 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 16:59:04 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 17:09:02 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 17:09:02 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 17:09:02 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 17:09:02 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 17:09:02 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 17:09:02 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 17:37:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 17:37:21 Africa/Kigali] DEBUG: Requested Account ID: 20
+[18-Aug-2025 17:37:21 Africa/Kigali] DEBUG: User ID: 28
+[18-Aug-2025 17:37:21 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 17:37:21 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 28 AND account_id = 20 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 17:37:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 17:38:54 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 17:38:54 Africa/Kigali] DEBUG: Requested Account ID: 20
+[18-Aug-2025 17:38:54 Africa/Kigali] DEBUG: User ID: 28
+[18-Aug-2025 17:38:54 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 17:38:54 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 28 AND account_id = 20 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 17:38:54 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 18:17:40 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 18:17:40 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 18:17:40 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 18:17:40 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 18:17:40 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 18:17:40 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 18:20:48 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[18-Aug-2025 18:20:48 Africa/Kigali] DEBUG: Requested Account ID: 1
+[18-Aug-2025 18:20:48 Africa/Kigali] DEBUG: User ID: 1
+[18-Aug-2025 18:20:48 Africa/Kigali] DEBUG: User role: owner
+[18-Aug-2025 18:20:48 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[18-Aug-2025 18:20:48 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[18-Aug-2025 22:01:07 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 00:07:43 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 00:07:43 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 00:07:43 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 00:07:43 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 00:07:43 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 00:07:43 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 04:31:18 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 04:31:18 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 04:31:18 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 04:31:18 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 04:31:18 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 04:31:18 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 05:47:14 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 05:47:14 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 05:47:14 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 05:47:14 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 05:47:14 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 05:47:14 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 05:54:50 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 05:54:50 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 05:54:50 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 05:54:50 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 05:54:50 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 05:54:50 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 05:59:23 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 05:59:23 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 05:59:23 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 05:59:23 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 05:59:23 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 05:59:23 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 06:06:54 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 06:06:54 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 06:06:54 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 06:06:54 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 06:06:54 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 06:06:54 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 06:10:52 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 06:10:52 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 06:10:52 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 06:10:52 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 06:10:52 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 06:10:52 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 06:15:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 06:15:56 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 06:15:56 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 06:15:56 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 06:15:56 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 06:15:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 06:19:00 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 06:19:00 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 06:19:00 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 06:19:00 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 06:19:00 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 06:19:00 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 06:21:05 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 06:21:05 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 06:21:05 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 06:21:05 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 06:21:05 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 06:21:05 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 06:23:53 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 06:23:53 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 06:23:53 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 06:23:53 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 06:23:53 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 06:23:53 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 06:38:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 06:38:51 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 06:38:51 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 06:38:51 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 06:38:51 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 06:38:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 06:41:54 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 06:41:54 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 06:41:54 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 06:41:54 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 06:41:54 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 06:41:54 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 07:09:52 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 07:09:52 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 07:09:52 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 07:09:52 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 07:09:52 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 07:09:52 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 15:30:15 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 15:30:15 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 15:30:15 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 15:30:15 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 15:30:15 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 15:30:15 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[19-Aug-2025 22:31:40 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[19-Aug-2025 22:31:40 Africa/Kigali] DEBUG: Requested Account ID: 1
+[19-Aug-2025 22:31:40 Africa/Kigali] DEBUG: User ID: 1
+[19-Aug-2025 22:31:40 Africa/Kigali] DEBUG: User role: owner
+[19-Aug-2025 22:31:40 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[19-Aug-2025 22:31:40 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[20-Aug-2025 05:50:04 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[20-Aug-2025 05:50:04 Africa/Kigali] DEBUG: Requested Account ID: 1
+[20-Aug-2025 05:50:04 Africa/Kigali] DEBUG: User ID: 1
+[20-Aug-2025 05:50:04 Africa/Kigali] DEBUG: User role: owner
+[20-Aug-2025 05:50:04 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[20-Aug-2025 05:50:04 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[20-Aug-2025 07:36:32 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[20-Aug-2025 07:36:32 Africa/Kigali] DEBUG: Requested Account ID: 1
+[20-Aug-2025 07:36:32 Africa/Kigali] DEBUG: User ID: 1
+[20-Aug-2025 07:36:32 Africa/Kigali] DEBUG: User role: owner
+[20-Aug-2025 07:36:32 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[20-Aug-2025 07:36:32 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[20-Aug-2025 12:46:55 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[20-Aug-2025 12:46:55 Africa/Kigali] DEBUG: Requested Account ID: 1
+[20-Aug-2025 12:46:55 Africa/Kigali] DEBUG: User ID: 1
+[20-Aug-2025 12:46:55 Africa/Kigali] DEBUG: User role: owner
+[20-Aug-2025 12:46:55 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[20-Aug-2025 12:46:55 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[20-Aug-2025 18:06:36 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[20-Aug-2025 18:06:36 Africa/Kigali] DEBUG: Requested Account ID: 1
+[20-Aug-2025 18:06:36 Africa/Kigali] DEBUG: User ID: 1
+[20-Aug-2025 18:06:36 Africa/Kigali] DEBUG: User role: owner
+[20-Aug-2025 18:06:36 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[20-Aug-2025 18:06:36 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[21-Aug-2025 17:45:10 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[21-Aug-2025 17:45:10 Africa/Kigali] DEBUG: Requested Account ID: 1
+[21-Aug-2025 17:45:10 Africa/Kigali] DEBUG: User ID: 1
+[21-Aug-2025 17:45:10 Africa/Kigali] DEBUG: User role: owner
+[21-Aug-2025 17:45:10 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[21-Aug-2025 17:45:10 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 06:54:07 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 06:54:07 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 06:54:07 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 06:54:07 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 06:54:07 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 06:54:07 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 09:22:52 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 09:22:52 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 09:22:52 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 09:22:52 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 09:22:52 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 09:22:52 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 13:40:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 13:40:51 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 13:40:51 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 13:40:51 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 13:40:51 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 13:40:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 13:50:35 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 13:50:35 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 13:50:35 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 13:50:35 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 13:50:35 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 13:50:35 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 13:53:48 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 13:53:48 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 13:53:48 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 13:53:48 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 13:53:48 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 13:53:48 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 13:56:44 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 13:56:44 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 13:56:44 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 13:56:44 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 13:56:44 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 13:56:44 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:00:22 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:00:22 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:00:22 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:00:22 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:00:22 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:00:22 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:12:20 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:12:20 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:12:20 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:12:20 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:12:20 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:12:20 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:21:14 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:21:14 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:21:14 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:21:14 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:21:14 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:21:14 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:24:28 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:24:28 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:24:28 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:24:28 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:24:28 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:24:28 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:27:53 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:27:53 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:27:53 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:27:53 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:27:53 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:27:53 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:29:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:29:21 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:29:21 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:29:21 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:29:21 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:29:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:31:36 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:31:36 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:31:36 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:31:36 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:31:36 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:31:36 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:38:57 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:38:57 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:38:57 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:38:57 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:38:57 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:38:57 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:42:43 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:42:43 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:42:43 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:42:43 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:42:43 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:42:43 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:45:28 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:45:28 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:45:28 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:45:28 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:45:28 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:45:28 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 14:55:05 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 14:55:05 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 14:55:05 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 14:55:05 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 14:55:05 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 14:55:05 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 15:08:39 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 15:08:39 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 15:08:39 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 15:08:39 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 15:08:39 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 15:08:39 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 15:15:47 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 15:15:47 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 15:15:47 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 15:15:47 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 15:15:47 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 15:15:47 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 15:55:35 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 15:55:35 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 15:55:35 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 15:55:35 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 15:55:35 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 15:55:35 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 19:28:50 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 19:28:50 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 19:28:50 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 19:28:50 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 19:28:50 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 19:28:50 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 20:08:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 20:08:51 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 20:08:51 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 20:08:51 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 20:08:51 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 20:08:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[22-Aug-2025 20:09:49 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[22-Aug-2025 20:09:49 Africa/Kigali] DEBUG: Requested Account ID: 1
+[22-Aug-2025 20:09:49 Africa/Kigali] DEBUG: User ID: 1
+[22-Aug-2025 20:09:49 Africa/Kigali] DEBUG: User role: owner
+[22-Aug-2025 20:09:49 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[22-Aug-2025 20:09:49 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[23-Aug-2025 02:41:10 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[23-Aug-2025 02:41:10 Africa/Kigali] DEBUG: Requested Account ID: 1
+[23-Aug-2025 02:41:10 Africa/Kigali] DEBUG: User ID: 1
+[23-Aug-2025 02:41:10 Africa/Kigali] DEBUG: User role: owner
+[23-Aug-2025 02:41:10 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[23-Aug-2025 02:41:10 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[23-Aug-2025 07:20:06 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[23-Aug-2025 07:20:06 Africa/Kigali] DEBUG: Requested Account ID: 1
+[23-Aug-2025 07:20:06 Africa/Kigali] DEBUG: User ID: 1
+[23-Aug-2025 07:20:06 Africa/Kigali] DEBUG: User role: owner
+[23-Aug-2025 07:20:06 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 1 AND account_id = 1 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[23-Aug-2025 07:20:06 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[25-Aug-2025 15:40:34 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[25-Aug-2025 15:40:34 Africa/Kigali] DEBUG: Requested Account ID: 159
+[25-Aug-2025 15:40:34 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:40:34 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:40:34 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[25-Aug-2025 15:40:34 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[25-Aug-2025 15:40:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[25-Aug-2025 15:40:51 Africa/Kigali] DEBUG: Requested Account ID: 159
+[25-Aug-2025 15:40:51 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:40:51 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:40:51 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[25-Aug-2025 15:40:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[25-Aug-2025 15:41:03 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[25-Aug-2025 15:41:03 Africa/Kigali] DEBUG: Requested Account ID: 3
+[25-Aug-2025 15:41:03 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:41:03 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:41:03 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 3 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[25-Aug-2025 15:41:03 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[25-Aug-2025 15:41:03 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[25-Aug-2025 15:41:03 Africa/Kigali] DEBUG: Requested Account ID: 3
+[25-Aug-2025 15:41:03 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:41:03 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:41:03 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 3 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[25-Aug-2025 15:41:03 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[25-Aug-2025 15:46:17 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[25-Aug-2025 15:46:17 Africa/Kigali] DEBUG: Requested Account ID: 3
+[25-Aug-2025 15:46:17 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:46:17 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:46:17 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 3 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[25-Aug-2025 15:46:17 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[25-Aug-2025 15:48:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[25-Aug-2025 15:48:56 Africa/Kigali] DEBUG: Requested Account ID: 3
+[25-Aug-2025 15:48:56 Africa/Kigali] DEBUG: User ID: 3
+[25-Aug-2025 15:48:56 Africa/Kigali] DEBUG: User role: owner
+[25-Aug-2025 15:48:56 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 3 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[25-Aug-2025 15:48:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 09:59:45 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 09:59:45 Africa/Kigali] DEBUG: Requested Account ID: 3
+[26-Aug-2025 09:59:45 Africa/Kigali] DEBUG: User ID: 3
+[26-Aug-2025 09:59:45 Africa/Kigali] DEBUG: User role: owner
+[26-Aug-2025 09:59:45 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 3 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[26-Aug-2025 09:59:45 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 11:04:16 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 11:04:16 Africa/Kigali] DEBUG: Requested Account ID: 91
+[26-Aug-2025 11:04:16 Africa/Kigali] DEBUG: User ID: 91
+[26-Aug-2025 11:04:16 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 11:04:16 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 91 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[26-Aug-2025 11:04:16 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 11:05:55 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 11:05:55 Africa/Kigali] DEBUG: Requested Account ID: 91
+[26-Aug-2025 11:05:55 Africa/Kigali] DEBUG: User ID: 91
+[26-Aug-2025 11:05:55 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 11:05:55 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 91 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[26-Aug-2025 11:05:55 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 11:06:24 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 11:06:24 Africa/Kigali] DEBUG: Requested Account ID: 91
+[26-Aug-2025 11:06:24 Africa/Kigali] DEBUG: User ID: 91
+[26-Aug-2025 11:06:24 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 11:06:24 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 91 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[26-Aug-2025 11:06:24 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 15:12:47 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 15:12:47 Africa/Kigali] DEBUG: Requested Account ID: 53
+[26-Aug-2025 15:12:47 Africa/Kigali] DEBUG: User ID: 53
+[26-Aug-2025 15:12:47 Africa/Kigali] DEBUG: User role: customer
+[26-Aug-2025 15:12:47 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 53 AND account_id = 53 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[26-Aug-2025 15:12:47 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 15:16:19 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 15:16:19 Africa/Kigali] DEBUG: Requested Account ID: 53
+[26-Aug-2025 15:16:19 Africa/Kigali] DEBUG: User ID: 53
+[26-Aug-2025 15:16:19 Africa/Kigali] DEBUG: User role: owner
+[26-Aug-2025 15:16:19 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 53 AND account_id = 53 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[26-Aug-2025 15:16:19 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 15:16:20 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 15:16:20 Africa/Kigali] DEBUG: Requested Account ID: 91
+[26-Aug-2025 15:16:20 Africa/Kigali] DEBUG: User ID: 53
+[26-Aug-2025 15:16:20 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 15:16:20 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 53 AND account_id = 91 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[26-Aug-2025 15:16:20 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 15:16:28 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 15:16:28 Africa/Kigali] DEBUG: Requested Account ID: 91
+[26-Aug-2025 15:16:28 Africa/Kigali] DEBUG: User ID: 53
+[26-Aug-2025 15:16:28 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 15:16:28 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 53 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[26-Aug-2025 15:16:28 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 15:18:28 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 15:18:28 Africa/Kigali] DEBUG: Requested Account ID: 91
+[26-Aug-2025 15:18:28 Africa/Kigali] DEBUG: User ID: 53
+[26-Aug-2025 15:18:28 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 15:18:28 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 53 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[26-Aug-2025 15:18:28 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 15:46:07 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 15:46:07 Africa/Kigali] DEBUG: Requested Account ID: 91
+[26-Aug-2025 15:46:07 Africa/Kigali] DEBUG: User ID: 53
+[26-Aug-2025 15:46:07 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 15:46:07 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 53 AND account_id = 91 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[26-Aug-2025 15:46:07 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 16:15:12 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 16:15:12 Africa/Kigali] DEBUG: Requested Account ID: 53
+[26-Aug-2025 16:15:12 Africa/Kigali] DEBUG: User ID: 53
+[26-Aug-2025 16:15:12 Africa/Kigali] DEBUG: User role: owner
+[26-Aug-2025 16:15:12 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 53 AND account_id = 53 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[26-Aug-2025 16:15:12 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 19:14:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 19:14:51 Africa/Kigali] DEBUG: Requested Account ID: 91
+[26-Aug-2025 19:14:51 Africa/Kigali] DEBUG: User ID: 269
+[26-Aug-2025 19:14:51 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 19:14:51 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[26-Aug-2025 19:14:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[26-Aug-2025 20:45:25 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[26-Aug-2025 20:45:25 Africa/Kigali] DEBUG: Requested Account ID: 91
+[26-Aug-2025 20:45:25 Africa/Kigali] DEBUG: User ID: 269
+[26-Aug-2025 20:45:25 Africa/Kigali] DEBUG: User role: admin
+[26-Aug-2025 20:45:25 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[26-Aug-2025 20:45:25 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[27-Aug-2025 12:35:19 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[27-Aug-2025 12:35:19 Africa/Kigali] DEBUG: Requested Account ID: 91
+[27-Aug-2025 12:35:19 Africa/Kigali] DEBUG: User ID: 91
+[27-Aug-2025 12:35:19 Africa/Kigali] DEBUG: User role: admin
+[27-Aug-2025 12:35:19 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 91 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[27-Aug-2025 12:35:19 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[27-Aug-2025 15:23:08 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[27-Aug-2025 15:23:08 Africa/Kigali] DEBUG: Requested Account ID: 91
+[27-Aug-2025 15:23:08 Africa/Kigali] DEBUG: User ID: 269
+[27-Aug-2025 15:23:08 Africa/Kigali] DEBUG: User role: admin
+[27-Aug-2025 15:23:08 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[27-Aug-2025 15:23:08 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[27-Aug-2025 16:38:02 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[27-Aug-2025 16:38:02 Africa/Kigali] DEBUG: Requested Account ID: 91
+[27-Aug-2025 16:38:02 Africa/Kigali] DEBUG: User ID: 3
+[27-Aug-2025 16:38:02 Africa/Kigali] DEBUG: User role: supplier
+[27-Aug-2025 16:38:02 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[27-Aug-2025 16:38:02 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[27-Aug-2025 22:33:34 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[27-Aug-2025 22:33:34 Africa/Kigali] DEBUG: Requested Account ID: 91
+[27-Aug-2025 22:33:34 Africa/Kigali] DEBUG: User ID: 3
+[27-Aug-2025 22:33:34 Africa/Kigali] DEBUG: User role: supplier
+[27-Aug-2025 22:33:34 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[27-Aug-2025 22:33:34 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[28-Aug-2025 08:03:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[28-Aug-2025 08:03:51 Africa/Kigali] DEBUG: Requested Account ID: 91
+[28-Aug-2025 08:03:51 Africa/Kigali] DEBUG: User ID: 269
+[28-Aug-2025 08:03:51 Africa/Kigali] DEBUG: User role: admin
+[28-Aug-2025 08:03:51 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[28-Aug-2025 08:03:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[28-Aug-2025 12:47:48 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[28-Aug-2025 12:47:48 Africa/Kigali] DEBUG: Requested Account ID: 91
+[28-Aug-2025 12:47:48 Africa/Kigali] DEBUG: User ID: 269
+[28-Aug-2025 12:47:48 Africa/Kigali] DEBUG: User role: admin
+[28-Aug-2025 12:47:48 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[28-Aug-2025 12:47:48 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[28-Aug-2025 14:50:26 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[28-Aug-2025 14:50:26 Africa/Kigali] DEBUG: Requested Account ID: 53
+[28-Aug-2025 14:50:26 Africa/Kigali] DEBUG: User ID: 53
+[28-Aug-2025 14:50:26 Africa/Kigali] DEBUG: User role: owner
+[28-Aug-2025 14:50:26 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 53 AND account_id = 53 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[28-Aug-2025 14:50:26 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[28-Aug-2025 20:31:43 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[28-Aug-2025 20:31:43 Africa/Kigali] DEBUG: Requested Account ID: 91
+[28-Aug-2025 20:31:43 Africa/Kigali] DEBUG: User ID: 269
+[28-Aug-2025 20:31:43 Africa/Kigali] DEBUG: User role: admin
+[28-Aug-2025 20:31:43 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[28-Aug-2025 20:31:43 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[28-Aug-2025 20:32:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[28-Aug-2025 20:32:21 Africa/Kigali] DEBUG: Requested Account ID: 159
+[28-Aug-2025 20:32:21 Africa/Kigali] DEBUG: User ID: 269
+[28-Aug-2025 20:32:21 Africa/Kigali] DEBUG: User role: admin
+[28-Aug-2025 20:32:21 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 159 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[28-Aug-2025 20:32:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[28-Aug-2025 20:32:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[28-Aug-2025 20:32:21 Africa/Kigali] DEBUG: Requested Account ID: 269
+[28-Aug-2025 20:32:21 Africa/Kigali] DEBUG: User ID: 269
+[28-Aug-2025 20:32:21 Africa/Kigali] DEBUG: User role: owner
+[28-Aug-2025 20:32:21 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 269 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[28-Aug-2025 20:32:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[28-Aug-2025 20:32:43 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[28-Aug-2025 20:32:43 Africa/Kigali] DEBUG: Requested Account ID: 159
+[28-Aug-2025 20:32:43 Africa/Kigali] DEBUG: User ID: 269
+[28-Aug-2025 20:32:43 Africa/Kigali] DEBUG: User role: admin
+[28-Aug-2025 20:32:43 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[28-Aug-2025 20:32:43 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[28-Aug-2025 20:48:39 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[28-Aug-2025 20:48:39 Africa/Kigali] DEBUG: Requested Account ID: 159
+[28-Aug-2025 20:48:39 Africa/Kigali] DEBUG: User ID: 269
+[28-Aug-2025 20:48:39 Africa/Kigali] DEBUG: User role: admin
+[28-Aug-2025 20:48:39 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[28-Aug-2025 20:48:39 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[29-Aug-2025 02:41:33 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[29-Aug-2025 02:41:33 Africa/Kigali] DEBUG: Requested Account ID: 159
+[29-Aug-2025 02:41:33 Africa/Kigali] DEBUG: User ID: 269
+[29-Aug-2025 02:41:33 Africa/Kigali] DEBUG: User role: admin
+[29-Aug-2025 02:41:33 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[29-Aug-2025 02:41:33 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[29-Aug-2025 08:31:42 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[29-Aug-2025 08:31:42 Africa/Kigali] DEBUG: Requested Account ID: 91
+[29-Aug-2025 08:31:42 Africa/Kigali] DEBUG: User ID: 3
+[29-Aug-2025 08:31:42 Africa/Kigali] DEBUG: User role: supplier
+[29-Aug-2025 08:31:42 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[29-Aug-2025 08:31:42 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[29-Aug-2025 08:31:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[29-Aug-2025 08:31:56 Africa/Kigali] DEBUG: Requested Account ID: 159
+[29-Aug-2025 08:31:56 Africa/Kigali] DEBUG: User ID: 3
+[29-Aug-2025 08:31:56 Africa/Kigali] DEBUG: User role: owner
+[29-Aug-2025 08:31:56 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[29-Aug-2025 08:31:56 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[29-Aug-2025 08:31:59 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[29-Aug-2025 08:31:59 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[29-Aug-2025 08:31:59 Africa/Kigali] DEBUG: Requested Account ID: 159
+[29-Aug-2025 08:31:59 Africa/Kigali] DEBUG: Requested Account ID: 3
+[29-Aug-2025 08:31:59 Africa/Kigali] DEBUG: User ID: 3
+[29-Aug-2025 08:31:59 Africa/Kigali] DEBUG: User ID: 3
+[29-Aug-2025 08:31:59 Africa/Kigali] DEBUG: User role: owner
+[29-Aug-2025 08:31:59 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 3 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[29-Aug-2025 08:31:59 Africa/Kigali] DEBUG: User role: owner
+[29-Aug-2025 08:31:59 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[29-Aug-2025 08:31:59 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[29-Aug-2025 08:31:59 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[29-Aug-2025 11:42:55 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[29-Aug-2025 11:42:55 Africa/Kigali] DEBUG: Requested Account ID: 159
+[29-Aug-2025 11:42:55 Africa/Kigali] DEBUG: User ID: 3
+[29-Aug-2025 11:42:55 Africa/Kigali] DEBUG: User role: owner
+[29-Aug-2025 11:42:55 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[29-Aug-2025 11:42:55 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[29-Aug-2025 11:46:01 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[29-Aug-2025 11:46:01 Africa/Kigali] DEBUG: Requested Account ID: 159
+[29-Aug-2025 11:46:01 Africa/Kigali] DEBUG: User ID: 3
+[29-Aug-2025 11:46:01 Africa/Kigali] DEBUG: User role: owner
+[29-Aug-2025 11:46:01 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[29-Aug-2025 11:46:01 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[29-Aug-2025 11:46:28 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[29-Aug-2025 11:46:28 Africa/Kigali] DEBUG: Requested Account ID: 159
+[29-Aug-2025 11:46:28 Africa/Kigali] DEBUG: User ID: 3
+[29-Aug-2025 11:46:28 Africa/Kigali] DEBUG: User role: owner
+[29-Aug-2025 11:46:28 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[29-Aug-2025 11:46:28 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[29-Aug-2025 20:29:26 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[29-Aug-2025 20:29:26 Africa/Kigali] DEBUG: Requested Account ID: 159
+[29-Aug-2025 20:29:26 Africa/Kigali] DEBUG: User ID: 3
+[29-Aug-2025 20:29:26 Africa/Kigali] DEBUG: User role: owner
+[29-Aug-2025 20:29:26 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[29-Aug-2025 20:29:26 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[30-Aug-2025 10:37:53 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[30-Aug-2025 10:37:53 Africa/Kigali] DEBUG: Requested Account ID: 159
+[30-Aug-2025 10:37:53 Africa/Kigali] DEBUG: User ID: 269
+[30-Aug-2025 10:37:53 Africa/Kigali] DEBUG: User role: admin
+[30-Aug-2025 10:37:53 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[30-Aug-2025 10:37:53 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[30-Aug-2025 10:39:47 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[30-Aug-2025 10:39:47 Africa/Kigali] DEBUG: Requested Account ID: 159
+[30-Aug-2025 10:39:47 Africa/Kigali] DEBUG: User ID: 269
+[30-Aug-2025 10:39:47 Africa/Kigali] DEBUG: User role: admin
+[30-Aug-2025 10:39:47 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[30-Aug-2025 10:39:47 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[30-Aug-2025 15:33:26 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[30-Aug-2025 15:33:26 Africa/Kigali] DEBUG: Requested Account ID: 159
+[30-Aug-2025 15:33:26 Africa/Kigali] DEBUG: User ID: 3
+[30-Aug-2025 15:33:26 Africa/Kigali] DEBUG: User role: owner
+[30-Aug-2025 15:33:26 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[30-Aug-2025 15:33:26 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[30-Aug-2025 15:46:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[30-Aug-2025 15:46:51 Africa/Kigali] DEBUG: Requested Account ID: 159
+[30-Aug-2025 15:46:51 Africa/Kigali] DEBUG: User ID: 3
+[30-Aug-2025 15:46:51 Africa/Kigali] DEBUG: User role: owner
+[30-Aug-2025 15:46:51 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[30-Aug-2025 15:46:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[30-Aug-2025 15:49:05 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[30-Aug-2025 15:49:05 Africa/Kigali] DEBUG: Requested Account ID: 159
+[30-Aug-2025 15:49:05 Africa/Kigali] DEBUG: User ID: 3
+[30-Aug-2025 15:49:05 Africa/Kigali] DEBUG: User role: owner
+[30-Aug-2025 15:49:05 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[30-Aug-2025 15:49:05 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[30-Aug-2025 23:13:59 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[30-Aug-2025 23:13:59 Africa/Kigali] DEBUG: Requested Account ID: 159
+[30-Aug-2025 23:13:59 Africa/Kigali] DEBUG: User ID: 3
+[30-Aug-2025 23:13:59 Africa/Kigali] DEBUG: User role: owner
+[30-Aug-2025 23:13:59 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[30-Aug-2025 23:13:59 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[30-Aug-2025 23:23:33 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[30-Aug-2025 23:23:33 Africa/Kigali] DEBUG: Requested Account ID: 159
+[30-Aug-2025 23:23:33 Africa/Kigali] DEBUG: User ID: 269
+[30-Aug-2025 23:23:33 Africa/Kigali] DEBUG: User role: admin
+[30-Aug-2025 23:23:33 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 269 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[30-Aug-2025 23:23:33 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[31-Aug-2025 12:45:13 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[31-Aug-2025 12:45:13 Africa/Kigali] DEBUG: Requested Account ID: 159
+[31-Aug-2025 12:45:13 Africa/Kigali] DEBUG: User ID: 3
+[31-Aug-2025 12:45:13 Africa/Kigali] DEBUG: User role: owner
+[31-Aug-2025 12:45:13 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[31-Aug-2025 12:45:13 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[01-Sep-2025 11:01:17 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[01-Sep-2025 11:01:17 Africa/Kigali] DEBUG: Requested Account ID: 159
+[01-Sep-2025 11:01:17 Africa/Kigali] DEBUG: User ID: 3
+[01-Sep-2025 11:01:17 Africa/Kigali] DEBUG: User role: owner
+[01-Sep-2025 11:01:17 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[01-Sep-2025 11:01:17 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[01-Sep-2025 12:49:32 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[01-Sep-2025 12:49:32 Africa/Kigali] DEBUG: Requested Account ID: 159
+[01-Sep-2025 12:49:32 Africa/Kigali] DEBUG: User ID: 3
+[01-Sep-2025 12:49:32 Africa/Kigali] DEBUG: User role: owner
+[01-Sep-2025 12:49:32 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[01-Sep-2025 12:49:32 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[01-Sep-2025 12:50:20 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[01-Sep-2025 12:50:20 Africa/Kigali] DEBUG: Requested Account ID: 91
+[01-Sep-2025 12:50:20 Africa/Kigali] DEBUG: User ID: 3
+[01-Sep-2025 12:50:20 Africa/Kigali] DEBUG: User role: supplier
+[01-Sep-2025 12:50:20 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[01-Sep-2025 12:50:20 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[01-Sep-2025 12:50:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[01-Sep-2025 12:50:21 Africa/Kigali] DEBUG: Requested Account ID: 91
+[01-Sep-2025 12:50:21 Africa/Kigali] DEBUG: User ID: 3
+[01-Sep-2025 12:50:21 Africa/Kigali] DEBUG: User role: supplier
+[01-Sep-2025 12:50:21 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 91 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[01-Sep-2025 12:50:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[01-Sep-2025 12:50:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[01-Sep-2025 12:50:21 Africa/Kigali] DEBUG: Requested Account ID: 3
+[01-Sep-2025 12:50:21 Africa/Kigali] DEBUG: User ID: 3
+[01-Sep-2025 12:50:21 Africa/Kigali] DEBUG: User role: owner
+[01-Sep-2025 12:50:21 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 3 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[01-Sep-2025 12:50:21 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[01-Sep-2025 17:30:36 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[01-Sep-2025 17:30:36 Africa/Kigali] DEBUG: Requested Account ID: 91
+[01-Sep-2025 17:30:36 Africa/Kigali] DEBUG: User ID: 3
+[01-Sep-2025 17:30:36 Africa/Kigali] DEBUG: User role: supplier
+[01-Sep-2025 17:30:36 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[01-Sep-2025 17:30:36 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[01-Sep-2025 17:35:32 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[01-Sep-2025 17:35:32 Africa/Kigali] DEBUG: Requested Account ID: 91
+[01-Sep-2025 17:35:32 Africa/Kigali] DEBUG: User ID: 3
+[01-Sep-2025 17:35:32 Africa/Kigali] DEBUG: User role: supplier
+[01-Sep-2025 17:35:32 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 91 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[01-Sep-2025 17:35:32 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[01-Sep-2025 17:35:49 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[01-Sep-2025 17:35:49 Africa/Kigali] DEBUG: Requested Account ID: 159
+[01-Sep-2025 17:35:49 Africa/Kigali] DEBUG: User ID: 3
+[01-Sep-2025 17:35:49 Africa/Kigali] DEBUG: User role: owner
+[01-Sep-2025 17:35:49 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted' AND status = 'unread'
+          ORDER BY created_at DESC LIMIT 1 OFFSET 0
+[01-Sep-2025 17:35:49 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[01-Sep-2025 17:35:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[01-Sep-2025 17:35:51 Africa/Kigali] DEBUG: Requested Account ID: 159
+[01-Sep-2025 17:35:51 Africa/Kigali] DEBUG: User ID: 3
+[01-Sep-2025 17:35:51 Africa/Kigali] DEBUG: User role: owner
+[01-Sep-2025 17:35:51 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 159 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[01-Sep-2025 17:35:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===
+[01-Sep-2025 17:35:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG START ===
+[01-Sep-2025 17:35:51 Africa/Kigali] DEBUG: Requested Account ID: 3
+[01-Sep-2025 17:35:51 Africa/Kigali] DEBUG: User ID: 3
+[01-Sep-2025 17:35:51 Africa/Kigali] DEBUG: User role: owner
+[01-Sep-2025 17:35:51 Africa/Kigali] DEBUG: Query: SELECT id, user_id, account_id, title, message, type, category, action_url, action_data, expires_at, created_at, updated_at, status 
+          FROM notifications 
+          WHERE user_id = 3 AND account_id = 3 AND status != 'deleted'
+          ORDER BY created_at DESC LIMIT 50 OFFSET 0
+[01-Sep-2025 17:35:51 Africa/Kigali] === NOTIFICATIONS GET DEBUG END ===

@@ -1,0 +1,7 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rwanda Flag -->
+  <rect width="20" height="6.67" fill="#00A1DE"/>
+  <rect y="6.67" width="20" height="6.67" fill="#FAD201"/>
+  <rect y="13.33" width="20" height="6.67" fill="#20603D"/>
+  <polygon points="0,0 0,20 6.67,10" fill="#E5BE01"/>
+</svg>

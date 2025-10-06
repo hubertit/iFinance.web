@@ -1,0 +1,223 @@
+@use 'variables' as *;
+
+// Card styles
+.card {
+  box-shadow: $box-shadow;
+  border: none;
+  margin-bottom: $spacer * 1.5;
+
+  .card-header {
+    background-color: white;
+    border-bottom: 1px solid rgba($primary, 0.1);
+    padding: $spacer * 1.25;
+
+    h5, h6 {
+      margin-bottom: 0;
+    }
+  }
+
+  .card-body {
+    padding: $spacer * 1.25;
+  }
+}
+
+// Form styles
+.form-control {
+  border-radius: $border-radius;
+  border: 1px solid $gray-300;
+  padding: 0.5rem 0.875rem;
+  font-size: $font-size-base;
+
+  &:focus {
+    border-color: rgba($primary, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba($primary, 0.15);
+  }
+}
+
+.form-label {
+  font-weight: $font-weight-semibold;
+  margin-bottom: 0.5rem;
+}
+
+// Custom form elements
+.custom-select {
+  background-color: white;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius;
+  padding: 0.5rem 2.25rem 0.5rem 0.875rem;
+
+  &:focus {
+    border-color: rgba($primary, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba($primary, 0.15);
+  }
+}
+
+// Table styles
+.table {
+  margin-bottom: 0;
+
+  thead th {
+    border-top: none;
+    background-color: rgba($primary, 0.03);
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+}
+
+.table-hover tbody tr {
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba($primary, 0.03);
+  }
+}
+
+// Button styles
+.btn {
+  font-weight: $font-weight-semibold;
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius;
+  transition: all 0.2s ease;
+
+  &.btn-primary {
+    box-shadow: 0 2px 6px rgba($primary, 0.2);
+    
+    &:hover {
+      box-shadow: 0 4px 12px rgba($primary, 0.3);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Badge styles
+.badge {
+  padding: 0.4em 0.6em;
+  font-weight: $font-weight-semibold;
+  
+  &.badge-pill {
+    padding-right: 0.8em;
+    padding-left: 0.8em;
+  }
+}
+
+// Alert styles
+.alert {
+  border: none;
+  border-radius: $border-radius;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+
+  .alert-heading {
+    font-weight: $font-weight-semibold;
+  }
+}
+
+// Dropdown styles
+.dropdown-menu {
+  border: none;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  padding: 0.5rem 0;
+
+  .dropdown-item {
+    padding: 0.5rem 1.25rem;
+    font-size: $font-size-base;
+
+    &:hover, &:focus {
+      background-color: rgba($primary, 0.05);
+    }
+
+    &.active {
+      background-color: $primary;
+    }
+  }
+}
+
+// Nav tabs
+.nav-tabs {
+  border-bottom: 1px solid rgba($primary, 0.1);
+
+  .nav-link {
+    border: none;
+    font-weight: $font-weight-semibold;
+    padding: 0.75rem 1rem;
+    color: $gray-600;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: transparent;
+      transition: all 0.2s ease;
+    }
+
+    &:hover {
+      border: none;
+      color: $primary;
+    }
+
+    &.active {
+      color: $primary;
+      background: none;
+      border: none;
+
+      &:after {
+        background-color: $primary;
+      }
+    }
+  }
+}
+
+// Pagination
+.pagination {
+  .page-link {
+    padding: 0.5rem 0.75rem;
+    color: $primary;
+    border: 1px solid rgba($primary, 0.1);
+
+    &:hover {
+      background-color: rgba($primary, 0.05);
+      border-color: rgba($primary, 0.1);
+    }
+  }
+
+  .page-item.active .page-link {
+    background-color: $primary;
+    border-color: $primary;
+  }
+}
+
+// Modal styles
+.modal-content {
+  border: none;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-lg;
+
+  .modal-header {
+    border-bottom: 1px solid rgba($primary, 0.1);
+    padding: 1.25rem;
+
+    .modal-title {
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  .modal-body {
+    padding: 1.25rem;
+  }
+
+  .modal-footer {
+    border-top: 1px solid rgba($primary, 0.1);
+    padding: 1.25rem;
+  }
+}

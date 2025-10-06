@@ -1,0 +1,16 @@
+<div class="main-container" [ngClass]="{'sidebar-closed': !showSidebar}">
+  <ng-container *ngIf="!hideNavbar()">
+    <app-navbar></app-navbar>
+    <app-sidebar></app-sidebar>
+  </ng-container>
+
+  <div class="main-content">
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer *ngIf="!hideNavbar()"></app-footer>
+  </div>
+</div>
+
+<!-- Global loading component -->
+<app-loading></app-loading>

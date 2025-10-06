@@ -1,0 +1,763 @@
+@use '../../../styles/variables' as *;
+
+.navbar {
+  height: $header-height;
+  background: white;
+  border-bottom: 1px solid rgba($primary, 0.1);
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: $sidebar-width;
+  z-index: 1000;
+  transition: all 0.3s ease;
+
+  &.sidebar-collapsed {
+    left: $sidebar-mini-width;
+  }
+
+  @media (max-width: 991px) {
+    left: 0;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 576px) {
+    padding: 0 0.75rem;
+    height: 70px;
+  }
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  .menu-toggle {
+    background: none;
+    border: none;
+    color: $gray-600;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  .datetime-display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 1rem;
+    padding: 0.5rem 0;
+
+    @media (max-width: 768px) {
+      margin-left: 0.5rem;
+    }
+
+    @media (max-width: 576px) {
+      display: none;
+    }
+
+    .time {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: $gray-800;
+      line-height: 1.2;
+      font-family: 'Courier New', monospace;
+    }
+
+    .date {
+      font-size: 0.8rem;
+      color: $gray-600;
+      line-height: 1.2;
+      margin-top: 0.125rem;
+    }
+  }
+
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .nav-item {
+    position: relative;
+
+    @media (max-width: 767px) {
+      &:not(.user-profile) {
+        display: none;
+      }
+    }
+
+    &.notification-item {
+      .notification-panel {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        background: white;
+        border-radius: $border-radius;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        width: 320px;
+        max-height: 400px;
+        overflow: hidden;
+        z-index: 1000;
+
+        .panel-header {
+          padding: 1rem;
+          background: rgba($primary, 0.03);
+          border-bottom: 1px solid $gray-100;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          h6 {
+            margin: 0;
+            color: $gray-800;
+            font-size: 0.875rem;
+            font-weight: 600;
+          }
+
+          .notification-count {
+            background: $primary;
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+          }
+        }
+
+        .notification-list {
+          max-height: 250px;
+          overflow-y: auto;
+
+          .notification-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid $gray-50;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+              background: rgba($primary, 0.05);
+            }
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .notification-avatar {
+              width: 32px;
+              height: 32px;
+              border-radius: 50%;
+              background: rgba($primary, 0.1);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: $primary;
+              flex-shrink: 0;
+            }
+
+            .notification-content {
+              flex-grow: 1;
+              min-width: 0;
+
+              .notification-title {
+                font-size: 0.875rem;
+                font-weight: 600;
+                color: $gray-800;
+                margin-bottom: 0.25rem;
+                line-height: 1.2;
+              }
+
+              .notification-message {
+                font-size: 0.8rem;
+                color: $gray-600;
+                line-height: 1.3;
+                margin-bottom: 0.25rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+              }
+
+              .notification-time {
+                font-size: 0.75rem;
+                color: $gray-500;
+              }
+            }
+
+            .notification-status {
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background: transparent;
+              flex-shrink: 0;
+              margin-top: 0.25rem;
+
+              &.unread {
+                background: $primary;
+              }
+            }
+          }
+        }
+
+        .panel-footer {
+          padding: 0.75rem 1rem;
+          border-top: 1px solid $gray-100;
+          background: rgba($gray-50, 0.5);
+
+          .view-all-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba($primary, 0.05);
+            color: $primary;
+            border: 1px solid rgba($primary, 0.2);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+
+            &:hover {
+              background: rgba($primary, 0.1);
+              border-color: rgba($primary, 0.3);
+            }
+
+            app-feather-icon {
+              font-size: 0.875rem;
+            }
+          }
+        }
+      }
+    }
+
+    &.message-item {
+      .message-panel {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        background: white;
+        border-radius: $border-radius;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        width: 320px;
+        max-height: 400px;
+        overflow: hidden;
+        z-index: 1000;
+
+        .panel-header {
+          padding: 1rem;
+          background: rgba($primary, 0.03);
+          border-bottom: 1px solid $gray-100;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          h6 {
+            margin: 0;
+            color: $gray-800;
+            font-size: 0.875rem;
+            font-weight: 600;
+          }
+
+          .message-count {
+            background: $primary;
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+          }
+        }
+
+        .message-list {
+          max-height: 250px;
+          overflow-y: auto;
+
+          .message-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid $gray-50;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+              background: rgba($primary, 0.05);
+            }
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .message-avatar {
+              width: 32px;
+              height: 32px;
+              border-radius: 50%;
+              overflow: hidden;
+              flex-shrink: 0;
+
+              .avatar-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+
+            .message-content {
+              flex-grow: 1;
+              min-width: 0;
+
+              .message-sender {
+                font-size: 0.875rem;
+                font-weight: 600;
+                color: $gray-800;
+                margin-bottom: 0.25rem;
+                line-height: 1.2;
+              }
+
+              .message-preview {
+                font-size: 0.8rem;
+                color: $gray-600;
+                line-height: 1.3;
+                margin-bottom: 0.25rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+              }
+
+              .message-time {
+                font-size: 0.75rem;
+                color: $gray-500;
+              }
+            }
+
+            .message-status {
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background: transparent;
+              flex-shrink: 0;
+              margin-top: 0.25rem;
+
+              &.unread {
+                background: $primary;
+              }
+            }
+          }
+        }
+
+        .panel-footer {
+          padding: 0.75rem 1rem;
+          border-top: 1px solid $gray-100;
+          background: rgba($gray-50, 0.5);
+
+          .view-all-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba($primary, 0.05);
+            color: $primary;
+            border: 1px solid rgba($primary, 0.2);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+
+            &:hover {
+              background: rgba($primary, 0.1);
+              border-color: rgba($primary, 0.3);
+            }
+
+            app-feather-icon {
+              font-size: 0.875rem;
+            }
+          }
+        }
+      }
+    }
+
+    .icon-button {
+      background: none;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $gray-600;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba($primary, 0.05);
+        color: $primary;
+      }
+
+      .badge {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        background: $primary;
+        color: white;
+        font-size: 0.75rem;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+      }
+    }
+  }
+
+
+  .language-switcher {
+    position: relative;
+
+    .language-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: none;
+      border: 1px solid $gray-200;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: $primary;
+        background: rgba($primary, 0.05);
+      }
+
+      .language-flag {
+        width: 20px;
+        height: 20px;
+        border-radius: 2px;
+        object-fit: cover;
+      }
+
+      .language-name {
+        color: $gray-700;
+        font-size: 0.875rem;
+        font-weight: 500;
+
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+
+      app-feather-icon {
+        color: $gray-400;
+        font-size: 0.75rem;
+      }
+    }
+
+    .language-menu {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: white;
+      border-radius: $border-radius;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 200px;
+      overflow: hidden;
+      z-index: 1000;
+
+      .menu-items {
+        padding: 0.5rem 0;
+
+        .language-option {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.75rem 1rem;
+          background: none;
+          border: none;
+          width: 100%;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: rgba($primary, 0.05);
+          }
+
+          &.active {
+            background: rgba($primary, 0.1);
+          }
+
+          .flag {
+            width: 20px;
+            height: 20px;
+            border-radius: 2px;
+            object-fit: cover;
+          }
+
+          .name {
+            flex-grow: 1;
+            color: $gray-700;
+            font-size: 0.875rem;
+            text-align: left;
+          }
+
+          app-feather-icon {
+            color: $primary;
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+  }
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.25rem;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba($primary, 0.05);
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+
+      @media (max-width: 576px) {
+        display: none;
+      }
+
+      .user-name {
+        color: $gray-800;
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+
+      .user-role {
+        color: $gray-500;
+        font-size: 0.75rem;
+      }
+    }
+
+    i {
+      color: $gray-400;
+      font-size: 0.75rem;
+      margin-left: 0.5rem;
+
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+  }
+
+  .user-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: white;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    overflow: hidden;
+    z-index: 1000;
+
+    .menu-header {
+      padding: 1rem;
+      background: rgba($primary, 0.03);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid $gray-100;
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      h6 {
+        margin: 0;
+        color: $gray-800;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+
+      span {
+        color: $gray-500;
+        font-size: 0.75rem;
+      }
+    }
+
+    .account-switcher-section {
+      padding: 1rem;
+      border-bottom: 1px solid $gray-100;
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+
+        h6 {
+          margin: 0;
+          color: $gray-800;
+          font-size: 0.875rem;
+          font-weight: 600;
+        }
+
+        .add-account-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
+          background: rgba($primary, 0.1);
+          color: $primary;
+          border: 1px solid rgba($primary, 0.2);
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: rgba($primary, 0.2);
+            border-color: rgba($primary, 0.3);
+          }
+
+          app-feather-icon {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .account-options {
+        max-height: 120px;
+        overflow-y: auto;
+
+        .account-option {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.5rem;
+          background: none;
+          border: none;
+          width: 100%;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border-radius: 6px;
+
+          &:hover {
+            background: rgba($primary, 0.05);
+          }
+
+          &.active {
+            background: rgba($primary, 0.1);
+          }
+
+          .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .account-details {
+            flex-grow: 1;
+            text-align: left;
+
+            .name {
+              display: block;
+              color: $gray-800;
+              font-size: 0.8rem;
+              font-weight: 500;
+              line-height: 1.2;
+            }
+
+            .role {
+              display: block;
+              color: $gray-500;
+              font-size: 0.7rem;
+              line-height: 1.2;
+            }
+          }
+
+          app-feather-icon {
+            color: $primary;
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+
+    .menu-items {
+      padding: 0.5rem 0;
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.625rem 1rem;
+        color: $gray-700;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+
+        app-feather-icon {
+          color: $gray-500;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        &:hover {
+          background: rgba($primary, 0.05);
+          color: $primary;
+
+          app-feather-icon {
+            color: $primary;
+          }
+        }
+      }
+
+      .divider {
+        height: 1px;
+        background: $gray-100;
+        margin: 0.5rem 0;
+      }
+    }
+  }
+}

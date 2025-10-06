@@ -1,0 +1,73 @@
+@use '../../../styles/variables' as *;
+
+.milk-sales-container {
+  padding: 12px;
+  min-height: auto;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .header-content {
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0 0 8px 0;
+    }
+
+    .page-description {
+      color: #64748b;
+      font-size: 16px;
+      margin: 0;
+    }
+  }
+}
+
+.coming-soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+
+  .coming-soon-content {
+    text-align: center;
+    padding: 48px 24px;
+
+    .coming-soon-icon {
+      color: #004AAD;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 0 0 16px 0;
+    }
+
+    p {
+      color: #64748b;
+      font-size: 16px;
+      margin: 0;
+      max-width: 400px;
+    }
+  }
+}

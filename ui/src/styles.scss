@@ -1,0 +1,83 @@
+// Import variables first
+@use 'styles/variables' as *;
+
+// Import Bootstrap
+@use 'bootstrap/scss/bootstrap';
+
+// Import custom components
+@use 'styles/components';
+
+// Global styles
+html, body {
+  height: 100%;
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #f8f9fa;
+}
+
+// Layout styles
+.app-container {
+  min-height: 100vh;
+  display: flex;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: $header-height 0 0 $sidebar-width;
+  transition: padding-left 0.3s ease;
+
+  &.sidebar-mini {
+    padding-left: $sidebar-mini-width;
+  }
+
+  &.sidebar-hidden {
+    padding-left: 0;
+  }
+}
+
+.content-wrapper {
+  padding: 1.5rem;
+}
+
+// Utility classes
+.shadow-sm { box-shadow: $box-shadow-sm !important; }
+.shadow { box-shadow: $box-shadow !important; }
+.shadow-lg { box-shadow: $box-shadow-lg !important; }
+
+.rounded { border-radius: $border-radius !important; }
+.rounded-lg { border-radius: $border-radius-lg !important; }
+.rounded-sm { border-radius: $border-radius-sm !important; }
+
+.font-weight-semibold { font-weight: $font-weight-semibold !important; }
+
+// Responsive breakpoints
+@media (max-width: 767.98px) {
+  .main-content {
+    padding-left: 0;
+  }
+}
+
+// Animation classes
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}

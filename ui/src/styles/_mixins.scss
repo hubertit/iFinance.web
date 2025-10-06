@@ -1,0 +1,68 @@
+// Optimized mixins to replace darken() functions
+// This reduces memory usage during SCSS compilation
+
+@mixin primary-button {
+  background: $primary;
+  border-color: $primary;
+  
+  &:hover {
+    background: $primary-dark-5;
+    border-color: $primary-dark-5;
+  }
+  
+  &:active {
+    background: $primary-dark-10;
+    border-color: $primary-dark-10;
+  }
+}
+
+@mixin primary-button-dark {
+  background: $primary-dark-5;
+  border-color: $primary-dark-5;
+  
+  &:hover {
+    background: $primary-dark-10;
+    border-color: $primary-dark-10;
+  }
+}
+
+@mixin success-text {
+  color: $success-dark-20;
+}
+
+@mixin danger-text {
+  color: $danger-dark-20;
+}
+
+@mixin border-hover {
+  border-color: $border-color-dark-10;
+}
+
+// Optimized color functions that don't use darken()
+@function get-primary-variant($variant: 'base') {
+  @if $variant == 'dark-5' {
+    @return $primary-dark-5;
+  } @else if $variant == 'dark-10' {
+    @return $primary-dark-10;
+  } @else if $variant == 'dark-20' {
+    @return $primary-dark-20;
+  } @else {
+    @return $primary;
+  }
+}
+
+@function get-success-variant($variant: 'base') {
+  @if $variant == 'dark-20' {
+    @return $success-dark-20;
+  } @else {
+    @return $success;
+  }
+}
+
+@function get-danger-variant($variant: 'base') {
+  @if $variant == 'dark-20' {
+    @return $danger-dark-20;
+  } @else {
+    @return $danger;
+  }
+}

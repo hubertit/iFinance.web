@@ -1,0 +1,174 @@
+@use '../../../../styles/variables' as *;
+@use 'sass:color';
+
+// Auth page layout
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+// Left side - Lock Form
+.auth-section {
+  width: 40%;
+  min-width: 500px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 0 20px;
+}
+
+// Right side - Background with Clock
+.background-section {
+  flex: 1;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+              url('/assets/img/splash_cover.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// User info section - simple and clean like login
+.user-info {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($primary, 0.1);
+    border: 3px solid $primary;
+
+    i {
+      font-size: 2.5rem;
+      color: $primary;
+    }
+  }
+
+  h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 0.5rem;
+  }
+
+  .text-muted {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}
+
+// Auth form styles - matching login page exactly
+.auth-form {
+  .auth-btn {
+    width: 100%;
+    padding: 12px;
+    background: $primary;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &:hover:not(:disabled) {
+      background: color.adjust($primary, $lightness: -5%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba($primary, 0.3);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  .auth-links {
+    text-align: center;
+    margin-top: 1.5rem;
+
+    .switch-account {
+      color: $primary;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: color.adjust($primary, $lightness: -10%);
+        text-decoration: underline;
+      }
+
+      i {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+// Footer text
+.footer-text {
+  text-align: center;
+  margin-top: 2rem;
+  color: #666;
+  font-size: 0.8rem;
+  line-height: 1.4;
+
+  p {
+    margin: 0.25rem 0;
+  }
+}
+
+// Responsive Design
+@media (max-width: 992px) {
+  .auth-section {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .background-section {
+    display: none;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .user-info .user-avatar {
+    width: 60px;
+    height: 60px;
+  }
+}
