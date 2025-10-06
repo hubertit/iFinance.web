@@ -153,8 +153,8 @@
 
     &:focus {
       outline: none;
-      border-color: #004AAD;
-      box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+      border-color: #f24d12;
+      box-shadow: 0 0 0 3px rgba(242, 77, 18, 0.1);
     }
 
     &::placeholder {
@@ -200,7 +200,7 @@
 
 // Buttons
 .btn-primary {
-  background: #004AAD;
+  background: #f24d12;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -216,7 +216,7 @@
   justify-content: center;
 
   &:hover:not(:disabled) {
-    background: #003d8f;
+    background: #d43d0a;
     transform: translateY(-1px);
   }
 

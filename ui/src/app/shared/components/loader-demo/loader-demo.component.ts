@@ -58,12 +58,12 @@ import { DataTableComponent, TableColumn } from '../data-table/data-table.compon
     }
 
     .btn-primary {
-      background-color: #004AAD;
+      background-color: #f24d12;
       color: white;
     }
 
     .btn-primary:hover {
-      background-color: #003d8a;
+      background-color: #d43d0a;
     }
 
     .btn-secondary {

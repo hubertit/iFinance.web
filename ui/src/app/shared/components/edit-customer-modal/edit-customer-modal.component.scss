@@ -119,9 +119,9 @@
 
       &:focus {
         outline: none;
-        border-color: #004AAD;
+        border-color: #f24d12;
         background: white;
-        box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+        box-shadow: 0 0 0 3px rgba(242, 77, 18, 0.1);
       }
 
       &::placeholder {
@@ -150,9 +150,9 @@
       overflow: hidden;
 
       &:focus-within {
-        border-color: #004AAD;
+        border-color: #f24d12;
         background: white;
-        box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+        box-shadow: 0 0 0 3px rgba(242, 77, 18, 0.1);
       }
 
       .country-code-section {
@@ -243,7 +243,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+      box-shadow: 0 0 0 3px rgba(242, 77, 18, 0.1);
     }
   }
 
@@ -263,15 +263,15 @@
   }
 
   .btn-primary {
-    background: #004AAD;
+    background: #f24d12;
     color: white;
-    border-color: #004AAD;
+    border-color: #f24d12;
 
     &:hover:not(:disabled) {
-      background: #003d8a;
-      border-color: #003d8a;
+      background: #d43d0a;
+      border-color: #d43d0a;
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 74, 173, 0.3);
+      box-shadow: 0 4px 12px rgba(242, 77, 18, 0.3);
     }
 
     &:disabled {

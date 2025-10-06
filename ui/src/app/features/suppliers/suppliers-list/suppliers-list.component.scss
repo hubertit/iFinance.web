@@ -86,7 +86,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #004AAD;
+    color: #f24d12;
     flex-shrink: 0;
   }
 
@@ -266,7 +266,7 @@
 
 // Buttons
 .btn-primary {
-  background: #004AAD;
+  background: #f24d12;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -280,7 +280,7 @@
   font-size: 14px;
 
   &:hover {
-    background: #003d8f;
+    background: #d43d0a;
     transform: translateY(-1px);
   }
 

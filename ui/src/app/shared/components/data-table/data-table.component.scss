@@ -134,19 +134,19 @@
         padding: 0.25rem 0.5rem;
         border-radius: 0.25rem;
         transition: all 0.2s ease;
-        border: 1px solid #004AAD !important;
+        border: 1px solid #f24d12 !important;
         background: white !important;
-        color: #004AAD !important;
+        color: #f24d12 !important;
 
         &:hover {
-          background-color: #004AAD !important;
+          background-color: #f24d12 !important;
           color: white !important;
-          border-color: #004AAD !important;
+          border-color: #f24d12 !important;
         }
 
         &:focus {
-          box-shadow: 0 0 0 2px rgba(0, 74, 173, 0.1) !important;
-          border-color: #004AAD !important;
+          box-shadow: 0 0 0 2px rgba(242, 77, 18, 0.1) !important;
+          border-color: #f24d12 !important;
         }
       }
 

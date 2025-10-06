@@ -448,7 +448,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       },
       labels: ['Collections', 'Sales'],
-      colors: ['#004AAD', '#6B7280'],
+      colors: ['#f24d12', '#6B7280'],
       dataLabels: {
         enabled: true,
         formatter: function (val: string) {
@@ -483,7 +483,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 show: true,
                 fontSize: '16px',
                 fontWeight: 700,
-                color: '#004AAD',
+                color: '#f24d12',
                 formatter: function (val: string) {
                   return parseFloat(val).toFixed(2) + " L"
                 }
@@ -555,7 +555,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       fill: {
         opacity: 1
       },
-      colors: ['#004AAD', '#6B7280'],
+      colors: ['#f24d12', '#6B7280'],
       tooltip: {
         y: {
           formatter: function (val) {

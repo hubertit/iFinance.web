@@ -92,8 +92,8 @@
 
       &:focus {
         outline: none;
-        border-color: #004AAD;
-        box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+        border-color: #f24d12;
+        box-shadow: 0 0 0 3px rgba(242, 77, 18, 0.1);
       }
 
       &::placeholder {
@@ -129,9 +129,9 @@
     overflow: hidden;
 
     &:focus-within {
-      border-color: #004AAD;
+      border-color: #f24d12;
       background: white;
-      box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+      box-shadow: 0 0 0 3px rgba(242, 77, 18, 0.1);
     }
 
     .country-code-section {
@@ -215,13 +215,13 @@
     }
 
     &.btn-primary {
-      background: #004AAD;
+      background: #f24d12;
       color: white;
 
       &:hover:not(:disabled) {
-        background: #003d8f;
+        background: #d43d0a;
         transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0, 74, 173, 0.3);
+        box-shadow: 0 4px 12px rgba(242, 77, 18, 0.3);
       }
     }
 
