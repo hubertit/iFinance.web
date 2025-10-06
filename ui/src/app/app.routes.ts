@@ -9,6 +9,7 @@ import { FeedComponent } from './features/feed/feed.component';
 import { ChatsComponent } from './features/chats/chats.component';
 import { IkofiComponent } from './features/ikofi/ikofi.component';
 import { TransactionsComponent } from './features/transactions/transactions.component';
+import { LoansComponent } from './features/loans/loans.component';
 import { CustomersListComponent } from './features/customers/customers-list/customers-list.component';
 import { AddCustomerComponent } from './features/customers/add-customer/add-customer.component';
 import { SoldMilkComponent } from './features/customers/sold-milk/sold-milk.component';
@@ -68,6 +69,10 @@ export const routes: Routes = [
             {
               path: 'transactions',
               component: TransactionsComponent
+            },
+            {
+              path: 'loans',
+              component: LoansComponent
             },
       {
         path: 'customers/list',
