@@ -4,6 +4,7 @@ import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { DashboardService, DashboardOverview, Wallet } from '../../core/services/dashboard.service';
 import { NavigationService } from '../../core/services/navigation.service';
+import { WalletService } from '../../core/services/wallet.service';
 import { FeatherIconComponent } from '../../shared/components/feather-icon/feather-icon.component';
 import { AddCustomerModalComponent } from '../../shared/components/add-customer-modal/add-customer-modal.component';
 import { AddSupplierModalComponent } from '../../shared/components/add-supplier-modal/add-supplier-modal.component';
@@ -384,6 +385,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private dashboardService: DashboardService,
     private navigationService: NavigationService,
+    private walletService: WalletService,
     private router: Router
   ) {
     this.initializeCharts();
@@ -985,6 +987,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe(account => {
         if (account) {
           console.log('Account changed, reloading dashboard for:', account.account_name);
+          this.loadDashboardData();
+        }
+      });
+
+    // Listen for wallet changes from WalletService
+    this.walletService.currentWallet$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(wallet => {
+        if (wallet) {
+          console.log('Wallet changed, reloading dashboard for:', wallet.name);
           this.loadDashboardData();
         }
       });
