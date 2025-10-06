@@ -161,7 +161,7 @@ export interface ChartOptions {
         <!-- Bar Chart -->
         <div class="chart-container">
           <div class="chart-header">
-            <h3>Financial Activity Trends</h3>
+            <h3>Money In & Out Trends</h3>
             <div class="chart-controls">
               <button class="btn-small" (click)="updateChart('7D', $event)">7D</button>
               <button class="btn-small active" (click)="updateChart('30D', $event)">30D</button>
@@ -519,19 +519,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.chartOptions = {
       series: [
         {
-          name: 'Collections',
-          type: 'column',
+          name: 'Money In',
+          type: 'area',
           data: collectionsData
         },
         {
-          name: 'Sales',
-          type: 'column',
+          name: 'Money Out',
+          type: 'area',
           data: salesData
         }
       ],
       chart: {
-        type: 'bar',
+        type: 'area',
         height: 300,
+        stacked: false,
         toolbar: {
           show: false
         }
@@ -541,25 +542,30 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
       yaxis: {
         title: {
-          text: 'Liters'
+          text: 'Amount (RWF)'
+        }
+      },
+      stroke: {
+        curve: 'smooth',
+        width: 3
+      },
+      fill: {
+        type: 'gradient',
+        gradient: {
+          shadeIntensity: 1,
+          opacityFrom: 0.7,
+          opacityTo: 0.3,
+          stops: [0, 90, 100]
         }
       },
       dataLabels: {
         enabled: false
       },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-      },
-      fill: {
-        opacity: 1
-      },
       colors: ['#f24d12', '#6B7280'],
       tooltip: {
         y: {
           formatter: function (val) {
-            return val + " L"
+            return val.toLocaleString() + " RWF"
           }
         }
       },
@@ -593,26 +599,52 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     // Use 30D data by default (matching the active tab)
-    const categories = Array.from({length: 30}, (_, i) => `Day ${i + 1}`);
-    const collectionsData = Array.from({length: 30}, () => Math.floor(Math.random() * 200) + 100);
-    const salesData = Array.from({length: 30}, () => Math.floor(Math.random() * 150) + 80);
+    const categories = Array.from({length: 30}, (_, i) => {
+      const date = new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000);
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    });
+    
+    // Generate money in/out data for spline area chart
+    const moneyInData = Array.from({length: 30}, () => Math.floor(Math.random() * 500000) + 100000);
+    const moneyOutData = Array.from({length: 30}, () => Math.floor(Math.random() * 400000) + 80000);
 
     this.chartOptions = {
       ...this.chartOptions,
       series: [
         {
-          name: 'Collections',
-          type: 'column',
-          data: collectionsData
+          name: 'Money In',
+          type: 'area',
+          data: moneyInData
         },
         {
-          name: 'Sales',
-          type: 'column',
-          data: salesData
+          name: 'Money Out',
+          type: 'area',
+          data: moneyOutData
         }
       ],
       xaxis: {
         categories: categories
+      },
+      chart: {
+        ...this.chartOptions.chart,
+        type: 'area',
+        stacked: false,
+        toolbar: {
+          show: false
+        }
+      },
+      stroke: {
+        curve: 'smooth',
+        width: 3
+      },
+      fill: {
+        type: 'gradient',
+        gradient: {
+          shadeIntensity: 1,
+          opacityFrom: 0.7,
+          opacityTo: 0.3,
+          stops: [0, 90, 100]
+        }
       }
     };
 
@@ -778,45 +810,54 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     // Update chart data based on period
-    let newCollectionsData: number[];
-    let newSalesData: number[];
+    let newMoneyInData: number[];
+    let newMoneyOutData: number[];
     let categories: string[];
 
     switch(period) {
       case '7D':
-        categories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        newCollectionsData = [120, 180, 95, 210, 160, 195, 230];
-        newSalesData = [100, 150, 80, 180, 140, 170, 200];
+        categories = Array.from({length: 7}, (_, i) => {
+          const date = new Date(Date.now() - (6 - i) * 24 * 60 * 60 * 1000);
+          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        newMoneyInData = Array.from({length: 7}, () => Math.floor(Math.random() * 800000) + 200000);
+        newMoneyOutData = Array.from({length: 7}, () => Math.floor(Math.random() * 600000) + 150000);
         break;
       case '30D':
-        categories = Array.from({length: 30}, (_, i) => `Day ${i + 1}`);
-        newCollectionsData = Array.from({length: 30}, () => Math.floor(Math.random() * 200) + 100);
-        newSalesData = Array.from({length: 30}, () => Math.floor(Math.random() * 150) + 80);
+        categories = Array.from({length: 30}, (_, i) => {
+          const date = new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000);
+          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        newMoneyInData = Array.from({length: 30}, () => Math.floor(Math.random() * 500000) + 100000);
+        newMoneyOutData = Array.from({length: 30}, () => Math.floor(Math.random() * 400000) + 80000);
         break;
       case '90D':
         categories = Array.from({length: 12}, (_, i) => `Week ${i + 1}`);
-        newCollectionsData = Array.from({length: 12}, () => Math.floor(Math.random() * 1000) + 500);
-        newSalesData = Array.from({length: 12}, () => Math.floor(Math.random() * 800) + 400);
+        newMoneyInData = Array.from({length: 12}, () => Math.floor(Math.random() * 2000000) + 1000000);
+        newMoneyOutData = Array.from({length: 12}, () => Math.floor(Math.random() * 1500000) + 800000);
         break;
       default:
         // Default to 30D data
-        categories = Array.from({length: 30}, (_, i) => `Day ${i + 1}`);
-        newCollectionsData = Array.from({length: 30}, () => Math.floor(Math.random() * 200) + 100);
-        newSalesData = Array.from({length: 30}, () => Math.floor(Math.random() * 150) + 80);
+        categories = Array.from({length: 30}, (_, i) => {
+          const date = new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000);
+          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        newMoneyInData = Array.from({length: 30}, () => Math.floor(Math.random() * 500000) + 100000);
+        newMoneyOutData = Array.from({length: 30}, () => Math.floor(Math.random() * 400000) + 80000);
     }
     
     this.chartOptions = {
       ...this.chartOptions,
       series: [
         {
-          name: 'Collections',
-          type: 'column',
-          data: newCollectionsData
+          name: 'Money In',
+          type: 'area',
+          data: newMoneyInData
         },
         {
-          name: 'Sales',
-          type: 'column',
-          data: newSalesData
+          name: 'Money Out',
+          type: 'area',
+          data: newMoneyOutData
         }
       ],
       xaxis: {
