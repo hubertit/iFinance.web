@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angu
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService, Account } from '../../core/services/auth.service';
+import { WalletService, Wallet } from '../../core/services/wallet.service';
 import { FeatherIconComponent } from '../../shared/components/feather-icon/feather-icon.component';
 
 @Component({
@@ -118,43 +119,43 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
         </div>
 
         <div class="nav-item user-profile" (click)="toggleUserMenu()">
-          <img [src]="currentAccount?.avatar || 'assets/img/user.png'" [alt]="currentAccount?.account_name" class="avatar">
+          <img [src]="currentWallet?.avatar || 'assets/img/logo.png'" [alt]="currentWallet?.name" class="avatar">
           <div class="user-info">
-            <span class="user-name">{{ currentAccount?.account_name || 'User' }}</span>
-            <span class="user-role">{{ currentAccount?.role || 'Guest' }}</span>
+            <span class="user-name">{{ currentWallet?.name || 'Main Wallet' }}</span>
+            <span class="user-role">{{ formatBalance(currentWallet?.balance || 0) }}</span>
           </div>
           <app-feather-icon name="chevron-down" size="16px"></app-feather-icon>
 
           <!-- User Dropdown Menu -->
           <div class="user-menu" *ngIf="showUserMenu">
             <div class="menu-header">
-              <img [src]="currentAccount?.avatar || 'assets/img/user.png'" [alt]="currentAccount?.account_name" class="avatar">
+              <img [src]="currentWallet?.avatar || 'assets/img/logo.png'" [alt]="currentWallet?.name" class="avatar">
               <div>
-                <h6>{{ currentAccount?.account_name || 'User' }}</h6>
-                <span>{{ currentAccount?.role || 'Guest' }}</span>
+                <h6>{{ currentWallet?.name || 'Main Wallet' }}</h6>
+                <span>{{ formatBalance(currentWallet?.balance || 0) }}</span>
               </div>
             </div>
             
-            <!-- Account Switcher Section -->
+            <!-- Wallet Switcher Section -->
             <div class="account-switcher-section">
               <div class="section-header">
-                <h6>Switch Account</h6>
-                <button class="add-account-btn" (click)="addNewAccount()">
+                <h6>Switch Wallet</h6>
+                <button class="add-account-btn" (click)="addNewWallet()">
                   <app-feather-icon name="plus" size="14px"></app-feather-icon>
                 </button>
               </div>
               <div class="account-options">
                 <button 
                   class="account-option" 
-                  *ngFor="let account of availableAccounts"
-                  [class.active]="account.account_id === currentAccount?.account_id"
-                  (click)="selectAccount(account)">
-                  <img [src]="account.avatar || 'assets/img/user.png'" [alt]="account.account_name" class="avatar">
+                  *ngFor="let wallet of availableWallets"
+                  [class.active]="wallet.id === currentWallet?.id"
+                  (click)="selectWallet(wallet)">
+                  <img [src]="wallet.avatar || 'assets/img/logo.png'" [alt]="wallet.name" class="avatar">
                   <div class="account-details">
-                    <span class="name">{{ account.account_name }}</span>
-                    <span class="role">{{ account.role }}</span>
+                    <span class="name">{{ wallet.name }}</span>
+                    <span class="role">{{ formatBalance(wallet.balance) }}</span>
                   </div>
-                  <app-feather-icon name="check" size="14px" *ngIf="account.account_id === currentAccount?.account_id"></app-feather-icon>
+                  <app-feather-icon name="check" size="14px" *ngIf="wallet.id === currentWallet?.id"></app-feather-icon>
                 </button>
               </div>
             </div>
@@ -198,8 +199,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   showNotificationPanel = false;
   showMessagePanel = false;
   
-  currentAccount: Account | null = null;
-  availableAccounts: Account[] = [];
+  currentWallet: Wallet | null = null;
+  availableWallets: Wallet[] = [];
   
   currentTime: string = '';
   currentDate: string = '';
@@ -302,20 +303,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
+    private walletService: WalletService,
     private router: Router
   ) {
     const user = this.authService.getCurrentUser();
     this.userName = user?.name || 'User';
     this.userRole = user?.role || 'Guest';
 
-    // Load account data from AuthService
-    this.currentAccount = this.authService.getCurrentAccount();
-    this.availableAccounts = this.authService.getAvailableAccounts();
-    
-    // Fetch accounts from API if user is logged in
-    if (this.authService.isLoggedIn()) {
-      this.loadAccountsFromAPI();
-    }
+    // Load wallet data from WalletService
+    this.loadWalletData();
   }
 
   ngOnInit() {
@@ -389,46 +385,45 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   selectAccount(account: Account): void {
-    this.authService.switchAccount(account).subscribe({
-      next: (response) => {
-        console.log('Account switch successful:', response);
-        this.currentAccount = account;
-        this.availableAccounts = this.authService.getAvailableAccounts();
-        this.showUserMenu = false;
-        
-        // Show success message
-        console.log('Account switched to:', account.account_name);
-        
-        // Reload the current page to refresh all data with new account context
-        window.location.reload();
-      },
-      error: (error) => {
-        console.error('Failed to switch account:', error);
-        // You can show an error message to the user here
-      }
-    });
+    // This method is kept for backward compatibility but not used in wallet switching
+    console.log('Account switching not implemented in wallet mode');
   }
 
   private loadAccountsFromAPI(): void {
-    this.authService.fetchUserAccounts().subscribe({
-      next: (response) => {
-        console.log('Accounts loaded from API:', response);
-        this.currentAccount = this.authService.getCurrentAccount();
-        this.availableAccounts = this.authService.getAvailableAccounts();
-      },
-      error: (error) => {
-        console.error('Failed to load accounts from API:', error);
-        // Fallback to cached accounts
-        this.currentAccount = this.authService.getCurrentAccount();
-        this.availableAccounts = this.authService.getAvailableAccounts();
-      }
-    });
+    // This method is kept for backward compatibility but not used in wallet switching
+    console.log('Account loading not implemented in wallet mode');
   }
 
   addNewAccount(): void {
     this.showUserMenu = false;
     // TODO: Implement add new account logic
     console.log('Add new account clicked');
+  }
+
+  // Wallet-related methods
+  private loadWalletData(): void {
+    this.walletService.wallets$.subscribe(wallets => {
+      this.availableWallets = wallets;
+    });
+
+    this.walletService.currentWallet$.subscribe(wallet => {
+      this.currentWallet = wallet;
+    });
+  }
+
+  selectWallet(wallet: Wallet): void {
+    this.walletService.switchWallet(wallet.id);
+    this.showUserMenu = false;
+  }
+
+  addNewWallet(): void {
+    this.showUserMenu = false;
+    // TODO: Implement add new wallet logic
+    console.log('Add new wallet clicked');
+  }
+
+  formatBalance(balance: number): string {
+    return this.walletService.formatBalance(balance);
   }
 
   toggleLanguageMenu(): void {
