@@ -43,7 +43,7 @@ export class WalletService {
         createdAt: new Date(Date.now() - 120 * 24 * 60 * 60 * 1000), // 120 days ago
         owners: ['You'],
         isDefault: true,
-        avatar: 'assets/img/logo.png'
+        avatar: 'wallet'
       },
       {
         id: 'WALLET-2',
@@ -58,7 +58,7 @@ export class WalletService {
         description: 'Joint savings for family expenses',
         targetAmount: 2000000,
         targetDate: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000), // 180 days from now
-        avatar: 'assets/img/user.png'
+        avatar: 'users'
       },
       {
         id: 'WALLET-3',
@@ -73,7 +73,7 @@ export class WalletService {
         description: 'Vacation savings',
         targetAmount: 500000,
         targetDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
-        avatar: 'assets/img/icon.png'
+        avatar: 'piggy-bank'
       },
       {
         id: 'WALLET-4',
@@ -86,7 +86,7 @@ export class WalletService {
         owners: ['You', 'Business Partner'],
         isDefault: false,
         description: 'Business operations and expenses',
-        avatar: 'assets/img/logo-name.png'
+        avatar: 'briefcase'
       }
     ];
 

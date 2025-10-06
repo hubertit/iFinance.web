@@ -119,7 +119,7 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
         </div>
 
         <div class="nav-item user-profile" (click)="toggleUserMenu()">
-          <img [src]="currentWallet?.avatar || 'assets/img/logo.png'" [alt]="currentWallet?.name" class="avatar">
+          <app-feather-icon [name]="currentWallet?.avatar || 'wallet'" size="20px" class="wallet-icon"></app-feather-icon>
           <div class="user-info">
             <span class="user-name">{{ currentWallet?.name || 'Main Wallet' }}</span>
             <span class="user-role">{{ formatBalance(currentWallet?.balance || 0) }}</span>
@@ -129,7 +129,7 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
           <!-- User Dropdown Menu -->
           <div class="user-menu" *ngIf="showUserMenu">
             <div class="menu-header">
-              <img [src]="currentWallet?.avatar || 'assets/img/logo.png'" [alt]="currentWallet?.name" class="avatar">
+              <app-feather-icon [name]="currentWallet?.avatar || 'wallet'" size="20px" class="wallet-icon"></app-feather-icon>
               <div>
                 <h6>{{ currentWallet?.name || 'Main Wallet' }}</h6>
                 <span>{{ formatBalance(currentWallet?.balance || 0) }}</span>
@@ -150,7 +150,7 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
                   *ngFor="let wallet of availableWallets"
                   [class.active]="wallet.id === currentWallet?.id"
                   (click)="selectWallet(wallet)">
-                  <img [src]="wallet.avatar || 'assets/img/logo.png'" [alt]="wallet.name" class="avatar">
+                  <app-feather-icon [name]="wallet.avatar || 'wallet'" size="16px" class="wallet-icon"></app-feather-icon>
                   <div class="account-details">
                     <span class="name">{{ wallet.name }}</span>
                     <span class="role">{{ formatBalance(wallet.balance) }}</span>
