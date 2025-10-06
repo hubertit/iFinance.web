@@ -126,9 +126,9 @@ export interface ChartOptions {
           <div class="stat-details">
             <div class="stat-title">Transactions</div>
             <div class="stat-numbers">
-              <div class="main-stat">{{ overview.summary.transactions.count }}</div>
+              <div class="main-stat">{{ formatCurrency(overview.summary.transactions.volume) }}</div>
               <div class="sub-stats">
-                <span class="success">{{ formatCurrency(overview.summary.transactions.volume) }} Volume</span>
+                <span class="success">{{ overview.summary.transactions.count }} Transactions</span>
                 <span class="volume">{{ overview.summary.transactions.pending }} Pending</span>
               </div>
             </div>
