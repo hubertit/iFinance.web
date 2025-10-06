@@ -35,8 +35,8 @@ export class NotificationService {
         id: 'notif_1',
         type: 'transaction_received',
         title: 'Money Received',
-        message: 'You received RWF 25,000 from John Doe',
-        amount: 25000,
+        message: 'You received RWF 45,000 from Jean Baptiste',
+        amount: 45000,
         currency: 'RWF',
         transactionId: 'txn_001',
         timestamp: new Date(Date.now() - 5 * 60 * 1000), // 5 minutes ago
@@ -48,8 +48,8 @@ export class NotificationService {
         id: 'notif_2',
         type: 'payment_completed',
         title: 'Payment Successful',
-        message: 'Your payment of RWF 15,000 to Electricity Company was successful',
-        amount: 15000,
+        message: 'Your payment of RWF 12,500 to EWSA (Electricity) was successful',
+        amount: 12500,
         currency: 'RWF',
         transactionId: 'txn_002',
         timestamp: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
@@ -61,8 +61,8 @@ export class NotificationService {
         id: 'notif_3',
         type: 'loan_approved',
         title: 'Loan Approved',
-        message: 'Your loan application for RWF 500,000 has been approved',
-        amount: 500000,
+        message: 'Your business loan application for RWF 750,000 has been approved',
+        amount: 750000,
         currency: 'RWF',
         transactionId: 'loan_001',
         timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
@@ -74,8 +74,8 @@ export class NotificationService {
         id: 'notif_4',
         type: 'savings_goal_reached',
         title: 'Savings Goal Achieved',
-        message: 'Congratulations! You have reached your Emergency Fund goal',
-        amount: 1000000,
+        message: 'Congratulations! You have reached your Umuganda Savings goal',
+        amount: 500000,
         currency: 'RWF',
         transactionId: 'savings_001',
         timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
@@ -87,8 +87,8 @@ export class NotificationService {
         id: 'notif_5',
         type: 'transaction_sent',
         title: 'Money Sent',
-        message: 'You sent RWF 10,000 to Jane Smith',
-        amount: 10000,
+        message: 'You sent RWF 8,000 to Marie Claire for school fees',
+        amount: 8000,
         currency: 'RWF',
         transactionId: 'txn_003',
         timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
@@ -100,8 +100,8 @@ export class NotificationService {
         id: 'notif_6',
         type: 'insurance_claim_approved',
         title: 'Insurance Claim Approved',
-        message: 'Your auto insurance claim for RWF 75,000 has been approved',
-        amount: 75000,
+        message: 'Your health insurance claim for RWF 125,000 has been approved',
+        amount: 125000,
         currency: 'RWF',
         transactionId: 'claim_001',
         timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000), // 8 hours ago
@@ -204,74 +204,94 @@ export class NotificationService {
       currency: currency
     }).format(amount);
 
+    // Rwanda names pool for realistic notifications
+    const rwandaNames = [
+      'Jean Baptiste', 'Marie Claire', 'François', 'Immaculée', 'Théophile', 'Véronique',
+      'Emmanuel', 'Claudine', 'Pacifique', 'Joséphine', 'Innocent', 'Béatrice',
+      'Fidèle', 'Glorieuse', 'Séraphin', 'Angélique', 'Boniface', 'Célestine'
+    ];
+
+    const randomName = rwandaNames[Math.floor(Math.random() * rwandaNames.length)];
+
     switch (type) {
       case 'transaction_received':
         return {
           title: 'Money Received',
-          message: `You received ${formattedAmount} from ${additionalInfo || 'Unknown'}`,
+          message: `You received ${formattedAmount} from ${additionalInfo || randomName}`,
           icon: 'arrow-down-left',
           priority: 'high' as const
         };
       case 'transaction_sent':
         return {
           title: 'Money Sent',
-          message: `You sent ${formattedAmount} to ${additionalInfo || 'Unknown'}`,
+          message: `You sent ${formattedAmount} to ${additionalInfo || randomName}`,
           icon: 'arrow-up-right',
           priority: 'low' as const
         };
       case 'payment_completed':
+        const rwandaMerchants = [
+          'EWSA (Electricity)', 'WASAC (Water)', 'MTN Rwanda', 'Airtel Rwanda', 
+          'Kigali Bus Services', 'Kigali Market', 'Nyabugogo Taxi Park',
+          'Kimisagara Market', 'Nyamirambo Market', 'Remera Market'
+        ];
+        const randomMerchant = rwandaMerchants[Math.floor(Math.random() * rwandaMerchants.length)];
         return {
           title: 'Payment Successful',
-          message: `Your payment of ${formattedAmount} to ${additionalInfo || 'Merchant'} was successful`,
+          message: `Your payment of ${formattedAmount} to ${additionalInfo || randomMerchant} was successful`,
           icon: 'check-circle',
           priority: 'medium' as const
         };
       case 'payment_failed':
         return {
           title: 'Payment Failed',
-          message: `Your payment of ${formattedAmount} to ${additionalInfo || 'Merchant'} failed`,
+          message: `Your payment of ${formattedAmount} to ${additionalInfo || 'Merchant'} failed. Please try again.`,
           icon: 'x-circle',
           priority: 'high' as const
         };
       case 'loan_approved':
         return {
           title: 'Loan Approved',
-          message: `Your loan application for ${formattedAmount} has been approved`,
+          message: `Your business loan application for ${formattedAmount} has been approved by Ihuzo Finance`,
           icon: 'dollar-sign',
           priority: 'high' as const
         };
       case 'loan_rejected':
         return {
           title: 'Loan Rejected',
-          message: `Your loan application for ${formattedAmount} was rejected`,
+          message: `Your loan application for ${formattedAmount} was rejected. Contact support for more information.`,
           icon: 'x-circle',
           priority: 'medium' as const
         };
       case 'savings_goal_reached':
+        const savingsGoals = [
+          'Umuganda Savings', 'Education Fund', 'Emergency Fund', 'Business Capital',
+          'Home Improvement', 'Wedding Fund', 'Medical Fund', 'Retirement Fund'
+        ];
+        const randomGoal = savingsGoals[Math.floor(Math.random() * savingsGoals.length)];
         return {
           title: 'Savings Goal Achieved',
-          message: `Congratulations! You have reached your ${additionalInfo || 'savings'} goal of ${formattedAmount}`,
+          message: `Congratulations! You have reached your ${additionalInfo || randomGoal} goal of ${formattedAmount}`,
           icon: 'trending-up',
           priority: 'medium' as const
         };
       case 'insurance_claim_approved':
         return {
           title: 'Insurance Claim Approved',
-          message: `Your insurance claim for ${formattedAmount} has been approved`,
+          message: `Your health insurance claim for ${formattedAmount} has been approved by Ihuzo Insurance`,
           icon: 'shield',
           priority: 'high' as const
         };
       case 'insurance_claim_rejected':
         return {
           title: 'Insurance Claim Rejected',
-          message: `Your insurance claim for ${formattedAmount} was rejected`,
+          message: `Your insurance claim for ${formattedAmount} was rejected. Contact Ihuzo Insurance for details.`,
           icon: 'x-circle',
           priority: 'medium' as const
         };
       default:
         return {
-          title: 'Notification',
-          message: 'You have a new notification',
+          title: 'New Notification',
+          message: 'You have a new notification from Ihuzo Finance',
           icon: 'bell',
           priority: 'low' as const
         };
