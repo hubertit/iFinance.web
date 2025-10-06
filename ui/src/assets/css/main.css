@@ -707,8 +707,7 @@ select.form-control.form-custom {
 .btn-primary {
   color: #fff !important;
   background-color: #f24d12 !important;
-  border-color: #f24d12;
-  box-shadow: 0 10px 20px -10px #f24d12; }
+  border-color: #f24d12; }
   .btn-primary:hover, .btn-primary:focus {
     color: #fff !important;
     background-color: #d43d0a;
@@ -760,8 +759,7 @@ select.form-control.form-custom {
 .btn-secondary {
   color: #fff !important;
   background-color: #805dca;
-  border-color: #805dca;
-  box-shadow: 0 10px 20px -10px #805dca; }
+  border-color: #805dca; }
   .btn-secondary:hover, .btn-secondary:focus {
     color: #fff !important;
     background-color: #805dca;
@@ -793,8 +791,7 @@ select.form-control.form-custom {
 .btn-info {
   color: #fff !important;
   background-color: #f24d12;
-  border-color: #f24d12;
-  box-shadow: 0 10px 20px -10px #f24d12; }
+  border-color: #f24d12; }
   .btn-info:hover, .btn-info:focus {
     color: #fff !important;
     background-color: #f24d12;
@@ -849,8 +846,7 @@ select.form-control.form-custom {
 .btn-warning {
   color: #fff !important;
   background-color: #e2a03f;
-  border-color: #e2a03f;
-  box-shadow: 0 10px 20px -10px #e2a03f; }
+  border-color: #e2a03f; }
   .btn-warning:hover, .btn-warning:focus {
     color: #fff !important;
     background-color: #e2a03f;
@@ -905,8 +901,7 @@ select.form-control.form-custom {
 .btn-danger {
   color: #fff !important;
   background-color: #e7515a;
-  border-color: #e7515a;
-  box-shadow: 0 10px 20px -10px #e7515a; }
+  border-color: #e7515a; }
   .btn-danger:hover, .btn-danger:focus {
     color: #fff !important;
     background-color: #e7515a;
