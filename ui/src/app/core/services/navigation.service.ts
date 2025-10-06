@@ -23,128 +23,27 @@ export class NavigationService {
     {
       title: 'Wallets',
       icon: 'credit-card',
-      children: [
-        {
-          title: 'My Wallets',
-          path: 'wallets'
-        },
-        {
-          title: 'Wallet Management',
-          children: [
-            {
-              title: 'Top Up',
-              path: 'wallets/topup'
-            },
-            {
-              title: 'Withdraw',
-              path: 'wallets/withdraw'
-            },
-            {
-              title: 'Transfer',
-              path: 'wallets/transfer'
-            }
-          ]
-        }
-      ]
+      path: 'ikofi'
     },
     {
       title: 'Transactions',
-      icon: 'swap-horizontal',
-      children: [
-        {
-          title: 'All Transactions',
-          path: 'transactions'
-        },
-        {
-          title: 'Payment Types',
-          children: [
-            {
-              title: 'Payments',
-              path: 'transactions/payments'
-            },
-            {
-              title: 'Transfers',
-              path: 'transactions/transfers'
-            },
-            {
-              title: 'Request Payment',
-              path: 'transactions/request'
-            }
-          ]
-        }
-      ]
+      icon: 'send',
+      path: 'transactions'
     },
     {
       title: 'Loans',
       icon: 'dollar-sign',
-      children: [
-        {
-          title: 'My Loans',
-          path: 'loans'
-        },
-        {
-          title: 'Apply for Loan',
-          path: 'loans/apply'
-        },
-        {
-          title: 'Repayments',
-          path: 'loans/repayments'
-        }
-      ]
+      path: 'loans'
     },
     {
       title: 'Savings',
-      icon: 'piggy-bank',
-      children: [
-        {
-          title: 'Savings Goals',
-          path: 'savings'
-        },
-        {
-          title: 'Create Goal',
-          path: 'savings/create'
-        },
-        {
-          title: 'Savings History',
-          path: 'savings/history'
-        }
-      ]
+      icon: 'trending-up',
+      path: 'savings'
     },
     {
       title: 'Insurance',
       icon: 'shield',
-      children: [
-        {
-          title: 'My Policies',
-          path: 'insurance'
-        },
-        {
-          title: 'Purchase Insurance',
-          path: 'insurance/purchase'
-        },
-        {
-          title: 'Claims',
-          path: 'insurance/claims'
-        }
-      ]
-    },
-    {
-      title: 'Merchant',
-      icon: 'store',
-      children: [
-        {
-          title: 'Merchant Dashboard',
-          path: 'merchant/dashboard'
-        },
-        {
-          title: 'Business Analytics',
-          path: 'merchant/analytics'
-        },
-        {
-          title: 'Payment Processing',
-          path: 'merchant/payments'
-        }
-      ]
+      path: 'insurance'
     },
     {
       title: 'Chat',
@@ -160,12 +59,12 @@ export class NavigationService {
           path: 'settings/profile'
         },
         {
-          title: 'Security',
-          path: 'settings/security'
-        },
-        {
           title: 'Notifications',
           path: 'settings/notifications'
+        },
+        {
+          title: 'Security',
+          path: 'settings/security'
         },
         {
           title: 'Help & Support',
@@ -182,7 +81,7 @@ export class NavigationService {
   constructor(private authService: AuthService) {}
 
   getMenuItems(): MenuItem[] {
-    // Return all menu items for the comprehensive fintech app
+    // Show all menu items for Ihuzo Finance
     return this.menuItems;
   }
 }

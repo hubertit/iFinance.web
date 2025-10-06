@@ -41,34 +41,12 @@ import { AuthService } from '../../core/services/auth.service';
                    [class.rotated]="item.expanded"></app-feather-icon>
               </a>
               <div class="submenu" *ngIf="item.expanded && !isCollapsed">
-                <ng-container *ngFor="let child of item.children">
-                  <!-- Submenu item with its own children (nested submenu) -->
-                  <div *ngIf="child.children" class="nested-submenu">
-                    <a class="submenu-item parent level-1"
-                       [class.expanded]="child.expanded"
-                       (click)="toggleSubmenu(child)">
-                      {{ child.title }}
-                    </a>
-                    <div class="nested-submenu-items" *ngIf="child.expanded">
-                      <a *ngFor="let grandchild of child.children"
-                         [routerLink]="grandchild.path"
-                         [class.active]="isSubmenuItemActive(grandchild)"
-                         class="submenu-item nested level-2"
-                         (click)="onSubmenuClick(grandchild)">
-                        {{ grandchild.title }}
-                      </a>
-                    </div>
-                  </div>
-                  
-                  <!-- Simple submenu item without children -->
-                  <a *ngIf="!child.children"
-                     [routerLink]="child.path"
-                     [class.active]="isSubmenuItemActive(child)"
-                     class="submenu-item"
-                     (click)="onSubmenuClick(child)">
-                    {{ child.title }}
-                  </a>
-                </ng-container>
+                <a *ngFor="let child of item.children"
+                   [routerLink]="child.path"
+                   routerLinkActive="active"
+                   class="submenu-item">
+                  {{ child.title }}
+                </a>
               </div>
             </div>
 
@@ -129,30 +107,12 @@ export class SidebarComponent {
 
   toggleSubmenu(item: MenuItem): void {
     item.expanded = !item.expanded;
-    // Don't close other submenus - let users keep multiple submenus open
-    console.log('🎯 Toggling submenu:', item.title, 'expanded:', item.expanded);
-  }
-
-  /**
-   * Check if a submenu item should be active based on current URL
-   */
-  isSubmenuItemActive(child: MenuItem): boolean {
-    const currentUrl = this.router.url;
-    
-    // Check if current URL matches the child path exactly
-    if (child.path && currentUrl.includes(child.path)) {
-      return true;
-    }
-    
-    return false;
-  }
-
-  onSubmenuClick(child: MenuItem): void {
-    console.log('🎯 Submenu clicked:', child);
-    console.log('🔗 Path:', child.path);
-    if (child.path) {
-      console.log('🚀 Navigating to:', child.path);
-    }
+    // Close other submenus
+    this.menuItems.forEach(menuItem => {
+      if (menuItem !== item) {
+        menuItem.expanded = false;
+      }
+    });
   }
 
   isMenuActive(item: MenuItem): boolean {
