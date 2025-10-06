@@ -159,25 +159,25 @@ export class DashboardService {
 
     // Generate different data based on wallet ID
     const walletVariations = {
-      'wallet_1': {
+      'WALLET-1': {
         balance: { total: 1200000, available: 950000, wallets: 1 },
         transactions: { count: 45, volume: 1800000, pending: 1 },
         loans: { active: 1, amount: 250000, pending: 0 },
         savings: { goals: 2, amount: 300000, completed: 1 }
       },
-      'wallet_2': {
+      'WALLET-2': {
         balance: { total: 3200000, available: 2800000, wallets: 1 },
         transactions: { count: 89, volume: 5200000, pending: 2 },
         loans: { active: 3, amount: 750000, pending: 1 },
         savings: { goals: 4, amount: 950000, completed: 2 }
       },
-      'wallet_3': {
+      'WALLET-3': {
         balance: { total: 850000, available: 650000, wallets: 1 },
         transactions: { count: 23, volume: 1200000, pending: 0 },
         loans: { active: 0, amount: 0, pending: 0 },
         savings: { goals: 1, amount: 150000, completed: 0 }
       },
-      'wallet_4': {
+      'WALLET-4': {
         balance: { total: 4500000, available: 4200000, wallets: 1 },
         transactions: { count: 156, volume: 7800000, pending: 4 },
         loans: { active: 2, amount: 1200000, pending: 2 },
@@ -265,7 +265,7 @@ export class DashboardService {
       status: statuses[Math.floor(Math.random() * statuses.length)],
       transaction_at: new Date(Date.now() - i * 2 * 60 * 60 * 1000).toISOString(),
       created_at: new Date(Date.now() - i * 2 * 60 * 60 * 1000).toISOString(),
-      description: `Transaction ${i + 1} for wallet ${walletId || 'default'}`,
+      description: `Transaction ${i + 1} for ${walletId || 'default'}`,
       from_account: {
         name: rwandaAccounts[Math.floor(Math.random() * rwandaAccounts.length)],
         type: 'individual'
