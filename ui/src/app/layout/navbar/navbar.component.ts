@@ -168,7 +168,7 @@ import { Subject, takeUntil } from 'rxjs';
             <div class="divider"></div>
             
             <div class="menu-items">
-              <a href="javascript:void(0)" class="menu-item">
+              <a href="javascript:void(0)" class="menu-item" (click)="navigateToProfile()">
                 <app-feather-icon name="user" size="16px"></app-feather-icon>
                 <span>My Profile</span>
               </a>
@@ -426,6 +426,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.showLanguageMenu = false;
     // TODO: Implement language change logic
     console.log('Language changed to:', language.name);
+  }
+
+  navigateToProfile(): void {
+    this.showUserMenu = false;
+    this.router.navigate(['/profile']);
   }
 
   lockScreen(): void {

@@ -13,6 +13,7 @@ import { LoansComponent } from './features/loans/loans.component';
 import { SavingsComponent } from './features/savings/savings.component';
 import { InsuranceComponent } from './features/insurance/insurance.component';
 import { NotificationsComponent } from './features/notifications/notifications.component';
+import { ProfileComponent } from './features/profile/profile.component';
 import { CustomersListComponent } from './features/customers/customers-list/customers-list.component';
 import { AddCustomerComponent } from './features/customers/add-customer/add-customer.component';
 import { SoldMilkComponent } from './features/customers/sold-milk/sold-milk.component';
@@ -88,6 +89,10 @@ export const routes: Routes = [
             {
               path: 'notifications',
               component: NotificationsComponent
+            },
+            {
+              path: 'profile',
+              component: ProfileComponent
             },
       {
         path: 'customers/list',
