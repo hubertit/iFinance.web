@@ -410,8 +410,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.errorMessage = null;
 
+    // Get current wallet ID for wallet-specific data
+    const currentWallet = this.walletService.getCurrentWallet();
+    const walletId = currentWallet?.id;
+
     // Load overview data with retry logic
-    this.dashboardService.getOverview()
+    this.dashboardService.getOverview(undefined, undefined, walletId)
       .pipe(
         takeUntil(this.destroy$),
         retryWhen(errors => 
@@ -441,6 +445,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.lastUpdated = new Date();
           this.retryCount = 0; // Reset retry count on success
+          console.log(`Dashboard data loaded for wallet: ${walletId || 'default'}`);
         },
         error: (error) => {
           console.error('Failed to load overview:', error);

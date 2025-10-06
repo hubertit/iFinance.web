@@ -90,11 +90,11 @@ export class DashboardService {
   /**
    * Get dashboard overview data
    */
-  getOverview(dateFrom?: string, dateTo?: string): Observable<DashboardOverview> {
+  getOverview(dateFrom?: string, dateTo?: string, walletId?: string): Observable<DashboardOverview> {
     // For now, return mock data for fintech app
     return new Observable(observer => {
       setTimeout(() => {
-        observer.next(this.getMockFintechData());
+        observer.next(this.getMockFintechData(walletId));
         observer.complete();
       }, 1000); // Simulate API delay
     });
@@ -103,34 +103,37 @@ export class DashboardService {
   /**
    * Get mock fintech data for dashboard
    */
-  private getMockFintechData(): DashboardOverview {
+  private getMockFintechData(walletId?: string): DashboardOverview {
+    // Generate wallet-specific data based on walletId
+    const walletData = this.getWalletSpecificData(walletId);
+    
     return {
       summary: {
         balance: {
-          total: 2500000, // 2.5M RWF
-          available: 1800000, // 1.8M RWF
-          wallets: 4
+          total: walletData.balance.total,
+          available: walletData.balance.available,
+          wallets: walletData.balance.wallets
         },
         transactions: {
-          count: 127,
-          volume: 4500000, // 4.5M RWF
-          pending: 3
+          count: walletData.transactions.count,
+          volume: walletData.transactions.volume,
+          pending: walletData.transactions.pending
         },
         loans: {
-          active: 2,
-          amount: 500000, // 500K RWF
-          pending: 1
+          active: walletData.loans.active,
+          amount: walletData.loans.amount,
+          pending: walletData.loans.pending
         },
         savings: {
-          goals: 5,
-          amount: 750000, // 750K RWF
-          completed: 2
+          goals: walletData.savings.goals,
+          amount: walletData.savings.amount,
+          completed: walletData.savings.completed
         }
       },
       breakdown_type: 'daily',
       chart_period: '30D',
-      breakdown: this.generateMockBreakdownData(),
-      recent_transactions: this.generateMockRecentTransactions(),
+      breakdown: this.generateMockBreakdownData(walletId),
+      recent_transactions: this.generateMockRecentTransactions(walletId),
       date_range: {
         from: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
         to: new Date().toISOString().split('T')[0]
@@ -139,9 +142,56 @@ export class DashboardService {
   }
 
   /**
+   * Get wallet-specific data based on wallet ID
+   */
+  private getWalletSpecificData(walletId?: string) {
+    // Default data for when no wallet is selected
+    const defaultData = {
+      balance: { total: 2500000, available: 1800000, wallets: 4 },
+      transactions: { count: 127, volume: 4500000, pending: 3 },
+      loans: { active: 2, amount: 500000, pending: 1 },
+      savings: { goals: 5, amount: 750000, completed: 2 }
+    };
+
+    if (!walletId) {
+      return defaultData;
+    }
+
+    // Generate different data based on wallet ID
+    const walletVariations = {
+      'wallet_1': {
+        balance: { total: 1200000, available: 950000, wallets: 1 },
+        transactions: { count: 45, volume: 1800000, pending: 1 },
+        loans: { active: 1, amount: 250000, pending: 0 },
+        savings: { goals: 2, amount: 300000, completed: 1 }
+      },
+      'wallet_2': {
+        balance: { total: 3200000, available: 2800000, wallets: 1 },
+        transactions: { count: 89, volume: 5200000, pending: 2 },
+        loans: { active: 3, amount: 750000, pending: 1 },
+        savings: { goals: 4, amount: 950000, completed: 2 }
+      },
+      'wallet_3': {
+        balance: { total: 850000, available: 650000, wallets: 1 },
+        transactions: { count: 23, volume: 1200000, pending: 0 },
+        loans: { active: 0, amount: 0, pending: 0 },
+        savings: { goals: 1, amount: 150000, completed: 0 }
+      },
+      'wallet_4': {
+        balance: { total: 4500000, available: 4200000, wallets: 1 },
+        transactions: { count: 156, volume: 7800000, pending: 4 },
+        loans: { active: 2, amount: 1200000, pending: 2 },
+        savings: { goals: 6, amount: 1800000, completed: 3 }
+      }
+    };
+
+    return walletVariations[walletId as keyof typeof walletVariations] || defaultData;
+  }
+
+  /**
    * Generate mock breakdown data for charts
    */
-  private generateMockBreakdownData(): Array<{
+  private generateMockBreakdownData(walletId?: string): Array<{
     label: string;
     date: string;
     transactions: {
@@ -166,17 +216,25 @@ export class DashboardService {
       };
     }> = [];
     
+    // Get wallet-specific base values
+    const walletData = this.getWalletSpecificData(walletId);
+    const baseVolume = walletData.transactions.volume / 30; // Average daily volume
+    const baseBalance = walletData.balance.total;
+    
     for (let i = 29; i >= 0; i--) {
       const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+      const volumeVariation = 0.3 + Math.random() * 0.4; // 30-70% of base volume
+      const balanceVariation = 0.8 + Math.random() * 0.4; // 80-120% of base balance
+      
       data.push({
         label: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
         date: date.toISOString().split('T')[0],
         transactions: {
-          count: Math.floor(Math.random() * 20) + 5,
-          volume: Math.floor(Math.random() * 200000) + 50000
+          count: Math.floor(Math.random() * 15) + 3,
+          volume: Math.floor(baseVolume * volumeVariation)
         },
         balance: {
-          total: Math.floor(Math.random() * 500000) + 2000000,
+          total: Math.floor(baseBalance * balanceVariation),
           change: Math.floor(Math.random() * 100000) - 50000
         }
       });
@@ -187,25 +245,33 @@ export class DashboardService {
   /**
    * Generate mock recent transactions
    */
-  private generateMockRecentTransactions() {
+  private generateMockRecentTransactions(walletId?: string) {
     const transactionTypes = ['send', 'receive', 'loan', 'savings', 'payment'];
     const statuses = ['completed', 'pending', 'failed'];
-    const accounts = ['John Doe', 'Jane Smith', 'Business Account', 'Savings Goal', 'Loan Payment'];
+    const rwandaAccounts = [
+      'Jean Baptiste', 'Marie Claire', 'François', 'Immaculée', 'Théophile', 'Véronique',
+      'Emmanuel', 'Claudine', 'Pacifique', 'Joséphine', 'Innocent', 'Béatrice',
+      'Fidèle', 'Glorieuse', 'Séraphin', 'Angélique', 'Boniface', 'Célestine'
+    ];
     
-    return Array.from({ length: 8 }, (_, i) => ({
-      id: `txn_${i + 1}`,
-      amount: Math.floor(Math.random() * 500000) + 10000,
+    // Get wallet-specific transaction count
+    const walletData = this.getWalletSpecificData(walletId);
+    const transactionCount = Math.min(8, Math.floor(walletData.transactions.count / 15));
+    
+    return Array.from({ length: transactionCount }, (_, i) => ({
+      id: `txn_${walletId || 'default'}_${i + 1}`,
+      amount: Math.floor(Math.random() * 300000) + 5000,
       type: transactionTypes[Math.floor(Math.random() * transactionTypes.length)],
       status: statuses[Math.floor(Math.random() * statuses.length)],
       transaction_at: new Date(Date.now() - i * 2 * 60 * 60 * 1000).toISOString(),
       created_at: new Date(Date.now() - i * 2 * 60 * 60 * 1000).toISOString(),
-      description: `Transaction ${i + 1} description`,
+      description: `Transaction ${i + 1} for wallet ${walletId || 'default'}`,
       from_account: {
-        name: accounts[Math.floor(Math.random() * accounts.length)],
+        name: rwandaAccounts[Math.floor(Math.random() * rwandaAccounts.length)],
         type: 'individual'
       },
       to_account: {
-        name: accounts[Math.floor(Math.random() * accounts.length)],
+        name: rwandaAccounts[Math.floor(Math.random() * rwandaAccounts.length)],
         type: 'individual'
       }
     }));
