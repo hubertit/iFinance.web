@@ -143,9 +143,9 @@ export interface ChartOptions {
           <div class="stat-details">
             <div class="stat-title">Active Loans</div>
             <div class="stat-numbers">
-              <div class="main-stat">{{ overview.summary.loans.active }}</div>
+              <div class="main-stat">{{ formatCurrency(overview.summary.loans.amount) }}</div>
               <div class="sub-stats">
-                <span class="success">{{ formatCurrency(overview.summary.loans.amount) }} Amount</span>
+                <span class="success">{{ overview.summary.loans.active }} Active</span>
                 <span class="volume">{{ overview.summary.loans.pending }} Pending</span>
               </div>
             </div>
@@ -158,11 +158,11 @@ export interface ChartOptions {
             <app-feather-icon name="trending-up" size="18px"></app-feather-icon>
           </div>
           <div class="stat-details">
-            <div class="stat-title">Savings Goals</div>
+            <div class="stat-title">Total Savings</div>
             <div class="stat-numbers">
-              <div class="main-stat">{{ overview.summary.savings.goals }}</div>
+              <div class="main-stat">{{ formatCurrency(overview.summary.savings.amount) }}</div>
               <div class="sub-stats">
-                <span class="success">{{ formatCurrency(overview.summary.savings.amount) }} Saved</span>
+                <span class="success">{{ overview.summary.savings.goals }} Goals</span>
                 <span class="volume">{{ overview.summary.savings.completed }} Completed</span>
               </div>
             </div>
