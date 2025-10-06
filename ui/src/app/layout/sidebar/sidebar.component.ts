@@ -35,9 +35,9 @@ import { AuthService } from '../../core/services/auth.service';
             <!-- Menu Item with Children -->
             <div class="nav-item" *ngIf="item.children" [class.active]="isMenuActive(item)">
               <a class="nav-link" (click)="toggleSubmenu(item)">
-                <app-feather-icon [name]="item.icon" size="18px" *ngIf="item.icon"></app-feather-icon>
+                <app-feather-icon [name]="item.icon" size="16px" *ngIf="item.icon"></app-feather-icon>
                 <span class="nav-text" *ngIf="!isCollapsed">{{ item.title }}</span>
-                <app-feather-icon name="chevron-right" size="14px" *ngIf="!isCollapsed"
+                <app-feather-icon name="chevron-right" size="12px" *ngIf="!isCollapsed"
                    [class.rotated]="item.expanded"></app-feather-icon>
               </a>
               <div class="submenu" *ngIf="item.expanded && !isCollapsed">
@@ -53,7 +53,7 @@ import { AuthService } from '../../core/services/auth.service';
             <!-- Single Menu Item -->
             <div class="nav-item" *ngIf="!item.children">
               <a class="nav-link" [routerLink]="[item.path]" routerLinkActive="active">
-                <app-feather-icon [name]="item.icon" size="18px" *ngIf="item.icon"></app-feather-icon>
+                <app-feather-icon [name]="item.icon" size="16px" *ngIf="item.icon"></app-feather-icon>
                 <span class="nav-text" *ngIf="!isCollapsed">{{ item.title }}</span>
               </a>
             </div>
@@ -63,11 +63,11 @@ import { AuthService } from '../../core/services/auth.service';
 
       <div class="sidebar-footer">
         <div class="footer-item" (click)="lockScreen()">
-          <app-feather-icon name="lock" size="18px"></app-feather-icon>
+          <app-feather-icon name="lock" size="16px"></app-feather-icon>
           <span *ngIf="!isCollapsed">Lock Screen</span>
         </div>
         <div class="footer-item" (click)="onToggleCollapse()">
-          <app-feather-icon [name]="isCollapsed ? 'chevron-right' : 'chevron-left'" size="18px"></app-feather-icon>
+          <app-feather-icon [name]="isCollapsed ? 'chevron-right' : 'chevron-left'" size="16px"></app-feather-icon>
           <span *ngIf="!isCollapsed">Collapse Menu</span>
         </div>
       </div>

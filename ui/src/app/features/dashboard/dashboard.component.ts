@@ -57,28 +57,28 @@ export interface ChartOptions {
         <div class="actions-grid">
           <button class="action-btn" (click)="quickAction('send-money')">
             <div class="action-icon">
-              <app-feather-icon name="send" size="20px"></app-feather-icon>
+              <app-feather-icon name="send" size="16px"></app-feather-icon>
             </div>
             <span class="action-label">Send Money</span>
           </button>
           
           <button class="action-btn" (click)="quickAction('request-money')">
             <div class="action-icon">
-              <app-feather-icon name="dollar-sign" size="20px"></app-feather-icon>
+              <app-feather-icon name="dollar-sign" size="16px"></app-feather-icon>
             </div>
             <span class="action-label">Request Money</span>
           </button>
           
           <button class="action-btn" (click)="quickAction('top-up')">
             <div class="action-icon">
-              <app-feather-icon name="credit-card" size="20px"></app-feather-icon>
+              <app-feather-icon name="credit-card" size="16px"></app-feather-icon>
             </div>
             <span class="action-label">Top Up Wallet</span>
           </button>
           
           <button class="action-btn" (click)="quickAction('apply-loan')">
             <div class="action-icon">
-              <app-feather-icon name="trending-up" size="20px"></app-feather-icon>
+              <app-feather-icon name="trending-up" size="16px"></app-feather-icon>
             </div>
             <span class="action-label">Apply for Loan</span>
           </button>
@@ -90,7 +90,7 @@ export interface ChartOptions {
         <!-- Milk Collections -->
         <div class="stat-card collections" (click)="navigateToCollections()">
           <div class="stat-icon">
-            <app-feather-icon name="truck" size="28px"></app-feather-icon>
+            <app-feather-icon name="truck" size="18px"></app-feather-icon>
           </div>
           <div class="stat-details">
             <div class="stat-title">Milk Collections</div>
@@ -107,7 +107,7 @@ export interface ChartOptions {
         <!-- Milk Sales -->
         <div class="stat-card sales" (click)="navigateToSales()">
           <div class="stat-icon">
-            <app-feather-icon name="shopping-cart" size="28px"></app-feather-icon>
+            <app-feather-icon name="shopping-cart" size="18px"></app-feather-icon>
           </div>
           <div class="stat-details">
             <div class="stat-title">Milk Sales</div>
@@ -124,7 +124,7 @@ export interface ChartOptions {
         <!-- Active Suppliers -->
         <div class="stat-card suppliers" (click)="navigateToSuppliers()">
           <div class="stat-icon">
-            <app-feather-icon name="user-plus" size="28px"></app-feather-icon>
+            <app-feather-icon name="user-plus" size="18px"></app-feather-icon>
           </div>
           <div class="stat-details">
             <div class="stat-title">Active Suppliers</div>
@@ -141,7 +141,7 @@ export interface ChartOptions {
         <!-- Active Customers -->
         <div class="stat-card customers" (click)="navigateToCustomers()">
           <div class="stat-icon">
-            <app-feather-icon name="users" size="28px"></app-feather-icon>
+            <app-feather-icon name="users" size="18px"></app-feather-icon>
           </div>
           <div class="stat-details">
             <div class="stat-title">Active Customers</div>
@@ -315,7 +315,7 @@ export interface ChartOptions {
       <!-- Error States -->
       <div class="error-section" *ngIf="errorMessage">
         <div class="error-card">
-          <app-feather-icon name="alert-circle" size="32px"></app-feather-icon>
+          <app-feather-icon name="alert-circle" size="24px"></app-feather-icon>
           <h3>Failed to Load Dashboard</h3>
           <p>{{ errorMessage }}</p>
           <div class="error-actions">

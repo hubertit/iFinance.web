@@ -13,7 +13,7 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
     <nav class="navbar" [class.sidebar-collapsed]="isSidebarCollapsed">
       <div class="navbar-left">
         <button class="menu-toggle" (click)="onToggleSidebar()">
-          <app-feather-icon name="menu" size="18px"></app-feather-icon>
+          <app-feather-icon name="menu" size="16px"></app-feather-icon>
         </button>
         
         <div class="datetime-display">
@@ -25,7 +25,7 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
       <div class="navbar-right">
         <div class="nav-item notification-item" (click)="toggleNotificationPanel()">
           <button class="icon-button">
-            <app-feather-icon name="bell" size="18px"></app-feather-icon>
+            <app-feather-icon name="bell" size="16px"></app-feather-icon>
             <span class="badge">3</span>
           </button>
 
@@ -61,7 +61,7 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
 
         <div class="nav-item message-item" (click)="toggleMessagePanel()">
           <button class="icon-button">
-            <app-feather-icon name="mail" size="18px"></app-feather-icon>
+            <app-feather-icon name="mail" size="16px"></app-feather-icon>
             <span class="badge">5</span>
           </button>
 
@@ -119,7 +119,7 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
         </div>
 
         <div class="nav-item user-profile" (click)="toggleUserMenu()">
-          <app-feather-icon [name]="currentWallet?.avatar || 'credit-card'" size="20px" class="wallet-icon"></app-feather-icon>
+          <app-feather-icon [name]="currentWallet?.avatar || 'credit-card'" size="16px" class="wallet-icon"></app-feather-icon>
           <div class="user-info">
             <span class="user-name">{{ currentWallet?.name || 'Main Wallet' }}</span>
             <span class="user-role">{{ formatBalance(currentWallet?.balance || 0) }}</span>
@@ -129,7 +129,7 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
           <!-- User Dropdown Menu -->
           <div class="user-menu" *ngIf="showUserMenu">
             <div class="menu-header">
-              <app-feather-icon [name]="currentWallet?.avatar || 'credit-card'" size="20px" class="wallet-icon"></app-feather-icon>
+              <app-feather-icon [name]="currentWallet?.avatar || 'credit-card'" size="16px" class="wallet-icon"></app-feather-icon>
               <div>
                 <h6>{{ currentWallet?.name || 'Main Wallet' }}</h6>
                 <span>{{ formatBalance(currentWallet?.balance || 0) }}</span>
@@ -150,7 +150,7 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
                   *ngFor="let wallet of availableWallets"
                   [class.active]="wallet.id === currentWallet?.id"
                   (click)="selectWallet(wallet)">
-                  <app-feather-icon [name]="wallet.avatar || 'credit-card'" size="16px" class="wallet-icon"></app-feather-icon>
+                  <app-feather-icon [name]="wallet.avatar || 'credit-card'" size="14px" class="wallet-icon"></app-feather-icon>
                   <div class="account-details">
                     <span class="name">{{ wallet.name }}</span>
                     <span class="role">{{ formatBalance(wallet.balance) }}</span>
