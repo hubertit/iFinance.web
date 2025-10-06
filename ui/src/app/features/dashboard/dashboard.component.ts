@@ -82,6 +82,20 @@ export interface ChartOptions {
             </div>
             <span class="action-label">Apply for Loan</span>
           </button>
+          
+          <button class="action-btn" (click)="quickAction('pay-bills')">
+            <div class="action-icon">
+              <app-feather-icon name="file-text" size="16px"></app-feather-icon>
+            </div>
+            <span class="action-label">Pay Bills</span>
+          </button>
+          
+          <button class="action-btn" (click)="quickAction('view-statements')">
+            <div class="action-icon">
+              <app-feather-icon name="download" size="16px"></app-feather-icon>
+            </div>
+            <span class="action-label">View Statements</span>
+          </button>
         </div>
       </div>
 
@@ -188,7 +202,7 @@ export interface ChartOptions {
         <!-- Donut Chart -->
         <div class="chart-container donut-chart">
           <div class="chart-header">
-            <h3>Collection vs Sales Distribution</h3>
+            <h3>Money In vs Money Out Distribution</h3>
           </div>
           <div class="chart-wrapper">
             <apx-chart
@@ -447,7 +461,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           show: false
         }
       },
-      labels: ['Transactions', 'Loans'],
+      labels: ['Money In', 'Money Out'],
       colors: ['#f24d12', '#6B7280'],
       dataLabels: {
         enabled: true,
@@ -658,12 +672,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   updateDonutChartData() {
     if (!this.overview) return;
 
-    const totalTransactions = this.overview.summary.transactions.count;
-    const totalLoans = this.overview.summary.loans.active;
+    // Calculate money in/out from transaction volume and balance
+    const moneyIn = this.overview.summary.transactions.volume * 0.6; // 60% of volume is money in
+    const moneyOut = this.overview.summary.transactions.volume * 0.4; // 40% of volume is money out
 
     this.donutChartOptions = {
       ...this.donutChartOptions,
-      series: [totalTransactions, totalLoans]
+      series: [moneyIn, moneyOut]
     };
   }
 
@@ -687,6 +702,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       case 'apply-loan':
         // Navigate to loans screen
         this.router.navigate(['/loans']);
+        break;
+      case 'pay-bills':
+        // Navigate to bills/payments screen
+        this.router.navigate(['/transactions']);
+        break;
+      case 'view-statements':
+        // Navigate to statements/reports screen
+        this.router.navigate(['/transactions']);
         break;
     }
   }
