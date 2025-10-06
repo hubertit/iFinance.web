@@ -6,23 +6,25 @@ import { ConfigService } from './config.service';
 
 export interface DashboardOverview {
   summary: {
-    collection: {
-      liters: number;
-      value: number;
-      transactions: number;
+    balance: {
+      total: number;
+      available: number;
+      wallets: number;
     };
-    sales: {
-      liters: number;
-      value: number;
-      transactions: number;
+    transactions: {
+      count: number;
+      volume: number;
+      pending: number;
     };
-    suppliers: {
+    loans: {
       active: number;
-      inactive: number;
+      amount: number;
+      pending: number;
     };
-    customers: {
-      active: number;
-      inactive: number;
+    savings: {
+      goals: number;
+      amount: number;
+      completed: number;
     };
   };
   breakdown_type: string;
@@ -31,31 +33,30 @@ export interface DashboardOverview {
     label: string;
     month?: string;
     date?: string;
-    collection: {
-      liters: number;
-      value: number;
+    transactions: {
+      count: number;
+      volume: number;
     };
-    sales: {
-      liters: number;
-      value: number;
+    balance: {
+      total: number;
+      change: number;
     };
   }>;
   recent_transactions?: Array<{
     id: string;
-    quantity: number;
-    unit_price: number;
-    total_amount: number;
+    amount: number;
     type: string;
     status: string;
     transaction_at: string;
     created_at: string;
-    supplier_account?: {
+    description: string;
+    from_account?: {
       name: string;
-      code: string;
+      type: string;
     };
-    customer_account?: {
+    to_account?: {
       name: string;
-      code: string;
+      type: string;
     };
   }>;
   date_range: {
@@ -90,27 +91,124 @@ export class DashboardService {
    * Get dashboard overview data
    */
   getOverview(dateFrom?: string, dateTo?: string): Observable<DashboardOverview> {
-    const token = localStorage.getItem(this.configService.tokenKey);
-    if (!token) {
-      return throwError(() => 'No authentication token found');
-    }
+    // For now, return mock data for fintech app
+    return new Observable(observer => {
+      setTimeout(() => {
+        observer.next(this.getMockFintechData());
+        observer.complete();
+      }, 1000); // Simulate API delay
+    });
+  }
 
-    const requestData: any = { token };
-    if (dateFrom) requestData.date_from = dateFrom;
-    if (dateTo) requestData.date_to = dateTo;
-
-    return this.http.post<any>(this.configService.getFullUrl('/stats/overview'), requestData).pipe(
-      map(response => {
-        if (response.code === 200 && response.data) {
-          return response.data;
+  /**
+   * Get mock fintech data for dashboard
+   */
+  private getMockFintechData(): DashboardOverview {
+    return {
+      summary: {
+        balance: {
+          total: 2500000, // 2.5M RWF
+          available: 1800000, // 1.8M RWF
+          wallets: 4
+        },
+        transactions: {
+          count: 127,
+          volume: 4500000, // 4.5M RWF
+          pending: 3
+        },
+        loans: {
+          active: 2,
+          amount: 500000, // 500K RWF
+          pending: 1
+        },
+        savings: {
+          goals: 5,
+          amount: 750000, // 750K RWF
+          completed: 2
         }
-        throw new Error(response.message || 'Failed to get overview data');
-      }),
-      catchError(error => {
-        console.error('Failed to get overview data:', error);
-        return throwError(() => this.handleHttpError(error));
-      })
-    );
+      },
+      breakdown_type: 'daily',
+      chart_period: '30D',
+      breakdown: this.generateMockBreakdownData(),
+      recent_transactions: this.generateMockRecentTransactions(),
+      date_range: {
+        from: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        to: new Date().toISOString().split('T')[0]
+      }
+    };
+  }
+
+  /**
+   * Generate mock breakdown data for charts
+   */
+  private generateMockBreakdownData(): Array<{
+    label: string;
+    date: string;
+    transactions: {
+      count: number;
+      volume: number;
+    };
+    balance: {
+      total: number;
+      change: number;
+    };
+  }> {
+    const data: Array<{
+      label: string;
+      date: string;
+      transactions: {
+        count: number;
+        volume: number;
+      };
+      balance: {
+        total: number;
+        change: number;
+      };
+    }> = [];
+    
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+      data.push({
+        label: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        date: date.toISOString().split('T')[0],
+        transactions: {
+          count: Math.floor(Math.random() * 20) + 5,
+          volume: Math.floor(Math.random() * 200000) + 50000
+        },
+        balance: {
+          total: Math.floor(Math.random() * 500000) + 2000000,
+          change: Math.floor(Math.random() * 100000) - 50000
+        }
+      });
+    }
+    return data;
+  }
+
+  /**
+   * Generate mock recent transactions
+   */
+  private generateMockRecentTransactions() {
+    const transactionTypes = ['send', 'receive', 'loan', 'savings', 'payment'];
+    const statuses = ['completed', 'pending', 'failed'];
+    const accounts = ['John Doe', 'Jane Smith', 'Business Account', 'Savings Goal', 'Loan Payment'];
+    
+    return Array.from({ length: 8 }, (_, i) => ({
+      id: `txn_${i + 1}`,
+      amount: Math.floor(Math.random() * 500000) + 10000,
+      type: transactionTypes[Math.floor(Math.random() * transactionTypes.length)],
+      status: statuses[Math.floor(Math.random() * statuses.length)],
+      transaction_at: new Date(Date.now() - i * 2 * 60 * 60 * 1000).toISOString(),
+      created_at: new Date(Date.now() - i * 2 * 60 * 60 * 1000).toISOString(),
+      description: `Transaction ${i + 1} description`,
+      from_account: {
+        name: accounts[Math.floor(Math.random() * accounts.length)],
+        type: 'individual'
+      },
+      to_account: {
+        name: accounts[Math.floor(Math.random() * accounts.length)],
+        type: 'individual'
+      }
+    }));
   }
 
   /**

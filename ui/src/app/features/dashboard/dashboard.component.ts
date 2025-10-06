@@ -87,69 +87,69 @@ export interface ChartOptions {
 
       <!-- Stats Cards -->
       <div class="stats-grid" *ngIf="overview" [class.loading-overlay]="isRefreshing">
-        <!-- Milk Collections -->
-        <div class="stat-card collections" (click)="navigateToCollections()">
+        <!-- Total Balance -->
+        <div class="stat-card balance" (click)="navigateToWallets()">
           <div class="stat-icon">
-            <app-feather-icon name="truck" size="18px"></app-feather-icon>
+            <app-feather-icon name="credit-card" size="18px"></app-feather-icon>
           </div>
           <div class="stat-details">
-            <div class="stat-title">Milk Collections</div>
+            <div class="stat-title">Total Balance</div>
             <div class="stat-numbers">
-              <div class="main-stat">{{ formatNumber(overview.summary.collection.liters) }}L</div>
+              <div class="main-stat">{{ formatCurrency(overview.summary.balance.total) }}</div>
               <div class="sub-stats">
-                <span class="success">{{ overview.summary.collection.transactions }} Collections</span>
-                <span class="volume">{{ formatCurrency(overview.summary.collection.value) }}</span>
+                <span class="success">{{ overview.summary.balance.wallets }} Wallets</span>
+                <span class="volume">{{ formatCurrency(overview.summary.balance.available) }} Available</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Milk Sales -->
-        <div class="stat-card sales" (click)="navigateToSales()">
+        <!-- Transactions -->
+        <div class="stat-card transactions" (click)="navigateToTransactions()">
           <div class="stat-icon">
-            <app-feather-icon name="shopping-cart" size="18px"></app-feather-icon>
+            <app-feather-icon name="send" size="18px"></app-feather-icon>
           </div>
           <div class="stat-details">
-            <div class="stat-title">Milk Sales</div>
+            <div class="stat-title">Transactions</div>
             <div class="stat-numbers">
-              <div class="main-stat">{{ formatNumber(overview.summary.sales.liters) }}L</div>
+              <div class="main-stat">{{ overview.summary.transactions.count }}</div>
               <div class="sub-stats">
-                <span class="success">{{ overview.summary.sales.transactions }} Sales</span>
-                <span class="volume">{{ formatCurrency(overview.summary.sales.value) }}</span>
+                <span class="success">{{ formatCurrency(overview.summary.transactions.volume) }} Volume</span>
+                <span class="volume">{{ overview.summary.transactions.pending }} Pending</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Active Suppliers -->
-        <div class="stat-card suppliers" (click)="navigateToSuppliers()">
+        <!-- Active Loans -->
+        <div class="stat-card loans" (click)="navigateToLoans()">
           <div class="stat-icon">
-            <app-feather-icon name="user-plus" size="18px"></app-feather-icon>
+            <app-feather-icon name="dollar-sign" size="18px"></app-feather-icon>
           </div>
           <div class="stat-details">
-            <div class="stat-title">Active Suppliers</div>
+            <div class="stat-title">Active Loans</div>
             <div class="stat-numbers">
-              <div class="main-stat">{{ overview.summary.suppliers.active }}</div>
+              <div class="main-stat">{{ overview.summary.loans.active }}</div>
               <div class="sub-stats">
-                <span class="success">{{ overview.summary.suppliers.inactive }} Inactive</span>
-                <span class="volume">{{ overview.summary.suppliers.active + overview.summary.suppliers.inactive }} Total</span>
+                <span class="success">{{ formatCurrency(overview.summary.loans.amount) }} Amount</span>
+                <span class="volume">{{ overview.summary.loans.pending }} Pending</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Active Customers -->
-        <div class="stat-card customers" (click)="navigateToCustomers()">
+        <!-- Savings Goals -->
+        <div class="stat-card savings" (click)="navigateToSavings()">
           <div class="stat-icon">
-            <app-feather-icon name="users" size="18px"></app-feather-icon>
+            <app-feather-icon name="trending-up" size="18px"></app-feather-icon>
           </div>
           <div class="stat-details">
-            <div class="stat-title">Active Customers</div>
+            <div class="stat-title">Savings Goals</div>
             <div class="stat-numbers">
-              <div class="main-stat">{{ overview.summary.customers.active }}</div>
+              <div class="main-stat">{{ overview.summary.savings.goals }}</div>
               <div class="sub-stats">
-                <span class="success">{{ overview.summary.customers.inactive }} Inactive</span>
-                <span class="volume">{{ overview.summary.customers.active + overview.summary.customers.inactive }} Total</span>
+                <span class="success">{{ formatCurrency(overview.summary.savings.amount) }} Saved</span>
+                <span class="volume">{{ overview.summary.savings.completed }} Completed</span>
               </div>
             </div>
           </div>
@@ -161,7 +161,7 @@ export interface ChartOptions {
         <!-- Bar Chart -->
         <div class="chart-container">
           <div class="chart-header">
-            <h3>Milk Collection & Sales Trends</h3>
+            <h3>Financial Activity Trends</h3>
             <div class="chart-controls">
               <button class="btn-small" (click)="updateChart('7D', $event)">7D</button>
               <button class="btn-small active" (click)="updateChart('30D', $event)">30D</button>
@@ -228,7 +228,7 @@ export interface ChartOptions {
               <div class="activity-time">{{ formatDate(transaction.transaction_at || transaction.created_at) }}</div>
             </div>
             <div class="activity-amount" [class]="transaction.type.toLowerCase()">
-              {{ formatCurrency(transaction.total_amount) }}
+              {{ formatCurrency(transaction.amount) }}
             </div>
           </div>
         </div>
@@ -447,7 +447,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           show: false
         }
       },
-      labels: ['Collections', 'Sales'],
+      labels: ['Transactions', 'Loans'],
       colors: ['#f24d12', '#6B7280'],
       dataLabels: {
         enabled: true,
@@ -587,7 +587,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           transaction_at: transaction.transaction_at,
           created_at: transaction.created_at,
           type: transaction.type,
-          total_amount: transaction.total_amount
+          amount: transaction.amount
         });
       });
     }
@@ -626,12 +626,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   updateDonutChartData() {
     if (!this.overview) return;
 
-    const totalCollections = parseFloat(this.overview.summary.collection.liters.toFixed(2));
-    const totalSales = parseFloat(this.overview.summary.sales.liters.toFixed(2));
+    const totalTransactions = this.overview.summary.transactions.count;
+    const totalLoans = this.overview.summary.loans.active;
 
     this.donutChartOptions = {
       ...this.donutChartOptions,
-      series: [totalCollections, totalSales]
+      series: [totalTransactions, totalLoans]
     };
   }
 
@@ -663,25 +663,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
    * Navigation methods
    */
 
-  navigateToCollections() {
-    this.router.navigate(['/collections']);
-  }
-
-  navigateToSales() {
-    this.router.navigate(['/sales']);
-  }
-
-  navigateToSuppliers() {
-    this.router.navigate(['/suppliers']);
-  }
-
-  navigateToCustomers() {
-    this.router.navigate(['/customers']);
+  navigateToWallets() {
+    this.router.navigate(['/ikofi']);
   }
 
   navigateToTransactions() {
-    console.log('Navigate to transactions');
-    // TODO: Navigate to transactions screen
+    this.router.navigate(['/transactions']);
+  }
+
+  navigateToLoans() {
+    this.router.navigate(['/loans']);
+  }
+
+  navigateToSavings() {
+    this.router.navigate(['/savings']);
   }
 
   viewTransactionDetails(transaction: any) {
