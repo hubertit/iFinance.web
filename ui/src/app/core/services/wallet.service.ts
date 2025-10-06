@@ -43,7 +43,7 @@ export class WalletService {
         createdAt: new Date(Date.now() - 120 * 24 * 60 * 60 * 1000), // 120 days ago
         owners: ['You'],
         isDefault: true,
-        avatar: 'wallet'
+        avatar: 'credit-card'
       },
       {
         id: 'WALLET-2',
@@ -73,7 +73,7 @@ export class WalletService {
         description: 'Vacation savings',
         targetAmount: 500000,
         targetDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
-        avatar: 'piggy-bank'
+        avatar: 'save'
       },
       {
         id: 'WALLET-4',
