@@ -374,9 +374,9 @@
     align-items: center;
     gap: 8px;
     padding: 10px 16px;
-    background: $primary;
-    color: white;
-    border: 1px solid $primary;
+    background: white;
+    color: $text-primary-color;
+    border: 1px solid $border-color;
     border-radius: 8px;
     font-weight: 500;
     font-size: 14px;
@@ -386,15 +386,15 @@
     justify-content: center;
 
     &:hover:not(:disabled) {
-      background: darken($primary, 10%);
-      border-color: darken($primary, 10%);
-      color: white;
+      background: $gray-100;
+      border-color: $primary;
+      color: $primary;
     }
 
     &:disabled {
       opacity: 0.4;
       cursor: not-allowed;
-      background: $gray-300;
+      background: $gray-200;
       border-color: $gray-300;
       color: $text-disabled-color;
     }
