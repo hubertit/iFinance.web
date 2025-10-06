@@ -21,7 +21,7 @@ export class NavigationService {
       path: 'dashboard'
     },
     {
-      title: 'Wallets',
+      title: 'Ikofi',
       icon: 'credit-card',
       path: 'ikofi'
     },
