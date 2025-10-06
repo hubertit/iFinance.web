@@ -118,6 +118,13 @@
 .quick-actions {
   margin-bottom: 32px;
 
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 16px 0;
+  }
+
   .actions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
