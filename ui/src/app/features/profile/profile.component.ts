@@ -200,6 +200,109 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
           </div>
         </div>
 
+        <!-- KYC Information Card -->
+        <div class="profile-card">
+          <div class="card-header">
+            <div class="header-info">
+              <app-feather-icon name="shield" size="20px"></app-feather-icon>
+              <h3>KYC Information</h3>
+            </div>
+            <div class="kyc-status" [class]="getKycStatusClass()">
+              <app-feather-icon [name]="getKycStatusIcon()" size="14px"></app-feather-icon>
+              <span>{{ getKycStatusText() }}</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="kyc-section">
+              <div class="kyc-info">
+                <div class="kyc-item">
+                  <label>KYC Status</label>
+                  <span class="kyc-status-badge" [class]="getKycStatusClass()">
+                    {{ getKycStatusText() }}
+                  </span>
+                </div>
+                <div class="kyc-item">
+                  <label>ID Number</label>
+                  <span class="kyc-value">{{ user?.idNumber || 'Not provided' }}</span>
+                </div>
+                <div class="kyc-item">
+                  <label>Verification Date</label>
+                  <span class="kyc-value">{{ getKycVerificationDate() }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- NID Photo Upload Section -->
+            <div class="nid-upload-section">
+              <h4>National ID Documents</h4>
+              <p class="upload-description">Upload clear photos of your National ID front and back for verification</p>
+              
+              <div class="nid-photos-grid">
+                <!-- NID Front -->
+                <div class="nid-photo-container">
+                  <div class="photo-upload-area" 
+                       [class.has-image]="kycData.nidFront"
+                       (click)="selectNidPhoto('front')"
+                       (dragover)="onDragOver($event)"
+                       (drop)="onDrop($event, 'front')">
+                    <div class="photo-preview" *ngIf="kycData.nidFront">
+                      <img [src]="kycData.nidFront" alt="NID Front" class="nid-image">
+                      <button class="remove-photo" (click)="removeNidPhoto('front', $event)">
+                        <app-feather-icon name="x" size="14px"></app-feather-icon>
+                      </button>
+                    </div>
+                    <div class="upload-placeholder" *ngIf="!kycData.nidFront">
+                      <app-feather-icon name="camera" size="24px"></app-feather-icon>
+                      <span>NID Front</span>
+                      <small>Click or drag to upload</small>
+                    </div>
+                  </div>
+                  <div class="photo-status" [class]="getPhotoStatusClass('front')">
+                    <app-feather-icon [name]="getPhotoStatusIcon('front')" size="12px"></app-feather-icon>
+                    <span>{{ getPhotoStatusText('front') }}</span>
+                  </div>
+                </div>
+
+                <!-- NID Back -->
+                <div class="nid-photo-container">
+                  <div class="photo-upload-area" 
+                       [class.has-image]="kycData.nidBack"
+                       (click)="selectNidPhoto('back')"
+                       (dragover)="onDragOver($event)"
+                       (drop)="onDrop($event, 'back')">
+                    <div class="photo-preview" *ngIf="kycData.nidBack">
+                      <img [src]="kycData.nidBack" alt="NID Back" class="nid-image">
+                      <button class="remove-photo" (click)="removeNidPhoto('back', $event)">
+                        <app-feather-icon name="x" size="14px"></app-feather-icon>
+                      </button>
+                    </div>
+                    <div class="upload-placeholder" *ngIf="!kycData.nidBack">
+                      <app-feather-icon name="camera" size="24px"></app-feather-icon>
+                      <span>NID Back</span>
+                      <small>Click or drag to upload</small>
+                    </div>
+                  </div>
+                  <div class="photo-status" [class]="getPhotoStatusClass('back')">
+                    <app-feather-icon [name]="getPhotoStatusIcon('back')" size="12px"></app-feather-icon>
+                    <span>{{ getPhotoStatusText('back') }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Upload Guidelines -->
+              <div class="upload-guidelines">
+                <h5>Upload Guidelines:</h5>
+                <ul>
+                  <li>Ensure the document is clearly visible and readable</li>
+                  <li>Good lighting and no shadows on the document</li>
+                  <li>All four corners of the document should be visible</li>
+                  <li>File formats: JPG, PNG (Max 5MB each)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Account Information Card -->
         <div class="profile-card">
           <div class="card-header">
@@ -276,6 +379,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     cell: '',
     village: '',
     address: ''
+  };
+
+  kycData = {
+    nidFront: '',
+    nidBack: '',
+    verificationDate: null as Date | null,
+    status: 'pending' as 'verified' | 'pending' | 'rejected' | 'not-verified'
   };
 
   constructor(
@@ -358,7 +468,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         cell: this.profileData.cell,
         village: this.profileData.village,
         address: this.profileData.address
-      };
+      } as User;
       
       this.isSaving = false;
       this.isEditing = false;
@@ -415,5 +525,96 @@ export class ProfileComponent implements OnInit, OnDestroy {
       month: 'long',
       day: 'numeric'
     }).format(new Date(date));
+  }
+
+  // KYC Methods
+  getKycVerificationDate(): string {
+    if (!this.kycData.verificationDate) return 'Not verified';
+    return this.formatDate(this.kycData.verificationDate);
+  }
+
+  selectNidPhoto(type: 'front' | 'back'): void {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (event: any) => {
+      const file = event.target.files[0];
+      if (file) {
+        this.handleFileUpload(file, type);
+      }
+    };
+    input.click();
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  onDrop(event: DragEvent, type: 'front' | 'back'): void {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      this.handleFileUpload(files[0], type);
+    }
+  }
+
+  handleFileUpload(file: File, type: 'front' | 'back'): void {
+    // Validate file
+    if (!this.validateFile(file)) return;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      if (type === 'front') {
+        this.kycData.nidFront = e.target.result;
+      } else {
+        this.kycData.nidBack = e.target.result;
+      }
+      console.log(`NID ${type} uploaded successfully`);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  validateFile(file: File): boolean {
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    
+    if (file.size > maxSize) {
+      alert('File size must be less than 5MB');
+      return false;
+    }
+    
+    if (!allowedTypes.includes(file.type)) {
+      alert('Only JPG and PNG files are allowed');
+      return false;
+    }
+    
+    return true;
+  }
+
+  removeNidPhoto(type: 'front' | 'back', event: Event): void {
+    event.stopPropagation();
+    if (type === 'front') {
+      this.kycData.nidFront = '';
+    } else {
+      this.kycData.nidBack = '';
+    }
+  }
+
+  getPhotoStatusClass(type: 'front' | 'back'): string {
+    const hasImage = type === 'front' ? this.kycData.nidFront : this.kycData.nidBack;
+    return hasImage ? 'uploaded' : 'pending';
+  }
+
+  getPhotoStatusIcon(type: 'front' | 'back'): string {
+    const hasImage = type === 'front' ? this.kycData.nidFront : this.kycData.nidBack;
+    return hasImage ? 'check-circle' : 'upload';
+  }
+
+  getPhotoStatusText(type: 'front' | 'back'): string {
+    const hasImage = type === 'front' ? this.kycData.nidFront : this.kycData.nidBack;
+    return hasImage ? 'Uploaded' : 'Pending';
   }
 }

@@ -53,17 +53,39 @@
       align-items: center;
       gap: 8px;
       padding: 12px 20px;
-      background: $primary;
-      color: white;
-      border: none;
+      background: white !important;
+      color: $text-primary-color !important;
+      border: 1px solid $border-color;
       border-radius: 8px;
       font-weight: 500;
       cursor: pointer;
       transition: $transition-base;
+      text-decoration: none;
 
       &:hover {
-        background: darken($primary, 10%);
-        transform: translateY(-1px);
+        background: $gray-100 !important;
+        border-color: $primary;
+        color: $primary !important;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $primary;
+        box-shadow: 0 0 0 3px rgba($primary, 0.1);
+        color: $text-primary-color !important;
+      }
+
+      &:active {
+        background: $gray-200 !important;
+        color: $text-primary-color !important;
+      }
+
+      span {
+        color: inherit !important;
+      }
+
+      app-feather-icon {
+        color: inherit !important;
       }
 
       @media (max-width: 768px) {

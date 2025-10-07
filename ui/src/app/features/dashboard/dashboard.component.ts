@@ -77,11 +77,11 @@ export interface ChartOptions {
             <span class="action-label">Top Up Wallet</span>
           </button>
           
-          <button class="action-btn" (click)="quickAction('apply-loan')">
+          <button class="action-btn" (click)="quickAction('withdraw')">
             <div class="action-icon">
-              <app-feather-icon name="trending-up" size="16px"></app-feather-icon>
+              <app-feather-icon name="trending-down" size="16px"></app-feather-icon>
             </div>
-            <span class="action-label">Apply for Loan</span>
+            <span class="action-label">Withdraw</span>
           </button>
           
           <button class="action-btn" (click)="quickAction('pay-bills')">
@@ -706,9 +706,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         // Navigate to ikofi (wallets) for top-up
         this.router.navigate(['/ikofi']);
         break;
-      case 'apply-loan':
-        // Navigate to loans screen
-        this.router.navigate(['/loans']);
+      case 'withdraw':
+        // Navigate to ikofi (wallets) for withdrawal
+        this.router.navigate(['/ikofi']);
         break;
       case 'pay-bills':
         // Navigate to bills/payments screen
