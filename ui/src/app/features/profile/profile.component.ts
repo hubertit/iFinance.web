@@ -300,6 +300,48 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
                 </ul>
               </div>
             </div>
+
+            <!-- Selfie Photo Upload Section -->
+            <div class="selfie-upload-section">
+              <h4>Selfie Photograph</h4>
+              <p class="upload-description">Upload a clear selfie photo for identity verification</p>
+              
+              <div class="selfie-photo-container">
+                <div class="photo-upload-area selfie-upload" 
+                     [class.has-image]="kycData.selfiePhoto"
+                     (click)="selectSelfiePhoto()"
+                     (dragover)="onDragOver($event)"
+                     (drop)="onDrop($event, 'selfie')">
+                  <div class="photo-preview" *ngIf="kycData.selfiePhoto">
+                    <img [src]="kycData.selfiePhoto" alt="Selfie Photo" class="selfie-image">
+                    <button class="remove-photo" (click)="removeSelfiePhoto($event)">
+                      <app-feather-icon name="x" size="14px"></app-feather-icon>
+                    </button>
+                  </div>
+                  <div class="upload-placeholder" *ngIf="!kycData.selfiePhoto">
+                    <app-feather-icon name="user" size="32px"></app-feather-icon>
+                    <span>Selfie Photo</span>
+                    <small>Click or drag to upload</small>
+                  </div>
+                </div>
+                <div class="photo-status" [class]="getSelfieStatusClass()">
+                  <app-feather-icon [name]="getSelfieStatusIcon()" size="12px"></app-feather-icon>
+                  <span>{{ getSelfieStatusText() }}</span>
+                </div>
+              </div>
+
+              <!-- Selfie Guidelines -->
+              <div class="upload-guidelines">
+                <h5>Selfie Guidelines:</h5>
+                <ul>
+                  <li>Look directly at the camera with a neutral expression</li>
+                  <li>Ensure good lighting on your face</li>
+                  <li>Remove glasses, hats, or face coverings</li>
+                  <li>Your face should be clearly visible and centered</li>
+                  <li>File formats: JPG, PNG (Max 5MB)</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -323,7 +365,7 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
               </div>
               <div class="info-item">
                 <label>Account Name</label>
-                <span class="info-value">{{ user?.accountName || user?.name || 'N/A' }}</span>
+                <span class="info-value">Hubert IRAFASHA</span>
               </div>
               <div class="info-item">
                 <label>Role</label>
@@ -384,6 +426,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   kycData = {
     nidFront: '',
     nidBack: '',
+    selfiePhoto: '',
     verificationDate: null as Date | null,
     status: 'pending' as 'verified' | 'pending' | 'rejected' | 'not-verified'
   };
@@ -551,13 +594,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     event.stopPropagation();
   }
 
-  onDrop(event: DragEvent, type: 'front' | 'back'): void {
+  onDrop(event: DragEvent, type: 'front' | 'back' | 'selfie'): void {
     event.preventDefault();
     event.stopPropagation();
     
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
-      this.handleFileUpload(files[0], type);
+      if (type === 'selfie') {
+        this.handleSelfieUpload(files[0]);
+      } else {
+        this.handleFileUpload(files[0], type);
+      }
     }
   }
 
@@ -616,5 +663,47 @@ export class ProfileComponent implements OnInit, OnDestroy {
   getPhotoStatusText(type: 'front' | 'back'): string {
     const hasImage = type === 'front' ? this.kycData.nidFront : this.kycData.nidBack;
     return hasImage ? 'Uploaded' : 'Pending';
+  }
+
+  // Selfie Photo Methods
+  selectSelfiePhoto(): void {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (event: any) => {
+      const file = event.target.files[0];
+      if (file) {
+        this.handleSelfieUpload(file);
+      }
+    };
+    input.click();
+  }
+
+  handleSelfieUpload(file: File): void {
+    if (!this.validateFile(file)) return;
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.kycData.selfiePhoto = e.target.result;
+      console.log('Selfie photo uploaded successfully');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  removeSelfiePhoto(event: Event): void {
+    event.stopPropagation();
+    this.kycData.selfiePhoto = '';
+  }
+
+  getSelfieStatusClass(): string {
+    return this.kycData.selfiePhoto ? 'uploaded' : 'pending';
+  }
+
+  getSelfieStatusIcon(): string {
+    return this.kycData.selfiePhoto ? 'check-circle' : 'upload';
+  }
+
+  getSelfieStatusText(): string {
+    return this.kycData.selfiePhoto ? 'Uploaded' : 'Pending';
   }
 }
