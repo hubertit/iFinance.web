@@ -1,0 +1,630 @@
+@use '../../../../styles/variables' as *;
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid $border-color;
+  background: $gray-50;
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: $text-primary-color;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: $text-secondary-color;
+    transition: $transition-base;
+
+    &:hover {
+      background: $gray-200;
+      color: $text-primary-color;
+    }
+  }
+}
+
+.modal-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+
+  label {
+    font-size: 15px;
+    color: #888ea8;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .form-control {
+    height: auto;
+    border: 1px solid #bfc9d4;
+    color: #3b3f5c;
+    font-size: 15px;
+    padding: 8px 10px;
+    background-color: #fff;
+    border-radius: 6px;
+    width: 100%;
+    transition: all 0.3s ease;
+
+    &:focus {
+      box-shadow: 0 0 5px 2px rgba(194, 213, 255, 0.619608);
+      border-color: #f24d12;
+      color: #3b3f5c;
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #bfc9d4;
+      font-size: 15px;
+    }
+
+    &:focus::placeholder {
+      color: #d3d3d3;
+      font-size: 15px;
+    }
+  }
+
+  textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .error-message {
+    color: #e7515a;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}
+
+.type-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.type-option {
+  display: block;
+  cursor: pointer;
+  border: 2px solid $border-color;
+  border-radius: 8px;
+  padding: 16px;
+  transition: $transition-base;
+  background: white;
+
+  &:hover {
+    border-color: $primary;
+    background: rgba($primary, 0.02);
+  }
+
+  &.selected {
+    border-color: $primary;
+    background: rgba($primary, 0.05);
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  .option-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    app-feather-icon {
+      color: $primary;
+      flex-shrink: 0;
+    }
+
+    .option-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      .option-title {
+        font-weight: 600;
+        color: $text-primary-color;
+        font-size: 14px;
+      }
+
+      .option-description {
+        font-size: 12px;
+        color: $text-secondary-color;
+      }
+    }
+  }
+}
+
+.owners-input {
+  .owner-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .owner-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: $primary;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+
+    .remove-owner {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 2px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: $transition-base;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
+  .add-owner {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    .form-control {
+      flex: 1;
+    }
+
+    .add-btn {
+      background: $primary;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: $transition-base;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background: darken($primary, 10%);
+      }
+    }
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid $border-color;
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: $transition-base;
+    text-decoration: none;
+    border: none;
+    font-size: 14px;
+
+    &.btn-secondary {
+      background: white;
+      color: $text-primary-color;
+      border: 1px solid $border-color;
+
+      &:hover {
+        background: $gray-100;
+        border-color: $primary;
+        color: $primary;
+      }
+    }
+
+    &.btn-primary {
+      background: $primary;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background: darken($primary, 10%);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// Toggle Switch
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  padding: 20px;
+  border: 2px solid $border-color;
+  border-radius: 12px;
+  background: white;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    border-color: $primary;
+    background: rgba($primary, 0.02);
+    box-shadow: 0 2px 8px rgba($primary, 0.1);
+  }
+
+  .toggle-input {
+    display: none;
+  }
+
+  .toggle-slider {
+    position: relative;
+    width: 56px;
+    height: 28px;
+    background: #e2e8f0;
+    border-radius: 14px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .toggle-input:checked + .toggle-slider {
+    background: $primary;
+    border-color: darken($primary, 10%);
+
+    &::before {
+      transform: translateX(28px);
+      box-shadow: 0 2px 8px rgba($primary, 0.3);
+    }
+  }
+
+  .toggle-content {
+    flex: 1;
+
+    .toggle-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      color: $text-primary-color;
+      margin-bottom: 6px;
+      font-size: 15px;
+
+      app-feather-icon {
+        color: $primary;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .toggle-description {
+      font-size: 14px;
+      color: $text-secondary-color;
+      line-height: 1.5;
+    }
+  }
+
+  // Add visual feedback when checked
+  &:has(.toggle-input:checked) {
+    border-color: $primary;
+    background: rgba($primary, 0.05);
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+
+  .members-help {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba($primary, 0.05);
+    border: 1px solid rgba($primary, 0.2);
+    border-radius: 8px;
+    font-size: 13px;
+    color: $text-secondary-color;
+
+    app-feather-icon {
+      color: $primary;
+      flex-shrink: 0;
+    }
+
+    span {
+      line-height: 1.4;
+    }
+  }
+}
+
+// Members List
+.members-list {
+  margin-bottom: 16px;
+
+  .member-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .member-info {
+      flex: 1;
+
+      .member-name {
+        font-weight: 500;
+        color: $text-primary-color;
+        margin-bottom: 2px;
+      }
+
+      .member-phone {
+        font-size: 13px;
+        color: $text-secondary-color;
+      }
+    }
+
+    .remove-member {
+      background: transparent;
+      border: none;
+      color: $text-secondary-color;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba($danger, 0.1);
+        color: $danger;
+      }
+    }
+  }
+}
+
+// Add Member Form
+.add-member-form {
+  background: $gray-50;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+
+  .member-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    .input-group {
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: $text-primary-color;
+        margin-bottom: 6px;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+
+        &:focus {
+          border-color: $primary;
+          box-shadow: 0 0 0 2px rgba($primary, 0.1);
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .add-member-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: $primary;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background: darken($primary, 10%);
+    }
+
+    &:disabled {
+      background: $gray-300;
+      color: $text-secondary-color;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Rules Container
+.rules-container {
+  background: $gray-50;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 8px;
+
+  .rule-item {
+    margin-bottom: 16px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .rule-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+
+      .rule-title {
+        font-weight: 500;
+        color: $text-primary-color;
+        font-size: 14px;
+      }
+
+      .rule-badge {
+        background: $primary;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+      }
+
+      app-feather-icon {
+        color: $text-secondary-color;
+        
+        &.required {
+          color: $primary;
+        }
+      }
+    }
+
+    .rule-description {
+      color: $text-secondary-color;
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.4;
+    }
+  }
+}
+
+// Validation Summary
+.validation-summary {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+
+  .validation-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #dc2626;
+    font-weight: 500;
+    font-size: 14px;
+
+    app-feather-icon {
+      color: #dc2626;
+    }
+  }
+
+  .validation-errors {
+    margin: 0;
+    padding-left: 20px;
+    color: #dc2626;
+    font-size: 13px;
+
+    li {
+      margin-bottom: 4px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 16px;
+  }
+
+  .modal-container {
+    max-height: 95vh;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+
+    .btn {
+      justify-content: center;
+    }
+  }
+}

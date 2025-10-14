@@ -5,12 +5,13 @@ import { AuthService, Account } from '../../core/services/auth.service';
 import { WalletService, Wallet } from '../../core/services/wallet.service';
 import { NotificationService, TransactionNotification } from '../../core/services/notification.service';
 import { FeatherIconComponent } from '../../shared/components/feather-icon/feather-icon.component';
+import { CreateWalletModalComponent, CreateWalletData } from '../../shared/components/create-wallet-modal/create-wallet-modal.component';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, FeatherIconComponent],
+  imports: [CommonModule, RouterModule, FeatherIconComponent, CreateWalletModalComponent],
   template: `
     <nav class="navbar" [class.sidebar-collapsed]="isSidebarCollapsed">
       <div class="navbar-left">
@@ -190,6 +191,13 @@ import { Subject, takeUntil } from 'rxjs';
         </div>
       </div>
     </nav>
+
+    <!-- Create Wallet Modal -->
+    <app-create-wallet-modal 
+      *ngIf="showCreateWalletModal"
+      (close)="closeCreateWalletModal()"
+      (walletCreated)="onWalletCreated($event)">
+    </app-create-wallet-modal>
   `,
   styleUrls: ['./navbar.component.scss']
 })
@@ -205,6 +213,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   showLanguageMenu = false;
   showNotificationPanel = false;
   showMessagePanel = false;
+  showCreateWalletModal = false;
   
   currentWallet: Wallet | null = null;
   availableWallets: Wallet[] = [];
@@ -408,8 +417,41 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   addNewWallet(): void {
     this.showUserMenu = false;
-    // TODO: Implement add new wallet logic
-    console.log('Add new wallet clicked');
+    this.showCreateWalletModal = true;
+  }
+
+  closeCreateWalletModal(): void {
+    this.showCreateWalletModal = false;
+  }
+
+  onWalletCreated(walletData: CreateWalletData): void {
+    // Create new wallet using WalletService
+    const newWalletData = {
+      name: walletData.name,
+      balance: 0,
+      currency: 'RWF',
+      type: walletData.type,
+      status: 'active' as const,
+      owners: walletData.type === 'joint' ? (walletData.owners || []) : [{ name: 'You', phone: '+250788123456' }],
+      isDefault: false,
+      description: walletData.description,
+      targetAmount: walletData.targetAmount,
+      targetDate: walletData.targetDate,
+      avatar: walletData.type === 'joint' ? 'users' : 'credit-card'
+    };
+
+    // Add wallet to service
+    this.walletService.addWallet(newWalletData);
+    
+    // Close modal
+    this.showCreateWalletModal = false;
+    
+    // Switch to the new wallet (get the ID from the service)
+    const wallets = this.walletService.getWallets();
+    const newWallet = wallets[wallets.length - 1]; // The newly added wallet
+    if (newWallet) {
+      this.walletService.switchWallet(newWallet.id);
+    }
   }
 
   formatBalance(balance: number): string {

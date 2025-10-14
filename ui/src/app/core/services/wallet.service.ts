@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+export interface WalletMember {
+  name: string;
+  phone: string;
+}
+
 export interface Wallet {
   id: string;
   name: string;
   balance: number;
   currency: string;
-  type: 'individual' | 'joint' | 'business';
+  type: 'individual' | 'joint' | 'business' | 'saving';
   status: 'active' | 'inactive' | 'suspended';
   createdAt: Date;
-  owners: string[];
+  owners: WalletMember[];
   isDefault: boolean;
   description?: string;
   targetAmount?: number;
@@ -32,63 +37,70 @@ export class WalletService {
   }
 
   private initializeMockWallets(): void {
-    const mockWallets: Wallet[] = [
-      {
-        id: 'WALLET-1',
-        name: 'Main Wallet',
-        balance: 250000,
-        currency: 'RWF',
-        type: 'individual',
-        status: 'active',
-        createdAt: new Date(Date.now() - 120 * 24 * 60 * 60 * 1000), // 120 days ago
-        owners: ['You'],
-        isDefault: true,
-        avatar: 'credit-card'
-      },
-      {
-        id: 'WALLET-2',
-        name: 'Joint Wallet',
-        balance: 1200000,
-        currency: 'RWF',
-        type: 'joint',
-        status: 'active',
-        createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000), // 60 days ago
-        owners: ['You', 'Alice', 'Eric'],
-        isDefault: false,
-        description: 'Joint savings for family expenses',
-        targetAmount: 2000000,
-        targetDate: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000), // 180 days from now
-        avatar: 'users'
-      },
-      {
-        id: 'WALLET-3',
-        name: 'Vacation Fund',
-        balance: 350000,
-        currency: 'RWF',
-        type: 'individual',
-        status: 'inactive',
-        createdAt: new Date(Date.now() - 200 * 24 * 60 * 60 * 1000), // 200 days ago
-        owners: ['You'],
-        isDefault: false,
-        description: 'Vacation savings',
-        targetAmount: 500000,
-        targetDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
-        avatar: 'save'
-      },
-      {
-        id: 'WALLET-4',
-        name: 'Business Wallet',
-        balance: 5000000,
-        currency: 'RWF',
-        type: 'business',
-        status: 'active',
-        createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
-        owners: ['You', 'Business Partner'],
-        isDefault: false,
-        description: 'Business operations and expenses',
-        avatar: 'briefcase'
-      }
-    ];
+        const mockWallets: Wallet[] = [
+          {
+            id: 'WALLET-1',
+            name: 'Main Wallet',
+            balance: 250000,
+            currency: 'RWF',
+            type: 'individual',
+            status: 'active',
+            createdAt: new Date(Date.now() - 120 * 24 * 60 * 60 * 1000), // 120 days ago
+            owners: [{ name: 'You', phone: '+250788123456' }],
+            isDefault: true,
+            avatar: 'credit-card'
+          },
+          {
+            id: 'WALLET-2',
+            name: 'Joint Wallet',
+            balance: 1200000,
+            currency: 'RWF',
+            type: 'joint',
+            status: 'active',
+            createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000), // 60 days ago
+            owners: [
+              { name: 'You', phone: '+250788123456' },
+              { name: 'Alice', phone: '+250788234567' },
+              { name: 'Eric', phone: '+250788345678' }
+            ],
+            isDefault: false,
+            description: 'Joint savings for family expenses',
+            targetAmount: 2000000,
+            targetDate: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000), // 180 days from now
+            avatar: 'users'
+          },
+          {
+            id: 'WALLET-3',
+            name: 'Vacation Fund',
+            balance: 350000,
+            currency: 'RWF',
+            type: 'individual',
+            status: 'inactive',
+            createdAt: new Date(Date.now() - 200 * 24 * 60 * 60 * 1000), // 200 days ago
+            owners: [{ name: 'You', phone: '+250788123456' }],
+            isDefault: false,
+            description: 'Vacation savings',
+            targetAmount: 500000,
+            targetDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
+            avatar: 'save'
+          },
+          {
+            id: 'WALLET-4',
+            name: 'Business Wallet',
+            balance: 5000000,
+            currency: 'RWF',
+            type: 'business',
+            status: 'active',
+            createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
+            owners: [
+              { name: 'You', phone: '+250788123456' },
+              { name: 'Business Partner', phone: '+250788456789' }
+            ],
+            isDefault: false,
+            description: 'Business operations and expenses',
+            avatar: 'briefcase'
+          }
+        ];
 
     this.walletsSubject.next(mockWallets);
     

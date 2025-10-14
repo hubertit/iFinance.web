@@ -24,7 +24,7 @@ import {
   ApexPlotOptions,
   ChartComponent
 } from 'ng-apexcharts';
-import { Subject, takeUntil, interval, timer } from 'rxjs';
+import { Subject, takeUntil, timer } from 'rxjs';
 import { switchMap, catchError, retry, retryWhen, delay } from 'rxjs/operators';
 
 export interface ChartOptions {
@@ -373,7 +373,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   showAddSupplierModal = false;
   
   // Dynamic data properties
-  autoRefreshInterval = 30000; // 30 seconds like mobile app
   retryCount = 0;
   maxRetryAttempts = 3;
   
@@ -394,7 +393,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadDashboardData();
-    this.startAutoRefresh();
     this.listenForAccountChanges();
   }
 
@@ -947,19 +945,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
   }
 
-  /**
-   * Start auto-refresh functionality
-   */
-  startAutoRefresh() {
-    // Auto-refresh every 30 seconds like mobile app
-    interval(this.autoRefreshInterval)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        if (!this.isRefreshing) {
-          this.refreshDashboard();
-        }
-      });
-  }
 
   /**
    * Refresh dashboard data with loading state

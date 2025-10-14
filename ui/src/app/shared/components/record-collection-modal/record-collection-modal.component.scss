@@ -73,14 +73,14 @@
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 
   label {
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
-    color: $text-primary-color;
+    font-size: 15px;
+    color: #888ea8;
+    letter-spacing: 1px;
     margin-bottom: 8px;
+    display: block;
   }
 
   .input-container {
