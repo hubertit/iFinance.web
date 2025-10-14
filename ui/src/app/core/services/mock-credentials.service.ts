@@ -17,8 +17,8 @@ export class MockCredentialsService {
   private mockCredentials: MockCredentials[] = [
     {
       role: 'lender',
-      email: 'lender@ruralfinance.rw',
-      password: 'lender123',
+      email: 'lender@ifinance.rw',
+      password: 'Pass123',
       name: 'Dr. Jean Baptiste Nkurunziza',
       description: 'Rural Finance Cooperative - Senior Loan Officer',
       features: [
@@ -31,8 +31,8 @@ export class MockCredentialsService {
     },
     {
       role: 'lender',
-      email: 'marie@kigali.bank',
-      password: 'banker123',
+      email: 'marie@ifinance.rw',
+      password: 'Pass123',
       name: 'Marie Claire Uwimana',
       description: 'Kigali Commercial Bank - Business Loan Manager',
       features: [
@@ -44,8 +44,8 @@ export class MockCredentialsService {
     },
     {
       role: 'lender',
-      email: 'paul@microcredit.rw',
-      password: 'micro123',
+      email: 'paul@ifinance.rw',
+      password: 'Pass123',
       name: 'Paul Mugenzi',
       description: 'MicroCredit Rwanda - Microfinance Specialist',
       features: [
@@ -57,8 +57,8 @@ export class MockCredentialsService {
     },
     {
       role: 'customer',
-      email: 'customer@example.com',
-      password: 'customer123',
+      email: 'customer@ifinance.rw',
+      password: 'Pass123',
       name: 'John Mukamana',
       description: 'Individual Customer - Farmer',
       features: [
@@ -71,7 +71,7 @@ export class MockCredentialsService {
     {
       role: 'admin',
       email: 'admin@ifinance.rw',
-      password: 'admin123',
+      password: 'Pass123',
       name: 'System Administrator',
       description: 'Full system access and management',
       features: [

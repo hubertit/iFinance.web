@@ -3,6 +3,7 @@ import { Observable, of, throwError, from, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { ConfigService } from './config.service';
+import { MockCredentialsService } from './mock-credentials.service';
 
 export interface User {
   id: string;
@@ -100,7 +101,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private mockCredentialsService: MockCredentialsService
   ) {
     // Check if user is already logged in
     const storedUser = localStorage.getItem(this.configService.userKey);
@@ -124,14 +126,91 @@ export class AuthService {
   }
 
   login(identifier: string, password: string): Observable<User> {
+    console.log('🔧 AuthService: Attempting login with:', { identifier, password: '***' });
+
+    // First, check if this is a mock credential
+    const mockCredential = this.mockCredentialsService.validateCredentials(identifier, password);
+    if (mockCredential) {
+      console.log('🔧 AuthService: Using mock credentials for:', mockCredential.name);
+      return this.handleMockLogin(mockCredential);
+    }
+
+    // If not mock credentials, try API login
+    console.log('🔧 AuthService: Using API login');
+    return this.handleApiLogin(identifier, password);
+  }
+
+  private handleMockLogin(mockCredential: any): Observable<User> {
+    // Create user object from mock credential
+    const userData: User = {
+      id: mockCredential.role + '_' + Date.now(),
+      name: mockCredential.name,
+      email: mockCredential.email,
+      phoneNumber: '+250788123456', // Default phone for mock users
+      role: mockCredential.role,
+      accountType: mockCredential.role,
+      accountCode: mockCredential.role.toUpperCase() + '001',
+      accountName: mockCredential.name,
+      avatar: '/assets/img/user.png',
+      createdAt: new Date(),
+      lastLoginAt: new Date(),
+      isActive: true,
+      about: mockCredential.description,
+      address: 'Kigali, Rwanda',
+      province: 'Kigali',
+      district: 'Nyarugenge',
+      sector: 'Kacyiru',
+      cell: 'Kacyiru',
+      village: 'Kacyiru',
+      idNumber: '1234567890123456',
+      kycStatus: 'verified',
+      token: 'mock_token_' + Date.now(),
+      permissions: this.getPermissionsForRole(mockCredential.role),
+      isAgentCandidate: false
+    };
+
+    // Create mock account
+    const mockAccount: Account = {
+      account_id: 1,
+      account_code: mockCredential.role.toUpperCase() + '001',
+      account_name: mockCredential.name,
+      account_type: mockCredential.role,
+      account_status: 'active',
+      account_created_at: new Date().toISOString(),
+      role: mockCredential.role,
+      permissions: this.getPermissionsForRole(mockCredential.role),
+      user_account_status: 'active',
+      access_granted_at: new Date().toISOString(),
+      is_default: true,
+      avatar: '/assets/img/user.png'
+    };
+
+    // Store user info and account data
+    this.currentUser = userData;
+    this.currentAccount = mockAccount;
+    this.availableAccounts = [mockAccount];
+    
+    localStorage.setItem(this.configService.userKey, JSON.stringify(userData));
+    localStorage.setItem(this.configService.tokenKey, userData.token || '');
+    localStorage.setItem(this.configService.loginKey, 'true');
+    localStorage.setItem('ifinance.currentAccount', JSON.stringify(mockAccount));
+    localStorage.setItem('ifinance.availableAccounts', JSON.stringify([mockAccount]));
+    localStorage.setItem('ifinance.profileCompletion', '100');
+    
+    // Emit the account change
+    this.currentAccountSubject.next(mockAccount);
+    
+    return of(userData);
+  }
+
+  private handleApiLogin(identifier: string, password: string): Observable<User> {
     // Use identifier field as per API specification - matching Flutter app exactly
     const loginData = {
       identifier: identifier, // Can be email or phone
       password: password
     };
 
-    console.log('🔧 AuthService: Attempting login with:', { identifier, password: '***' });
-        console.log('🔧 AuthService: API URL:', this.configService.getAuthUrl('/login'));
+    console.log('🔧 AuthService: API URL:', this.configService.getAuthUrl('/login'));
 
     // Use fetch API to bypass CORS issues
     return from(fetch(this.configService.getAuthUrl('/login'), {
@@ -241,6 +320,44 @@ export class AuthService {
         return throwError(() => 'An unexpected error occurred. Please try again.');
       })
     );
+  }
+
+  private getAvatarForRole(role: string): string {
+    // Return realistic person avatars instead of role-based icons
+    const avatarMap: { [key: string]: string } = {
+      'lender': '/assets/img/user.png',
+      'customer': '/assets/img/user.png',
+      'admin': '/assets/img/user.png',
+      'agent': '/assets/img/user.png',
+      'partner': '/assets/img/user.png',
+      'insurer': '/assets/img/user.png'
+    };
+    return avatarMap[role] || '/assets/img/user.png';
+  }
+
+  private getPermissionsForRole(role: string): { [key: string]: boolean } {
+    const permissionMap: { [key: string]: { [key: string]: boolean } } = {
+      'lender': {
+        'view_applications': true,
+        'approve_loans': true,
+        'manage_products': true,
+        'view_analytics': true,
+        'disburse_loans': true
+      },
+      'customer': {
+        'apply_loans': true,
+        'view_loans': true,
+        'make_payments': true,
+        'view_transactions': true
+      },
+      'admin': {
+        'manage_users': true,
+        'system_config': true,
+        'view_all_data': true,
+        'manage_roles': true
+      }
+    };
+    return permissionMap[role] || {};
   }
 
   logout(): Observable<any> {

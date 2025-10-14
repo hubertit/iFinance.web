@@ -392,8 +392,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Check user role and redirect if needed
+    this.checkUserRoleAndRedirect();
     this.loadDashboardData();
     this.listenForAccountChanges();
+  }
+
+  private checkUserRoleAndRedirect(): void {
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser && currentUser.role?.toLowerCase() === 'lender') {
+      // Redirect lenders to their specific dashboard
+      this.router.navigate(['/lender/dashboard']);
+      return;
+    }
   }
 
   ngOnDestroy() {

@@ -79,7 +79,7 @@ export class SidebarComponent {
   @Input() isCollapsed = false;
   @Output() toggleCollapse = new EventEmitter<void>();
 
-  menuItems: MenuItem[];
+  menuItems: MenuItem[] = [];
   userName: string = '';
   userRole: string = '';
   userAvatar: string = '/assets/img/user.png';
@@ -90,7 +90,10 @@ export class SidebarComponent {
     private inactivityService: InactivityService,
     private authService: AuthService
   ) {
-    this.menuItems = this.navigationService.getMenuItems();
+    this.loadUserData();
+  }
+
+  private loadUserData(): void {
     const user = this.authService.getCurrentUser();
     if (user) {
       this.userName = user.name;
@@ -99,6 +102,8 @@ export class SidebarComponent {
         this.userAvatar = user.avatar;
       }
     }
+    // Load role-specific menu items
+    this.menuItems = this.navigationService.getMenuItems();
   }
 
   onToggleCollapse(): void {
