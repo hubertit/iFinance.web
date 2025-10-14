@@ -1,0 +1,428 @@
+.lender-dashboard {
+  padding: 24px;
+  background: #f8fafc;
+  min-height: 100vh;
+
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    .header-content {
+      h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0 0 8px 0;
+      }
+
+      .header-subtitle {
+        color: #64748b;
+        font-size: 16px;
+        margin: 0;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+
+      .btn-primary, .btn-secondary {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border: none;
+        cursor: pointer;
+
+        app-feather-icon {
+          color: inherit;
+        }
+      }
+
+      .btn-primary {
+        background: #f24d12;
+        color: white;
+
+        &:hover {
+          background: #e0440f;
+          transform: translateY(-1px);
+        }
+      }
+
+      .btn-secondary {
+        background: #f1f5f9;
+        color: #475569;
+        border: 1px solid #e2e8f0;
+
+        &:hover {
+          background: #e2e8f0;
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+
+    .stat-card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+
+        app-feather-icon {
+          color: white;
+        }
+      }
+
+      .stat-content {
+        .stat-value {
+          font-size: 32px;
+          font-weight: 700;
+          color: #1e293b;
+          margin-bottom: 4px;
+        }
+
+        .stat-label {
+          font-size: 14px;
+          color: #64748b;
+          margin-bottom: 8px;
+        }
+
+        .stat-change {
+          font-size: 12px;
+          font-weight: 600;
+          padding: 4px 8px;
+          border-radius: 6px;
+
+          &.positive {
+            background: #dcfce7;
+            color: #166534;
+          }
+
+          &.negative {
+            background: #fee2e2;
+            color: #dc2626;
+          }
+
+          &.neutral {
+            background: #f1f5f9;
+            color: #475569;
+          }
+        }
+      }
+
+      &.applications .stat-icon {
+        background: #3b82f6;
+      }
+
+      &.pending .stat-icon {
+        background: #f59e0b;
+      }
+
+      &.approved .stat-icon {
+        background: #10b981;
+      }
+
+      &.disbursed .stat-icon {
+        background: #8b5cf6;
+      }
+    }
+  }
+
+  .charts-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+
+    .chart-container {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+
+        h3 {
+          font-size: 18px;
+          font-weight: 600;
+          color: #1e293b;
+          margin: 0;
+        }
+
+        .chart-controls {
+          display: flex;
+          gap: 8px;
+
+          .btn-small {
+            padding: 6px 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #64748b;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background: #f8fafc;
+            }
+
+            &.active {
+              background: #f24d12;
+              color: white;
+              border-color: #f24d12;
+            }
+          }
+        }
+      }
+
+      .chart-wrapper {
+        height: 300px;
+      }
+
+      &.donut-chart {
+        .chart-wrapper {
+          height: 300px;
+        }
+      }
+    }
+  }
+
+  .recent-applications {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 32px;
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+
+      h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1e293b;
+        margin: 0;
+      }
+
+      .view-all-btn {
+        color: #f24d12;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #e0440f;
+        }
+      }
+    }
+
+    .applications-list {
+      .application-item {
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #f8fafc;
+          border-color: #cbd5e1;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .application-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 16px;
+
+          app-feather-icon {
+            color: white;
+          }
+        }
+
+        .application-details {
+          flex: 1;
+
+          .application-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+          }
+
+          .application-product {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 4px;
+          }
+
+          .application-date {
+            font-size: 12px;
+            color: #94a3b8;
+          }
+        }
+
+        .application-amount {
+          font-weight: 600;
+          color: #1e293b;
+          margin-right: 16px;
+        }
+
+        .application-status {
+          font-size: 12px;
+          font-weight: 600;
+          padding: 4px 8px;
+          border-radius: 6px;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  .quick-actions {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 0 0 24px 0;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+
+      .action-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 24px 16px;
+        border: 1px solid #e2e8f0;
+        background: white;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+
+        &:hover {
+          background: #f8fafc;
+          border-color: #cbd5e1;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-icon {
+          width: 48px;
+          height: 48px;
+          background: #f1f5f9;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 12px;
+
+          app-feather-icon {
+            color: #64748b;
+          }
+        }
+
+        .action-label {
+          font-weight: 600;
+          color: #1e293b;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .lender-dashboard {
+    padding: 16px;
+
+    .dashboard-header {
+      flex-direction: column;
+      gap: 16px;
+      align-items: stretch;
+
+      .header-actions {
+        justify-content: stretch;
+
+        .btn-primary, .btn-secondary {
+          flex: 1;
+          justify-content: center;
+        }
+      }
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .charts-section {
+      grid-template-columns: 1fr;
+    }
+
+    .quick-actions .actions-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

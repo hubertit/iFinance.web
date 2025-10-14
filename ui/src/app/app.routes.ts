@@ -3,6 +3,7 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { TestApiComponent } from './features/auth/test-api/test-api.component';
+import { MockCredentialsComponent } from './features/auth/mock-credentials/mock-credentials.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { FeedComponent } from './features/feed/feed.component';
@@ -26,6 +27,9 @@ import { RolesComponent } from './features/roles/roles.component';
 import { LogsComponent } from './features/logs/logs.component';
 import { AuditComponent } from './features/audit/audit.component';
 import { LockComponent } from './features/auth/lock/lock.component';
+import { LenderDashboardComponent } from './features/lender/lender-dashboard/lender-dashboard.component';
+import { LoanApplicationsComponent } from './features/lender/loan-applications/loan-applications.component';
+import { LoanProductsComponent } from './features/lender/loan-products/loan-products.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -44,6 +48,10 @@ export const routes: Routes = [
   {
     path: 'test-api',
     component: TestApiComponent
+  },
+  {
+    path: 'mock-credentials',
+    component: MockCredentialsComponent
   },
   {
     path: 'lock',
@@ -137,6 +145,18 @@ export const routes: Routes = [
       {
         path: 'audit',
         component: AuditComponent
+      },
+      {
+        path: 'lender/dashboard',
+        component: LenderDashboardComponent
+      },
+      {
+        path: 'lender/applications',
+        component: LoanApplicationsComponent
+      },
+      {
+        path: 'lender/products',
+        component: LoanProductsComponent
       },
       {
         path: '',
