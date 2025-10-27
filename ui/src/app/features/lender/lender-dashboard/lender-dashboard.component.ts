@@ -45,23 +45,6 @@ export interface ChartOptions {
   imports: [CommonModule, RouterModule, FeatherIconComponent, NgApexchartsModule],
   template: `
     <div class="lender-dashboard">
-      <!-- Header -->
-      <div class="dashboard-header">
-        <div class="header-content">
-          <h1>Lender Dashboard</h1>
-          <p class="header-subtitle">Manage loan applications and track lending performance</p>
-        </div>
-        <div class="header-actions">
-          <button class="btn-primary" (click)="navigateToApplications()">
-            <app-feather-icon name="file-text" size="16px"></app-feather-icon>
-            View Applications
-          </button>
-          <button class="btn-secondary" (click)="navigateToProducts()">
-            <app-feather-icon name="package" size="16px"></app-feather-icon>
-            Manage Products
-          </button>
-        </div>
-      </div>
 
       <!-- Stats Cards -->
       <div class="stats-grid" *ngIf="lenderStats">

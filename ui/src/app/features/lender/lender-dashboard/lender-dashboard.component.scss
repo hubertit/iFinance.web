@@ -1,17 +1,22 @@
+@use '../../../../styles/variables' as *;
+
 .lender-dashboard {
-  padding: 24px;
-  background: #f8fafc;
-  min-height: 100vh;
+  padding: 12px;
+  min-height: auto;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
 
   .dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 32px;
-    padding: 24px;
+    margin-bottom: 24px;
+    padding: 20px;
     background: white;
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
 
     .header-content {
       h1 {
@@ -50,12 +55,12 @@
       }
 
       .btn-primary {
-        background: #f24d12;
+        background: $primary;
         color: white;
 
         &:hover {
-          background: #e0440f;
-          transform: translateY(-1px);
+          background: darken($primary, 10%);
+          transform: translateY(-2px);
         }
       }
 
@@ -66,7 +71,7 @@
 
         &:hover {
           background: #e2e8f0;
-          transform: translateY(-1px);
+          transform: translateY(-2px);
         }
       }
     }
@@ -74,88 +79,97 @@
 
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 24px;
-    margin-bottom: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
 
     .stat-card {
       background: white;
-      padding: 24px;
       border-radius: 12px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
       transition: all 0.2s ease;
       cursor: pointer;
 
       &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       }
 
       .stat-icon {
-        width: 48px;
-        height: 48px;
+        width: 52px;
+        height: 52px;
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 16px;
+        flex-shrink: 0;
 
         app-feather-icon {
           color: white;
         }
       }
 
-      .stat-content {
-        .stat-value {
-          font-size: 32px;
+      .stat-details {
+        flex: 1;
+      }
+
+      .stat-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: #64748b;
+        margin-bottom: 8px;
+      }
+
+      .stat-numbers {
+        .main-stat {
+          font-size: 28px;
           font-weight: 700;
           color: #1e293b;
           margin-bottom: 4px;
         }
 
-        .stat-label {
-          font-size: 14px;
-          color: #64748b;
-          margin-bottom: 8px;
-        }
-
-        .stat-change {
+        .sub-stats {
+          display: flex;
+          gap: 16px;
           font-size: 12px;
-          font-weight: 600;
-          padding: 4px 8px;
-          border-radius: 6px;
 
-          &.positive {
-            background: #dcfce7;
-            color: #166534;
+          .success {
+            color: #059669;
+            font-weight: 500;
           }
 
-          &.negative {
-            background: #fee2e2;
-            color: #dc2626;
-          }
-
-          &.neutral {
-            background: #f1f5f9;
-            color: #475569;
+          .volume {
+            color: #64748b;
           }
         }
       }
 
       &.applications .stat-icon {
-        background: #3b82f6;
+        background: transparent;
+        color: $primary;
       }
 
       &.pending .stat-icon {
-        background: #f59e0b;
+        background: transparent;
+        color: $primary;
       }
 
       &.approved .stat-icon {
-        background: #10b981;
+        background: transparent;
+        color: $primary;
       }
 
       &.disbursed .stat-icon {
-        background: #8b5cf6;
+        background: transparent;
+        color: $primary;
       }
     }
   }
@@ -163,14 +177,18 @@
   .charts-section {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 24px;
-    margin-bottom: 32px;
+    gap: 20px;
+    margin-bottom: 24px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
 
     .chart-container {
       background: white;
-      padding: 24px;
+      padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
 
       .chart-header {
         display: flex;
@@ -205,9 +223,9 @@
             }
 
             &.active {
-              background: #f24d12;
+              background: $primary;
               color: white;
-              border-color: #f24d12;
+              border-color: $primary;
             }
           }
         }
@@ -227,10 +245,10 @@
 
   .recent-applications {
     background: white;
-    padding: 24px;
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    margin-bottom: 32px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 24px;
 
     .section-header {
       display: flex;
@@ -246,7 +264,7 @@
       }
 
       .view-all-btn {
-        color: #f24d12;
+        color: $primary;
         text-decoration: none;
         font-weight: 500;
         font-size: 14px;
@@ -254,7 +272,7 @@
         transition: color 0.2s ease;
 
         &:hover {
-          color: #e0440f;
+          color: darken($primary, 10%);
         }
       }
     }
@@ -332,61 +350,75 @@
   }
 
   .quick-actions {
-    background: white;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 32px;
 
     h3 {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       color: #1e293b;
-      margin: 0 0 24px 0;
+      margin: 0 0 16px 0;
     }
 
     .actions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
 
       .action-btn {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 16px 12px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 24px 16px;
-        border: 1px solid #e2e8f0;
-        background: white;
-        border-radius: 12px;
+        gap: 8px;
         cursor: pointer;
         transition: all 0.2s ease;
         text-decoration: none;
+        color: inherit;
 
         &:hover {
-          background: #f8fafc;
-          border-color: #cbd5e1;
+          border-color: $primary;
           transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        &:active {
+          transform: translateY(0);
         }
 
         .action-icon {
-          width: 48px;
-          height: 48px;
-          background: #f1f5f9;
-          border-radius: 12px;
+          width: 40px;
+          height: 40px;
+          border-radius: 8px;
+          background: rgba($primary, 0.1);
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 12px;
+          color: $primary;
+          transition: all 0.2s ease;
+        }
 
-          app-feather-icon {
-            color: #64748b;
-          }
+        &:hover .action-icon {
+          background: $primary;
+          color: white;
         }
 
         .action-label {
-          font-weight: 600;
-          color: #1e293b;
+          font-size: 12px;
+          font-weight: 500;
+          color: $text-secondary-color;
           text-align: center;
+          line-height: 1.2;
+        }
+
+        &:hover .action-label {
+          color: $primary;
         }
       }
     }
@@ -396,8 +428,6 @@
 // Responsive design
 @media (max-width: 768px) {
   .lender-dashboard {
-    padding: 16px;
-
     .dashboard-header {
       flex-direction: column;
       gap: 16px;
@@ -411,18 +441,6 @@
           justify-content: center;
         }
       }
-    }
-
-    .stats-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .charts-section {
-      grid-template-columns: 1fr;
-    }
-
-    .quick-actions .actions-grid {
-      grid-template-columns: 1fr;
     }
   }
 }
