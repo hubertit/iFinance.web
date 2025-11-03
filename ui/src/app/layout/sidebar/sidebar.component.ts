@@ -1,9 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { NavigationService, MenuItem } from '../../core/services/navigation.service';
 import { FeatherIconComponent } from '../../shared/components/feather-icon/feather-icon.component';
-import { InactivityService } from '../../core/services/inactivity.service';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -61,16 +60,6 @@ import { AuthService } from '../../core/services/auth.service';
         </nav>
       </div>
 
-      <div class="sidebar-footer">
-        <div class="footer-item" (click)="lockScreen()">
-          <app-feather-icon name="lock" size="16px"></app-feather-icon>
-          <span *ngIf="!isCollapsed">Lock Screen</span>
-        </div>
-        <div class="footer-item" (click)="onToggleCollapse()">
-          <app-feather-icon [name]="isCollapsed ? 'chevron-right' : 'chevron-left'" size="16px"></app-feather-icon>
-          <span *ngIf="!isCollapsed">Collapse Menu</span>
-        </div>
-      </div>
     </aside>
   `,
   styleUrls: ['./sidebar.component.scss']
@@ -86,8 +75,6 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private navigationService: NavigationService,
-    private router: Router,
-    private inactivityService: InactivityService,
     private authService: AuthService
   ) {}
 
@@ -118,10 +105,6 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  onToggleCollapse(): void {
-    this.toggleCollapse.emit();
-  }
-
   toggleSubmenu(item: MenuItem): void {
     item.expanded = !item.expanded;
     // Close other submenus
@@ -139,9 +122,5 @@ export class SidebarComponent implements OnInit {
     return item.children.some(child =>
       window.location.pathname.startsWith(child.path || '')
     );
-  }
-
-  lockScreen(): void {
-    this.router.navigate(['/lock']);
   }
 }
