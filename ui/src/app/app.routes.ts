@@ -53,6 +53,7 @@ import { AccountingComponent } from './features/lender/accounting/accounting.com
 import { LoanReportsComponent } from './features/lender/loan-reports/loan-reports.component';
 import { PerformanceReportsComponent } from './features/lender/performance-reports/performance-reports.component';
 import { FinancialReportsComponent } from './features/lender/financial-reports/financial-reports.component';
+import { RegulatoryReportsComponent } from './features/lender/regulatory-reports/regulatory-reports.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -268,6 +269,10 @@ export const routes: Routes = [
       {
         path: 'lender/reports/financial',
         component: FinancialReportsComponent
+      },
+      {
+        path: 'lender/reports/regulatory',
+        component: RegulatoryReportsComponent
       },
       {
         path: 'lender/products',
