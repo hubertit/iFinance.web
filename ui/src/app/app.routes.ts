@@ -42,6 +42,7 @@ import { BorrowersListComponent } from './features/lender/borrowers-list/borrowe
 import { BorrowerProfilesComponent } from './features/lender/borrower-profiles/borrower-profiles.component';
 import { BorrowerHistoryComponent } from './features/lender/borrower-history/borrower-history.component';
 import { AddBorrowerComponent } from './features/lender/add-borrower/add-borrower.component';
+import { DisbursementsComponent } from './features/lender/disbursements/disbursements.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -213,6 +214,10 @@ export const routes: Routes = [
       {
         path: 'lender/borrowers/add',
         component: AddBorrowerComponent
+      },
+      {
+        path: 'lender/disbursements',
+        component: DisbursementsComponent
       },
       {
         path: 'lender/products',
