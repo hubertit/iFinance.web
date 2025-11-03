@@ -44,6 +44,7 @@ import { BorrowerHistoryComponent } from './features/lender/borrower-history/bor
 import { AddBorrowerComponent } from './features/lender/add-borrower/add-borrower.component';
 import { DisbursementsComponent } from './features/lender/disbursements/disbursements.component';
 import { RepaymentScheduleComponent } from './features/lender/repayment-schedule/repayment-schedule.component';
+import { PaymentTrackingComponent } from './features/lender/payment-tracking/payment-tracking.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -223,6 +224,10 @@ export const routes: Routes = [
       {
         path: 'lender/repayments/schedule',
         component: RepaymentScheduleComponent
+      },
+      {
+        path: 'lender/repayments/tracking',
+        component: PaymentTrackingComponent
       },
       {
         path: 'lender/products',
