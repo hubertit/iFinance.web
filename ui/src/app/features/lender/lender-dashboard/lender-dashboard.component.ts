@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { LenderService, Lender, LoanApplication } from '../../../core/services/lender.service';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 import { FeatherIconComponent } from '../../../shared/components/feather-icon/feather-icon.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import {
@@ -17,9 +17,9 @@ import {
   ApexFill,
   ApexTooltip,
   ApexPlotOptions,
-  ChartComponent
 } from 'ng-apexcharts';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, timer } from 'rxjs';
+import { delay, switchMap, catchError, retryWhen } from 'rxjs/operators';
 
 export interface ChartOptions {
   plotOptions?: ApexPlotOptions;
@@ -39,66 +39,123 @@ export interface ChartOptions {
   colors: string[];
 }
 
+export interface LenderDashboardData {
+  summary: {
+    portfolio: {
+      total: number;
+      active: number;
+      overdue: number;
+    };
+    applications: {
+      pending: number;
+      underReview: number;
+      approved: number;
+      rejected: number;
+    };
+    disbursements: {
+      total: number;
+      thisMonth: number;
+      growth: number;
+    };
+    repayments: {
+      collected: number;
+      overdue: number;
+      collectionRate: number;
+    };
+  };
+  recentActivities: Array<{
+    id: string;
+    type: string;
+    borrower: string;
+    amount: number;
+    status: string;
+    date: string;
+  }>;
+}
+
 @Component({
   selector: 'app-lender-dashboard',
   standalone: true,
   imports: [CommonModule, RouterModule, FeatherIconComponent, NgApexchartsModule],
   template: `
-    <div class="lender-dashboard">
-
+    <div class="dashboard-container">
       <!-- Stats Cards -->
-      <div class="stats-grid" *ngIf="lenderStats">
-        <div class="stat-card applications">
+      <div class="stats-grid" *ngIf="dashboardData" [class.loading-overlay]="isRefreshing">
+        <!-- Loan Portfolio -->
+        <div class="stat-card portfolio" (click)="navigateToPortfolio()">
           <div class="stat-icon">
-            <app-feather-icon name="file-text" size="24px"></app-feather-icon>
+            <app-feather-icon name="briefcase" size="18px"></app-feather-icon>
           </div>
-          <div class="stat-content">
-            <div class="stat-value">{{ lenderStats.totalApplications }}</div>
-            <div class="stat-label">Total Applications</div>
-            <div class="stat-change positive">+12% this month</div>
+          <div class="stat-details">
+            <div class="stat-title">Loan Portfolio</div>
+            <div class="stat-numbers">
+              <div class="main-stat">{{ formatCurrency(dashboardData.summary.portfolio.total) }}</div>
+              <div class="sub-stats">
+                <span class="success">{{ dashboardData.summary.portfolio.active }} Active</span>
+                <span class="warning">{{ dashboardData.summary.portfolio.overdue }} Overdue</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="stat-card pending">
+        <!-- Pending Applications -->
+        <div class="stat-card applications" (click)="navigateToApplications()">
           <div class="stat-icon">
-            <app-feather-icon name="clock" size="24px"></app-feather-icon>
+            <app-feather-icon name="file-text" size="18px"></app-feather-icon>
           </div>
-          <div class="stat-content">
-            <div class="stat-value">{{ lenderStats.pendingApplications }}</div>
-            <div class="stat-label">Pending Review</div>
-            <div class="stat-change neutral">{{ lenderStats.underReviewApplications }} under review</div>
+          <div class="stat-details">
+            <div class="stat-title">Applications</div>
+            <div class="stat-numbers">
+              <div class="main-stat">{{ dashboardData.summary.applications.pending + dashboardData.summary.applications.underReview }}</div>
+              <div class="sub-stats">
+                <span class="success">{{ dashboardData.summary.applications.underReview }} Under Review</span>
+                <span class="volume">{{ dashboardData.summary.applications.pending }} Pending</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="stat-card approved">
+        <!-- Total Disbursements -->
+        <div class="stat-card disbursements" (click)="navigateToDisbursements()">
           <div class="stat-icon">
-            <app-feather-icon name="check-circle" size="24px"></app-feather-icon>
+            <app-feather-icon name="send" size="18px"></app-feather-icon>
           </div>
-          <div class="stat-content">
-            <div class="stat-value">{{ lenderStats.approvedApplications }}</div>
-            <div class="stat-label">Approved Loans</div>
-            <div class="stat-change positive">{{ lenderStats.approvalRate | number:'1.1-1' }}% approval rate</div>
+          <div class="stat-details">
+            <div class="stat-title">Total Disbursed</div>
+            <div class="stat-numbers">
+              <div class="main-stat">{{ formatCurrency(dashboardData.summary.disbursements.total) }}</div>
+              <div class="sub-stats">
+                <span class="success">+{{ dashboardData.summary.disbursements.growth }}% Growth</span>
+                <span class="volume">{{ formatCurrency(dashboardData.summary.disbursements.thisMonth) }} This Month</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="stat-card disbursed">
+        <!-- Repayments -->
+        <div class="stat-card repayments" (click)="navigateToRepayments()">
           <div class="stat-icon">
-            <app-feather-icon name="dollar-sign" size="24px"></app-feather-icon>
+            <app-feather-icon name="trending-up" size="18px"></app-feather-icon>
           </div>
-          <div class="stat-content">
-            <div class="stat-value">{{ formatCurrency(lenderStats.totalLoanAmount) }}</div>
-            <div class="stat-label">Total Disbursed</div>
-            <div class="stat-change positive">+8% this month</div>
+          <div class="stat-details">
+            <div class="stat-title">Repayments Collected</div>
+            <div class="stat-numbers">
+              <div class="main-stat">{{ formatCurrency(dashboardData.summary.repayments.collected) }}</div>
+              <div class="sub-stats">
+                <span class="success">{{ dashboardData.summary.repayments.collectionRate }}% Collection Rate</span>
+                <span class="warning">{{ formatCurrency(dashboardData.summary.repayments.overdue) }} Overdue</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Charts Section -->
-      <div class="charts-section">
-        <!-- Applications Trend Chart -->
+      <div class="charts-section" *ngIf="dashboardData" [class.loading-overlay]="isRefreshing">
+        <!-- Disbursements vs Repayments Trend -->
         <div class="chart-container">
           <div class="chart-header">
-            <h3>Loan Applications Trend</h3>
+            <h3>Disbursements vs Repayments</h3>
             <div class="chart-controls">
               <button class="btn-small" (click)="updateChart('7D', $event)">7D</button>
               <button class="btn-small active" (click)="updateChart('30D', $event)">30D</button>
@@ -107,17 +164,17 @@ export interface ChartOptions {
           </div>
           <div class="chart-wrapper">
             <apx-chart
-              [series]="applicationsChartOptions.series"
-              [chart]="applicationsChartOptions.chart"
-              [xaxis]="applicationsChartOptions.xaxis"
-              [yaxis]="applicationsChartOptions.yaxis"
-              [dataLabels]="applicationsChartOptions.dataLabels"
-              [stroke]="applicationsChartOptions.stroke"
-              [fill]="applicationsChartOptions.fill"
-              [colors]="applicationsChartOptions.colors"
-              [tooltip]="applicationsChartOptions.tooltip"
-              [grid]="applicationsChartOptions.grid"
-              [legend]="applicationsChartOptions.legend || {}">
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [xaxis]="chartOptions.xaxis"
+              [yaxis]="chartOptions.yaxis"
+              [dataLabels]="chartOptions.dataLabels"
+              [stroke]="chartOptions.stroke"
+              [fill]="chartOptions.fill"
+              [colors]="chartOptions.colors"
+              [tooltip]="chartOptions.tooltip"
+              [grid]="chartOptions.grid"
+              [legend]="chartOptions.legend || {}">
             </apx-chart>
           </div>
         </div>
@@ -125,80 +182,119 @@ export interface ChartOptions {
         <!-- Loan Status Distribution -->
         <div class="chart-container donut-chart">
           <div class="chart-header">
-            <h3>Applications by Status</h3>
+            <h3>Loan Status Distribution</h3>
           </div>
           <div class="chart-wrapper">
             <apx-chart
-              [series]="statusChartOptions.series"
-              [chart]="statusChartOptions.chart"
-              [labels]="statusChartOptions.labels"
-              [colors]="statusChartOptions.colors"
-              [dataLabels]="statusChartOptions.dataLabels"
-              [legend]="statusChartOptions.legend"
-              [tooltip]="statusChartOptions.tooltip"
-              [plotOptions]="statusChartOptions.plotOptions">
+              [series]="donutChartOptions.series"
+              [chart]="donutChartOptions.chart"
+              [labels]="donutChartOptions.labels"
+              [colors]="donutChartOptions.colors"
+              [dataLabels]="donutChartOptions.dataLabels"
+              [legend]="donutChartOptions.legend"
+              [tooltip]="donutChartOptions.tooltip"
+              [plotOptions]="donutChartOptions.plotOptions">
             </apx-chart>
           </div>
         </div>
       </div>
 
-      <!-- Recent Applications -->
-      <div class="recent-applications">
+      <!-- Recent Activity -->
+      <div class="recent-transactions" *ngIf="dashboardData?.recentActivities?.length" [class.loading-overlay]="isRefreshing">
         <div class="section-header">
-          <h3>Recent Loan Applications</h3>
+          <h3>Recent Activity</h3>
           <button class="view-all-btn" (click)="navigateToApplications()">View All</button>
         </div>
-        <div class="applications-list">
-          <div class="application-item" 
-               *ngFor="let application of recentApplications"
-               (click)="viewApplication(application)">
-            <div class="application-icon" [style.background-color]="getStatusColor(application.status)">
-              <app-feather-icon [name]="getApplicationIcon(application.status)" size="16px"></app-feather-icon>
+        <div class="transactions-list">
+          <div class="transaction-item" 
+               *ngFor="let activity of (dashboardData?.recentActivities || []).slice(0, 5)"
+               (click)="viewActivityDetails(activity)">
+            <div class="transaction-icon">
+              <app-feather-icon 
+                [name]="getActivityIcon(activity.type)" 
+                size="16px">
+              </app-feather-icon>
             </div>
-            <div class="application-details">
-              <div class="application-title">{{ application.applicantName }}</div>
-              <div class="application-product">{{ application.productName }}</div>
-              <div class="application-date">{{ formatDate(application.submittedAt) }}</div>
+            <div class="transaction-details">
+              <div class="transaction-title">
+                {{ getActivityTitle(activity) }}
+              </div>
+              <div class="transaction-date">{{ formatDate(activity.date) }}</div>
             </div>
-            <div class="application-amount">{{ formatCurrency(application.amount) }}</div>
-            <div class="application-status" [style.color]="getStatusColor(application.status)">
-              {{ formatStatus(application.status) }}
+            <div class="transaction-amount" [class]="getActivityAmountClass(activity.type)">
+              {{ formatCurrency(activity.amount) }}
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Quick Actions -->
-      <div class="quick-actions">
-        <h3>Quick Actions</h3>
-        <div class="actions-grid">
-          <button class="action-btn" (click)="navigateToApplications()">
-            <div class="action-icon">
-              <app-feather-icon name="file-text" size="20px"></app-feather-icon>
+      <!-- Skeleton Loading States -->
+      <div *ngIf="isLoading && !dashboardData">
+        <!-- Skeleton Stats Grid -->
+        <div class="skeleton-stats-grid">
+          <div class="skeleton-stat-card" *ngFor="let i of [1,2,3,4]">
+            <div class="skeleton-stat-icon"></div>
+            <div class="skeleton-stat-details">
+              <div class="skeleton-stat-title"></div>
+              <div class="skeleton-main-stat"></div>
+              <div class="skeleton-sub-stats">
+                <div class="skeleton-sub-stat"></div>
+                <div class="skeleton-sub-stat"></div>
+              </div>
             </div>
-            <span class="action-label">Review Applications</span>
-          </button>
-          
-          <button class="action-btn" (click)="navigateToProducts()">
-            <div class="action-icon">
-              <app-feather-icon name="package" size="20px"></app-feather-icon>
+          </div>
+        </div>
+
+        <!-- Skeleton Charts Section -->
+        <div class="skeleton-charts-section">
+          <div class="skeleton-chart-container">
+            <div class="skeleton-chart-header">
+              <div class="skeleton-chart-title"></div>
+              <div class="skeleton-chart-controls">
+                <div class="skeleton-btn-small"></div>
+                <div class="skeleton-btn-small"></div>
+                <div class="skeleton-btn-small"></div>
+              </div>
             </div>
-            <span class="action-label">Manage Products</span>
-          </button>
-          
-          <button class="action-btn" (click)="navigateToAnalytics()">
-            <div class="action-icon">
-              <app-feather-icon name="bar-chart-2" size="20px"></app-feather-icon>
+            <div class="skeleton-chart-wrapper"></div>
+          </div>
+          <div class="skeleton-chart-container skeleton-donut-chart">
+            <div class="skeleton-chart-header">
+              <div class="skeleton-chart-title"></div>
             </div>
-            <span class="action-label">View Analytics</span>
-          </button>
-          
-          <button class="action-btn" (click)="navigateToReports()">
-            <div class="action-icon">
-              <app-feather-icon name="download" size="20px"></app-feather-icon>
+            <div class="skeleton-chart-wrapper"></div>
+          </div>
+        </div>
+
+        <!-- Skeleton Recent Activity -->
+        <div class="skeleton-recent-activity">
+          <div class="skeleton-activity-header">
+            <div class="skeleton-activity-title"></div>
+            <div class="skeleton-view-all"></div>
+          </div>
+          <div class="skeleton-activity-list">
+            <div class="skeleton-activity-item" *ngFor="let i of [1,2,3,4,5]">
+              <div class="skeleton-activity-icon"></div>
+              <div class="skeleton-activity-content">
+                <div class="skeleton-activity-title"></div>
+                <div class="skeleton-activity-time"></div>
+              </div>
+              <div class="skeleton-activity-amount"></div>
             </div>
-            <span class="action-label">Generate Reports</span>
-          </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error States -->
+      <div class="error-section" *ngIf="errorMessage">
+        <div class="error-card">
+          <app-feather-icon name="alert-circle" size="24px"></app-feather-icon>
+          <h3>Failed to Load Dashboard</h3>
+          <p>{{ errorMessage }}</p>
+          <div class="error-actions">
+            <button class="btn-primary" (click)="forceRefresh()">Retry</button>
+            <button class="btn-secondary" (click)="refreshDashboard()">Refresh</button>
+          </div>
         </div>
       </div>
     </div>
@@ -208,15 +304,24 @@ export interface ChartOptions {
 export class LenderDashboardComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   
-  currentLender: Lender | null = null;
-  lenderStats: any = null;
-  recentApplications: LoanApplication[] = [];
+  dashboardData: LenderDashboardData | null = null;
   
-  applicationsChartOptions!: ChartOptions;
-  statusChartOptions!: any;
+  // UI state
+  isLoading = true;
+  errorMessage: string | null = null;
+  lastUpdated: Date | null = null;
+  isRefreshing = false;
+  
+  // Chart options
+  chartOptions!: ChartOptions;
+  donutChartOptions!: any;
 
-  constructor(private lenderService: LenderService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.initializeCharts();
+    this.initializeDonutChart();
   }
 
   ngOnInit() {
@@ -228,42 +333,115 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private loadDashboardData() {
-    // Load current lender
-    this.lenderService.currentLender$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(lender => {
-        this.currentLender = lender;
-      });
+  /**
+   * Load dashboard data with mock data for now
+   */
+  loadDashboardData() {
+    this.isLoading = true;
+    this.errorMessage = null;
 
-    // Load stats
-    this.lenderStats = this.lenderService.getLenderStats();
-
-    // Load recent applications
-    this.lenderService.loanApplications$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(applications => {
-        this.recentApplications = applications
-          .sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime())
-          .slice(0, 5);
-      });
-
-    this.updateCharts();
+    // Simulate API call with mock data
+    setTimeout(() => {
+      this.dashboardData = this.getMockLenderData();
+      this.updateChartData();
+      this.isLoading = false;
+      this.lastUpdated = new Date();
+    }, 1000);
   }
 
-  private initializeCharts() {
-    // Applications trend chart
-    this.applicationsChartOptions = {
-      series: [
+  /**
+   * Get mock lender dashboard data
+   */
+  private getMockLenderData(): LenderDashboardData {
+    return {
+      summary: {
+        portfolio: {
+          total: 125000000,
+          active: 284,
+          overdue: 12
+        },
+        applications: {
+          pending: 23,
+          underReview: 15,
+          approved: 342,
+          rejected: 45
+        },
+        disbursements: {
+          total: 245000000,
+          thisMonth: 18500000,
+          growth: 18.5
+        },
+        repayments: {
+          collected: 89200000,
+          overdue: 3400000,
+          collectionRate: 92.5
+        }
+      },
+      recentActivities: [
         {
-          name: 'Applications',
-          type: 'area',
-          data: [12, 19, 15, 25, 22, 18, 24, 20, 28, 25, 30, 27]
+          id: '1',
+          type: 'application',
+          borrower: 'Jean Baptiste',
+          amount: 500000,
+          status: 'under_review',
+          date: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
         },
         {
-          name: 'Approved',
+          id: '2',
+          type: 'disbursement',
+          borrower: 'Marie Claire',
+          amount: 750000,
+          status: 'completed',
+          date: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString()
+        },
+        {
+          id: '3',
+          type: 'repayment',
+          borrower: 'François',
+          amount: 125000,
+          status: 'completed',
+          date: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString()
+        },
+        {
+          id: '4',
+          type: 'application',
+          borrower: 'Immaculée',
+          amount: 300000,
+          status: 'approved',
+          date: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString()
+        },
+        {
+          id: '5',
+          type: 'repayment',
+          borrower: 'Théophile',
+          amount: 200000,
+          status: 'completed',
+          date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+        }
+      ]
+    };
+  }
+
+  /**
+   * Initialize chart options
+   */
+  initializeCharts() {
+    const categories = Array.from({length: 30}, (_, i) => {
+      const date = new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000);
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    });
+
+    this.chartOptions = {
+      series: [
+        {
+          name: 'Disbursements',
           type: 'area',
-          data: [8, 12, 10, 18, 15, 12, 16, 14, 20, 18, 22, 19]
+          data: Array.from({length: 30}, () => Math.floor(Math.random() * 2000000) + 500000)
+        },
+        {
+          name: 'Repayments',
+          type: 'area',
+          data: Array.from({length: 30}, () => Math.floor(Math.random() * 1500000) + 400000)
         }
       ],
       chart: {
@@ -275,11 +453,11 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
         }
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        categories: categories
       },
       yaxis: {
         title: {
-          text: 'Number of Applications'
+          text: 'Amount (RWF)'
         }
       },
       stroke: {
@@ -301,8 +479,8 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
       colors: ['#f24d12', '#1abc9c'],
       tooltip: {
         y: {
-          formatter: function (val: number) {
-            return val + " applications"
+          formatter: function (val) {
+            return val.toLocaleString() + " RWF"
           }
         }
       },
@@ -314,10 +492,14 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
         position: 'top'
       }
     };
+  }
 
-    // Status distribution chart
-    this.statusChartOptions = {
-      series: [0, 0, 0, 0, 0], // Will be updated with real data
+  /**
+   * Initialize donut chart
+   */
+  initializeDonutChart() {
+    this.donutChartOptions = {
+      series: [180, 45, 342, 12],
       chart: {
         type: 'donut',
         height: 300,
@@ -325,8 +507,8 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
           show: false
         }
       },
-      labels: ['Pending', 'Under Review', 'Approved', 'Rejected', 'Disbursed'],
-      colors: ['#f39c12', '#3498db', '#1abc9c', '#e74c3c', '#27ae60'],
+      labels: ['Active', 'Overdue', 'Completed', 'Defaulted'],
+      colors: ['#1abc9c', '#f39c12', '#3498db', '#e74c3c'],
       dataLabels: {
         enabled: true,
         formatter: function (val: string) {
@@ -341,7 +523,7 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
       tooltip: {
         y: {
           formatter: function (val: number) {
-            return val + " applications"
+            return val.toLocaleString() + " loans"
           }
         }
       },
@@ -363,7 +545,7 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
                 fontWeight: 700,
                 color: '#f24d12',
                 formatter: function (val: string) {
-                  return val + " apps"
+                  return val + " loans"
                 }
               },
               total: {
@@ -375,7 +557,7 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
                 color: '#64748b',
                 formatter: function (w: any) {
                   const total = w.globals.seriesTotals.reduce((a: number, b: number) => a + b, 0);
-                  return total + " apps"
+                  return total + " loans"
                 }
               }
             }
@@ -385,65 +567,89 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
     };
   }
 
-  private updateCharts() {
-    if (!this.lenderStats) return;
+  /**
+   * Update chart data
+   */
+  updateChartData() {
+    if (!this.dashboardData) return;
+    
+    // Chart data will be updated based on period selection
+    this.updateDonutChartData();
+  }
 
-    // Update status chart with real data
-    const statusData = [
-      this.lenderStats.pendingApplications,
-      this.lenderStats.underReviewApplications,
-      this.lenderStats.approvedApplications,
-      this.lenderStats.rejectedApplications,
-      this.lenderStats.disbursedLoans
-    ];
+  /**
+   * Update donut chart data
+   */
+  updateDonutChartData() {
+    if (!this.dashboardData) return;
 
-    this.statusChartOptions = {
-      ...this.statusChartOptions,
-      series: statusData
+    const active = this.dashboardData.summary.portfolio.active;
+    const overdue = this.dashboardData.summary.portfolio.overdue;
+    const completed = this.dashboardData.summary.applications.approved;
+    const defaulted = Math.floor(overdue * 0.5);
+
+    this.donutChartOptions = {
+      ...this.donutChartOptions,
+      series: [active, overdue, completed, defaulted]
     };
   }
 
+  /**
+   * Update chart based on period
+   */
   updateChart(period: string, event?: Event) {
-    // Update active button
     document.querySelectorAll('.chart-controls button').forEach(btn => btn.classList.remove('active'));
     if (event?.target && event.target instanceof HTMLElement) {
       event.target.classList.add('active');
     }
 
-    // Update chart data based on period
-    let newData: number[];
     let categories: string[];
+    let disbursementsData: number[];
+    let repaymentsData: number[];
 
     switch(period) {
       case '7D':
-        categories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        newData = [5, 8, 6, 12, 9, 4, 7];
+        categories = Array.from({length: 7}, (_, i) => {
+          const date = new Date(Date.now() - (6 - i) * 24 * 60 * 60 * 1000);
+          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        disbursementsData = Array.from({length: 7}, () => Math.floor(Math.random() * 3000000) + 1000000);
+        repaymentsData = Array.from({length: 7}, () => Math.floor(Math.random() * 2500000) + 800000);
         break;
       case '30D':
-        categories = Array.from({length: 30}, (_, i) => `Day ${i + 1}`);
-        newData = Array.from({length: 30}, () => Math.floor(Math.random() * 20) + 5);
+        categories = Array.from({length: 30}, (_, i) => {
+          const date = new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000);
+          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        disbursementsData = Array.from({length: 30}, () => Math.floor(Math.random() * 2000000) + 500000);
+        repaymentsData = Array.from({length: 30}, () => Math.floor(Math.random() * 1500000) + 400000);
         break;
       case '90D':
         categories = Array.from({length: 12}, (_, i) => `Week ${i + 1}`);
-        newData = Array.from({length: 12}, () => Math.floor(Math.random() * 50) + 20);
+        disbursementsData = Array.from({length: 12}, () => Math.floor(Math.random() * 15000000) + 8000000);
+        repaymentsData = Array.from({length: 12}, () => Math.floor(Math.random() * 12000000) + 6000000);
         break;
       default:
-        categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-        newData = [12, 19, 15, 25, 22, 18];
+        categories = Array.from({length: 30}, (_, i) => {
+          const date = new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000);
+          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        disbursementsData = Array.from({length: 30}, () => Math.floor(Math.random() * 2000000) + 500000);
+        repaymentsData = Array.from({length: 30}, () => Math.floor(Math.random() * 1500000) + 400000);
     }
-
-    this.applicationsChartOptions = {
-      ...this.applicationsChartOptions,
+    
+    this.chartOptions = {
+      ...this.chartOptions,
       series: [
         {
-          name: 'Applications',
+          name: 'Disbursements',
           type: 'area',
-          data: newData
+          data: disbursementsData
         },
         {
-          name: 'Approved',
+          name: 'Repayments',
           type: 'area',
-          data: newData.map(val => Math.floor(val * 0.7))
+          data: repaymentsData
         }
       ],
       xaxis: {
@@ -452,63 +658,127 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
     };
   }
 
-  // Navigation methods
+  /**
+   * Navigation methods
+   */
+  navigateToPortfolio() {
+    this.router.navigate(['/lender/portfolio/overview']);
+  }
+
   navigateToApplications() {
-    // TODO: Navigate to applications page
-    console.log('Navigate to applications');
+    this.router.navigate(['/lender/loan-applications']);
   }
 
-  navigateToProducts() {
-    // TODO: Navigate to products page
-    console.log('Navigate to products');
+  navigateToDisbursements() {
+    this.router.navigate(['/lender/disbursements']);
   }
 
-  navigateToAnalytics() {
-    // TODO: Navigate to analytics page
-    console.log('Navigate to analytics');
+  navigateToRepayments() {
+    this.router.navigate(['/lender/repayments/schedule']);
   }
 
-  navigateToReports() {
-    // TODO: Navigate to reports page
-    console.log('Navigate to reports');
+  viewActivityDetails(activity: any) {
+    console.log('View activity details:', activity);
   }
 
-  viewApplication(application: LoanApplication) {
-    // TODO: Show application details modal
-    console.log('View application:', application);
+  getActivityIcon(type: string): string {
+    switch(type.toLowerCase()) {
+      case 'application':
+        return 'file-text';
+      case 'disbursement':
+        return 'send';
+      case 'repayment':
+        return 'trending-up';
+      default:
+        return 'file-text';
+    }
   }
 
-  // Utility methods
+  getActivityTitle(activity: any): string {
+    switch(activity.type.toLowerCase()) {
+      case 'application':
+        return `Application from ${activity.borrower}`;
+      case 'disbursement':
+        return `Disbursed to ${activity.borrower}`;
+      case 'repayment':
+        return `Repayment from ${activity.borrower}`;
+      default:
+        return `${activity.type} - ${activity.borrower}`;
+    }
+  }
+
+  getActivityAmountClass(type: string): string {
+    switch(type.toLowerCase()) {
+      case 'disbursement':
+        return 'negative';
+      case 'repayment':
+      case 'application':
+        return 'positive';
+      default:
+        return 'positive';
+    }
+  }
+
+  /**
+   * Utility methods
+   */
   formatCurrency(amount: number): string {
-    return this.lenderService.formatCurrency(amount);
+    return new Intl.NumberFormat('en-RW', {
+      style: 'currency',
+      currency: 'RWF',
+      minimumFractionDigits: 0
+    }).format(amount);
   }
 
-  formatDate(date: Date): string {
-    return new Intl.DateTimeFormat('en-US', {
+  formatDate(dateString: string): string {
+    if (!dateString) {
+      return 'Unknown date';
+    }
+    
+    const date = new Date(dateString);
+    
+    if (isNaN(date.getTime())) {
+      return 'Invalid date';
+    }
+    
+    const now = new Date();
+    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+    const diffInDays = Math.floor(diffInHours / 24);
+    
+    if (diffInDays <= 5) {
+      if (diffInHours < 1) {
+        return 'Just now';
+      } else if (diffInHours < 24) {
+        return `${diffInHours} hours ago`;
+      } else if (diffInDays === 1) {
+        return 'Yesterday';
+      } else {
+        return `${diffInDays} days ago`;
+      }
+    }
+    
+    return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
-    }).format(new Date(date));
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   }
 
-  formatStatus(status: string): string {
-    return status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+  /**
+   * Refresh dashboard
+   */
+  refreshDashboard() {
+    this.isRefreshing = true;
+    this.loadDashboardData();
+    
+    setTimeout(() => {
+      this.isRefreshing = false;
+    }, 1000);
   }
 
-  getStatusColor(status: string): string {
-    return this.lenderService.getStatusColor(status);
-  }
-
-  getApplicationIcon(status: string): string {
-    switch(status) {
-      case 'pending': return 'clock';
-      case 'under_review': return 'eye';
-      case 'approved': return 'check-circle';
-      case 'rejected': return 'x-circle';
-      case 'disbursed': return 'dollar-sign';
-      case 'completed': return 'check';
-      case 'defaulted': return 'alert-triangle';
-      default: return 'file-text';
-    }
+  forceRefresh() {
+    this.refreshDashboard();
   }
 }

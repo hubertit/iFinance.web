@@ -19,7 +19,7 @@ export class NavigationService {
     {
       title: 'Dashboard',
       icon: 'home',
-      path: 'dashboard'
+      path: 'lender/dashboard'
     },
     {
       title: 'Loan Applications',
