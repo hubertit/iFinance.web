@@ -16,7 +16,7 @@ export interface CollectionActivity {
   activityType: 'call' | 'email' | 'sms' | 'visit' | 'payment' | 'promise_to_pay';
   activityDate: Date;
   status: 'completed' | 'pending' | 'scheduled' | 'cancelled';
-  outcome: string;
+  outcome?: string;
   nextAction?: Date;
   amountCollected?: number;
   collectorName?: string;
