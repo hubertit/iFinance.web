@@ -36,6 +36,7 @@ import { LoanPerformanceComponent } from './features/lender/loan-performance/loa
 import { DelinquencyManagementComponent } from './features/lender/delinquency-management/delinquency-management.component';
 import { CollectionsComponent } from './features/lender/collections/collections.component';
 import { CreditScoringComponent } from './features/lender/credit-scoring/credit-scoring.component';
+import { RiskAnalysisComponent } from './features/lender/risk-analysis/risk-analysis.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -183,6 +184,10 @@ export const routes: Routes = [
       {
         path: 'lender/credit/scoring',
         component: CreditScoringComponent
+      },
+      {
+        path: 'lender/credit/risk-analysis',
+        component: RiskAnalysisComponent
       },
       {
         path: 'lender/products',
