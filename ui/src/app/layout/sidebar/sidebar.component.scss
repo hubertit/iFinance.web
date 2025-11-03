@@ -218,6 +218,16 @@
     justify-content: center;
     opacity: 0.8;
     transition: opacity 0.2s ease;
+
+    &[name="chevron-right"] {
+      margin-right: 0;
+      margin-left: auto;
+      transition: transform 0.2s ease;
+
+      &.rotated {
+        transform: rotate(90deg);
+      }
+    }
   }
 
   .nav-text {
@@ -227,15 +237,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .submenu-arrow {
-    font-size: 0.75rem;
-    transition: transform 0.2s ease;
-
-    &.rotated {
-      transform: rotate(90deg);
-    }
   }
 }
 
