@@ -92,12 +92,9 @@ export interface TableColumn {
                     </span>
                   </ng-container>
                   <ng-container *ngSwitchCase="'status'">
-                    <span class="badge" 
-                          [class.bg-success]="item[col.key] === 'ACTIVE' || item[col.key] === 'active' || item[col.key] === 'SUCCESS' || item[col.key] === 'success' || item[col.key] === 'Active'"
-                          [class.bg-secondary]="item[col.key] === 'INACTIVE' || item[col.key] === 'inactive' || item[col.key] === 'Inactive'"
-                          [class.bg-warning]="item[col.key] === 'PENDING' || item[col.key] === 'pending' || item[col.key] === 'PROCESSING' || item[col.key] === 'processing'"
-                          [class.bg-danger]="item[col.key] === 'ERROR' || item[col.key] === 'error' || item[col.key] === 'FAILED' || item[col.key] === 'failed' || item[col.key] === 'FAILURE' || item[col.key] === 'failure' || item[col.key] === 'Suspended'">
-                      {{ item[col.key] }}
+                    <span class="badge status-badge" 
+                          [ngClass]="getStatusBadgeClass(item[col.key])">
+                      {{ formatStatusValue(item[col.key]) }}
                     </span>
                   </ng-container>
                   <ng-container *ngSwitchCase="'custom'">
@@ -256,5 +253,70 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
       pages.push(i);
     }
     return pages;
+  }
+
+  getStatusBadgeClass(value: any): string {
+    if (!value) return 'badge-default';
+    
+    const val = String(value).toLowerCase();
+    
+    // Status badges
+    if (val === 'pending' || val === 'pending review') {
+      return 'badge-pending';
+    }
+    if (val === 'under_review' || val === 'under review') {
+      return 'badge-under-review';
+    }
+    if (val === 'approved' || val === 'active' || val === 'success' || val === 'completed') {
+      return 'badge-approved';
+    }
+    if (val === 'rejected' || val === 'error' || val === 'failed' || val === 'failure' || val === 'suspended') {
+      return 'badge-rejected';
+    }
+    if (val === 'disbursed') {
+      return 'badge-disbursed';
+    }
+    
+    // Risk level badges
+    if (val === 'low' || val === 'low risk') {
+      return 'badge-low-risk';
+    }
+    if (val === 'medium' || val === 'medium risk') {
+      return 'badge-medium-risk';
+    }
+    if (val === 'high' || val === 'high risk') {
+      return 'badge-high-risk';
+    }
+    
+    // Default cases
+    if (val === 'inactive' || val === 'processing') {
+      return 'badge-inactive';
+    }
+    
+    return 'badge-default';
+  }
+
+  formatStatusValue(value: any): string {
+    if (!value) return '';
+    
+    const val = String(value);
+    
+    // Handle snake_case
+    if (val.includes('_')) {
+      return val.split('_').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ');
+    }
+    
+    // Handle camelCase
+    if (val !== val.toUpperCase() && val !== val.toLowerCase()) {
+      return val.replace(/([A-Z])/g, ' $1').trim()
+        .split(' ').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        ).join(' ');
+    }
+    
+    // Default: capitalize first letter
+    return val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
   }
 }
