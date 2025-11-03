@@ -94,7 +94,49 @@ export class LoginComponent implements OnInit {
 
           const { identifier, password } = this.loginForm.value;
 
-          // Use direct API call with HttpClient
+          // Check for static lender credentials
+          if (identifier.toLowerCase() === 'lender@ifinance.rw' && password === 'Pass123') {
+            // Create mock lender user matching User interface
+            const lenderUser: any = {
+              id: 'lender-001',
+              name: 'Lender Institution',
+              email: 'lender@ifinance.rw',
+              phoneNumber: '+250788000000',
+              role: 'lender',
+              accountType: 'lender',
+              accountCode: 'LND001',
+              accountName: 'Lender Institution',
+              avatar: undefined,
+              createdAt: new Date(),
+              lastLoginAt: new Date(),
+              isActive: true,
+              token: 'lender-static-token-' + Date.now(),
+              permissions: {}
+            };
+
+            // Store lender user data in localStorage
+            localStorage.setItem('ihuzofinance.user', JSON.stringify(lenderUser));
+            localStorage.setItem('ihuzofinance.token', lenderUser.token);
+            localStorage.setItem('ihuzofinance.isLoggedIn', 'true');
+            localStorage.setItem('ifinance.currentAccount', JSON.stringify({
+              account_id: 999,
+              account_code: 'LND001',
+              account_name: 'Lender Institution',
+              account_type: 'lender',
+              role: 'lender'
+            }));
+
+            this.isLoading = false;
+            this.isSuccess = true;
+            this.successMessage = '';
+            this.errorMessage = '';
+            
+            // Navigate to dashboard - sidebar will load menu based on lender role from localStorage
+            this.router.navigate(['/dashboard']);
+            return;
+          }
+
+          // Use direct API call with HttpClient for regular login
           this.authService.login(identifier, password).subscribe({
             next: (user) => {
               console.log('🔧 LoginComponent: Login successful:', user);

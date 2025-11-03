@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { NavigationService, MenuItem } from '../../core/services/navigation.service';
@@ -75,7 +75,7 @@ import { AuthService } from '../../core/services/auth.service';
   `,
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   @Input() isCollapsed = false;
   @Output() toggleCollapse = new EventEmitter<void>();
 
@@ -89,21 +89,33 @@ export class SidebarComponent {
     private router: Router,
     private inactivityService: InactivityService,
     private authService: AuthService
-  ) {
-    this.loadUserData();
+  ) {}
+
+  ngOnInit() {
+    this.updateMenuItems();
+    this.updateUserInfo();
+    
+    // Listen for user changes to update menu
+    const user = this.authService.getCurrentUser();
+    if (user) {
+      this.updateMenuItems();
+      this.updateUserInfo();
+    }
   }
 
-  private loadUserData(): void {
+  private updateMenuItems(): void {
+    this.menuItems = this.navigationService.getMenuItems();
+  }
+
+  private updateUserInfo(): void {
     const user = this.authService.getCurrentUser();
     if (user) {
       this.userName = user.name;
-      this.userRole = user.role;
+      this.userRole = user.role || user.accountType || 'User';
       if (user.avatar) {
         this.userAvatar = user.avatar;
       }
     }
-    // Load role-specific menu items
-    this.menuItems = this.navigationService.getMenuItems();
   }
 
   onToggleCollapse(): void {
