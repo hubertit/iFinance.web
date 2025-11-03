@@ -287,6 +287,9 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
     if (val === 'high' || val === 'high risk') {
       return 'badge-high-risk';
     }
+    if (val === 'critical' || val === 'critical risk') {
+      return 'badge-critical-risk';
+    }
     
     // Default cases
     if (val === 'inactive' || val === 'processing') {
