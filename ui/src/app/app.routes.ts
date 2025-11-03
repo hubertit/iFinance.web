@@ -48,6 +48,7 @@ import { PaymentTrackingComponent } from './features/lender/payment-tracking/pay
 import { OverduePaymentsComponent } from './features/lender/overdue-payments/overdue-payments.component';
 import { RevenueIncomeComponent } from './features/lender/revenue-income/revenue-income.component';
 import { InterestRatesComponent } from './features/lender/interest-rates/interest-rates.component';
+import { FeeManagementComponent } from './features/lender/fee-management/fee-management.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -243,6 +244,10 @@ export const routes: Routes = [
       {
         path: 'lender/interest-rates',
         component: InterestRatesComponent
+      },
+      {
+        path: 'lender/fees',
+        component: FeeManagementComponent
       },
       {
         path: 'lender/products',
