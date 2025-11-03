@@ -41,6 +41,7 @@ import { KYCVerificationComponent } from './features/lender/kyc-verification/kyc
 import { BorrowersListComponent } from './features/lender/borrowers-list/borrowers-list.component';
 import { BorrowerProfilesComponent } from './features/lender/borrower-profiles/borrower-profiles.component';
 import { BorrowerHistoryComponent } from './features/lender/borrower-history/borrower-history.component';
+import { AddBorrowerComponent } from './features/lender/add-borrower/add-borrower.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -208,6 +209,10 @@ export const routes: Routes = [
       {
         path: 'lender/borrowers/history',
         component: BorrowerHistoryComponent
+      },
+      {
+        path: 'lender/borrowers/add',
+        component: AddBorrowerComponent
       },
       {
         path: 'lender/products',
