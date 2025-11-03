@@ -65,6 +65,30 @@ export interface LoanDisbursement {
   status: 'pending' | 'completed' | 'failed';
 }
 
+export interface ActiveLoan {
+  id: string;
+  loanNumber: string;
+  applicationId: string;
+  borrowerId: string;
+  borrowerName: string;
+  borrowerPhone: string;
+  productId: string;
+  productName: string;
+  principalAmount: number;
+  interestRate: number;
+  termMonths: number;
+  monthlyPayment: number;
+  outstandingBalance: number;
+  totalPaid: number;
+  disbursedAmount: number;
+  disbursedAt: Date;
+  nextPaymentDate: Date;
+  status: 'active' | 'completed' | 'defaulted';
+  daysPastDue: number;
+  paymentsRemaining: number;
+  paymentsCompleted: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -72,11 +96,13 @@ export class LenderService {
   private lendersSubject = new BehaviorSubject<Lender[]>([]);
   private loanProductsSubject = new BehaviorSubject<LoanProduct[]>([]);
   private loanApplicationsSubject = new BehaviorSubject<LoanApplication[]>([]);
+  private activeLoansSubject = new BehaviorSubject<ActiveLoan[]>([]);
   private currentLenderSubject = new BehaviorSubject<Lender | null>(null);
 
   public lenders$ = this.lendersSubject.asObservable();
   public loanProducts$ = this.loanProductsSubject.asObservable();
   public loanApplications$ = this.loanApplicationsSubject.asObservable();
+  public activeLoans$ = this.activeLoansSubject.asObservable();
   public currentLender$ = this.currentLenderSubject.asObservable();
 
   constructor() {
@@ -280,9 +306,106 @@ export class LenderService {
       }
     ];
 
+    // Mock Active Loans (converted from disbursed applications)
+    const mockActiveLoans: ActiveLoan[] = [
+      {
+        id: 'LOAN-1',
+        loanNumber: 'LN-2024-001',
+        applicationId: 'APP-5',
+        borrowerId: 'CUST-005',
+        borrowerName: 'David Nsabimana',
+        borrowerPhone: '+250788555555',
+        productId: 'PRODUCT-1',
+        productName: 'Agricultural Development Loan',
+        principalAmount: 3000000,
+        interestRate: 12,
+        termMonths: 24,
+        monthlyPayment: 141250,
+        outstandingBalance: 2825000,
+        totalPaid: 282500,
+        disbursedAmount: 3000000,
+        disbursedAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000), // 60 days ago
+        nextPaymentDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+        status: 'active',
+        daysPastDue: 0,
+        paymentsRemaining: 20,
+        paymentsCompleted: 4
+      },
+      {
+        id: 'LOAN-2',
+        loanNumber: 'LN-2024-002',
+        applicationId: 'APP-2',
+        borrowerId: 'CUST-002',
+        borrowerName: 'Marie Uwimana',
+        borrowerPhone: '+250788222222',
+        productId: 'PRODUCT-2',
+        productName: 'Small Business Loan',
+        principalAmount: 5000000,
+        interestRate: 18,
+        termMonths: 36,
+        monthlyPayment: 183333,
+        outstandingBalance: 4166667,
+        totalPaid: 1833333,
+        disbursedAmount: 5000000,
+        disbursedAt: new Date(Date.now() - 120 * 24 * 60 * 60 * 1000), // 120 days ago
+        nextPaymentDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // 10 days from now
+        status: 'active',
+        daysPastDue: 0,
+        paymentsRemaining: 32,
+        paymentsCompleted: 10
+      },
+      {
+        id: 'LOAN-3',
+        loanNumber: 'LN-2023-015',
+        applicationId: 'APP-OLD-1',
+        borrowerId: 'CUST-010',
+        borrowerName: 'Jean Baptiste',
+        borrowerPhone: '+250788666666',
+        productId: 'PRODUCT-1',
+        productName: 'Agricultural Development Loan',
+        principalAmount: 2000000,
+        interestRate: 12,
+        termMonths: 24,
+        monthlyPayment: 94167,
+        outstandingBalance: 470835,
+        totalPaid: 1883335,
+        disbursedAmount: 2000000,
+        disbursedAt: new Date(Date.now() - 400 * 24 * 60 * 60 * 1000), // 400 days ago
+        nextPaymentDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days overdue
+        status: 'active',
+        daysPastDue: 5,
+        paymentsRemaining: 5,
+        paymentsCompleted: 19
+      },
+      {
+        id: 'LOAN-4',
+        loanNumber: 'LN-2023-020',
+        applicationId: 'APP-OLD-2',
+        borrowerId: 'CUST-011',
+        borrowerName: 'Sarah Mukamana',
+        borrowerPhone: '+250788777777',
+        productId: 'PRODUCT-4',
+        productName: 'Micro Loan',
+        principalAmount: 500000,
+        interestRate: 25,
+        termMonths: 6,
+        monthlyPayment: 96875,
+        outstandingBalance: 0,
+        totalPaid: 581250,
+        disbursedAmount: 500000,
+        disbursedAt: new Date(Date.now() - 200 * 24 * 60 * 60 * 1000), // 200 days ago
+        nextPaymentDate: new Date(),
+        status: 'completed',
+        daysPastDue: 0,
+        paymentsRemaining: 0,
+        paymentsCompleted: 6
+      }
+    ];
+
     this.lendersSubject.next(mockLenders);
     this.loanProductsSubject.next(mockLoanProducts);
     this.loanApplicationsSubject.next(mockLoanApplications);
+    this.activeLoansSubject.next(mockActiveLoans);
     
     // Set first lender as current
     this.currentLenderSubject.next(mockLenders[0]);
@@ -466,7 +589,29 @@ export class LenderService {
       case 'disbursed': return '#27ae60';
       case 'completed': return '#2ecc71';
       case 'defaulted': return '#e74c3c';
+      case 'active': return '#3498db';
       default: return '#6c757d';
     }
+  }
+
+  // Active Loan methods
+  getActiveLoans(): ActiveLoan[] {
+    return this.activeLoansSubject.value;
+  }
+
+  getActiveLoansByStatus(status: 'active' | 'completed' | 'defaulted'): ActiveLoan[] {
+    return this.activeLoansSubject.value.filter(loan => loan.status === status);
+  }
+
+  getOverdueLoans(): ActiveLoan[] {
+    return this.activeLoansSubject.value.filter(loan => loan.daysPastDue > 0);
+  }
+
+  updateActiveLoan(loanId: string, updates: Partial<ActiveLoan>): void {
+    const loans = this.activeLoansSubject.value;
+    const updatedLoans = loans.map(loan => 
+      loan.id === loanId ? { ...loan, ...updates } : loan
+    );
+    this.activeLoansSubject.next(updatedLoans);
   }
 }

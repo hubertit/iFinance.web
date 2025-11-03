@@ -30,6 +30,7 @@ import { LockComponent } from './features/auth/lock/lock.component';
 import { LenderDashboardComponent } from './features/lender/lender-dashboard/lender-dashboard.component';
 import { LoanApplicationsComponent } from './features/lender/loan-applications/loan-applications.component';
 import { LoanProductsComponent } from './features/lender/loan-products/loan-products.component';
+import { ActiveLoansComponent } from './features/lender/active-loans/active-loans.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -151,8 +152,12 @@ export const routes: Routes = [
         component: LenderDashboardComponent
       },
       {
-        path: 'lender/applications',
+        path: 'lender/loan-applications',
         component: LoanApplicationsComponent
+      },
+      {
+        path: 'lender/active-loans',
+        component: ActiveLoansComponent
       },
       {
         path: 'lender/products',

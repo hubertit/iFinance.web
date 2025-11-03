@@ -272,6 +272,84 @@ import { Subject, takeUntil } from 'rxjs';
           </div>
         </div>
       </div>
+
+      <!-- Reject Application Modal -->
+      <div class="modal-overlay" *ngIf="showRejectModal" (click)="closeRejectModal()">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <h3>Reject Application</h3>
+            <button class="close-btn" (click)="closeRejectModal()">
+              <app-feather-icon name="x" size="20px"></app-feather-icon>
+            </button>
+          </div>
+          <div class="modal-content" *ngIf="selectedApplication">
+            <div class="form-group">
+              <label for="rejectionReason">Rejection Reason *</label>
+              <textarea
+                id="rejectionReason"
+                [(ngModel)]="rejectionReason"
+                placeholder="Please provide a reason for rejecting this application..."
+                class="form-control"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            <div class="modal-actions">
+              <button 
+                class="btn btn-primary" 
+                (click)="confirmReject(rejectionReason)"
+                [disabled]="!rejectionReason || !rejectionReason.trim()"
+              >
+                Confirm Rejection
+              </button>
+              <button class="btn btn-secondary" (click)="closeRejectModal()">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disburse Loan Modal -->
+      <div class="modal-overlay" *ngIf="showDisburseModal" (click)="closeDisburseModal()">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <h3>Confirm Disbursement</h3>
+            <button class="close-btn" (click)="closeDisburseModal()">
+              <app-feather-icon name="x" size="20px"></app-feather-icon>
+            </button>
+          </div>
+          <div class="modal-content" *ngIf="selectedApplication">
+            <div class="disbursement-info">
+              <p>Are you sure you want to disburse the following loan?</p>
+              <div class="info-item">
+                <label>Applicant:</label>
+                <span>{{ selectedApplication.applicantName }}</span>
+              </div>
+              <div class="info-item">
+                <label>Amount:</label>
+                <span class="amount">{{ formatCurrency(selectedApplication.amount) }}</span>
+              </div>
+              <div class="info-item">
+                <label>Product:</label>
+                <span>{{ selectedApplication.productName }}</span>
+              </div>
+              <div class="info-item">
+                <label>Term:</label>
+                <span>{{ selectedApplication.termMonths }} months</span>
+              </div>
+            </div>
+            <div class="modal-actions">
+              <button class="btn btn-primary" (click)="confirmDisburse()">
+                Confirm Disbursement
+              </button>
+              <button class="btn btn-secondary" (click)="closeDisburseModal()">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   `,
   styleUrls: ['./loan-applications.component.scss']
@@ -283,6 +361,9 @@ export class LoanApplicationsComponent implements OnInit, OnDestroy {
   filteredApplications: LoanApplication[] = [];
   selectedApplication: LoanApplication | null = null;
   showApplicationModal = false;
+  showRejectModal = false;
+  showDisburseModal = false;
+  rejectionReason = '';
   
   // Filters
   selectedStatus = '';
@@ -392,8 +473,34 @@ export class LoanApplicationsComponent implements OnInit, OnDestroy {
 
   // Table event handlers
   handleSort(event: { column: string; direction: 'asc' | 'desc' }) {
-    // TODO: Implement sorting
-    console.log('Sort:', event);
+    const { column, direction } = event;
+    
+    this.filteredApplications.sort((a, b) => {
+      let aValue: any = (a as any)[column];
+      let bValue: any = (b as any)[column];
+      
+      // Handle date sorting
+      if (column.includes('At') || column.includes('Date')) {
+        aValue = aValue ? new Date(aValue).getTime() : 0;
+        bValue = bValue ? new Date(bValue).getTime() : 0;
+      }
+      
+      // Handle string sorting
+      if (typeof aValue === 'string') {
+        aValue = aValue.toLowerCase();
+        bValue = bValue?.toLowerCase() || '';
+      }
+      
+      // Handle numeric sorting
+      if (typeof aValue === 'number') {
+        return direction === 'asc' ? aValue - bValue : bValue - aValue;
+      }
+      
+      // Handle string sorting
+      if (aValue < bValue) return direction === 'asc' ? -1 : 1;
+      if (aValue > bValue) return direction === 'asc' ? 1 : -1;
+      return 0;
+    });
   }
 
   handlePageChange(page: number) {
@@ -439,20 +546,38 @@ export class LoanApplicationsComponent implements OnInit, OnDestroy {
   }
 
   rejectApplication(application: LoanApplication) {
-    const reason = prompt('Please provide rejection reason:');
-    if (reason) {
-      this.lenderService.rejectApplication(application.id, reason);
-      this.closeDropdown();
+    this.closeDropdown();
+    this.selectedApplication = application;
+    this.showRejectModal = true;
+  }
+
+  disburseLoan(application: LoanApplication) {
+    this.closeDropdown();
+    this.selectedApplication = application;
+    this.showDisburseModal = true;
+  }
+
+  confirmReject(reason: string) {
+    if (reason && reason.trim()) {
+      this.lenderService.rejectApplication(this.selectedApplication!.id, reason);
+      this.closeRejectModal();
       this.refreshApplications();
     }
   }
 
-  disburseLoan(application: LoanApplication) {
-    if (confirm(`Are you sure you want to disburse ${this.formatCurrency(application.amount)} to ${application.applicantName}?`)) {
-      this.lenderService.disburseLoan(application.id);
-      this.closeDropdown();
-      this.refreshApplications();
-    }
+  confirmDisburse() {
+    this.lenderService.disburseLoan(this.selectedApplication!.id);
+    this.closeDisburseModal();
+    this.refreshApplications();
+  }
+
+  closeRejectModal() {
+    this.showRejectModal = false;
+    this.rejectionReason = '';
+  }
+
+  closeDisburseModal() {
+    this.showDisburseModal = false;
   }
 
   closeApplicationModal() {

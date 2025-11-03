@@ -1,6 +1,6 @@
 @use '../../../../styles/variables' as *;
 
-.loan-applications {
+.active-loans {
   padding: 12px;
   min-height: auto;
 
@@ -140,6 +140,7 @@
 
       &:hover {
         transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       .stat-icon {
@@ -158,6 +159,22 @@
         }
       }
 
+      &.active .stat-icon {
+        color: #3498db;
+      }
+
+      &.portfolio .stat-icon {
+        color: #059669;
+      }
+
+      &.overdue .stat-icon {
+        color: #ef4444;
+      }
+
+      &.collections .stat-icon {
+        color: #f59e0b;
+      }
+
       .stat-content {
         flex: 1;
 
@@ -172,6 +189,20 @@
           font-size: 14px;
           color: #64748b;
           font-weight: 500;
+        }
+
+        .stat-change {
+          font-size: 12px;
+          font-weight: 600;
+          margin-top: 4px;
+
+          &.positive {
+            color: #059669;
+          }
+
+          &.negative {
+            color: #ef4444;
+          }
         }
       }
     }
@@ -200,7 +231,7 @@
           margin: 0;
         }
 
-        .application-count {
+        .loan-count {
           background: #f1f5f9;
           color: #64748b;
           padding: 4px 8px;
@@ -230,13 +261,13 @@
     z-index: 1000;
     padding: 20px;
 
-      .modal-container {
-        background: white;
-        border-radius: 12px;
-        max-width: 600px;
-        width: 100%;
-        max-height: 90vh;
-        overflow-y: auto;
+    .modal-container {
+      background: white;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
 
       .modal-header {
         display: flex;
@@ -271,7 +302,7 @@
       .modal-content {
         padding: 24px;
 
-        .application-info {
+        .loan-info {
           .info-section {
             margin-bottom: 24px;
 
@@ -308,14 +339,18 @@
                   font-size: 14px;
                   color: #1e293b;
 
-                  &.credit-score {
+                  &.loan-number {
                     font-weight: 600;
-                    color: #059669;
+                    color: $primary;
                   }
 
                   &.amount {
                     font-weight: 600;
                     color: #1e293b;
+
+                    &.positive {
+                      color: #059669;
+                    }
                   }
 
                   &.status {
@@ -323,128 +358,49 @@
                     text-transform: uppercase;
                     font-size: 12px;
                   }
+
+                  &.days-past-due {
+                    font-weight: 600;
+
+                    &.positive {
+                      color: #059669;
+                    }
+
+                    &.negative {
+                      color: #ef4444;
+                    }
+                  }
+
+                  &.overdue {
+                    color: #ef4444;
+                    font-weight: 600;
+                  }
                 }
               }
             }
 
-            .notes, .rejection-reason {
-              background: #f8fafc;
-              padding: 16px;
-              border-radius: 8px;
-              border-left: 4px solid #e2e8f0;
-              margin: 0;
-              font-size: 14px;
-              line-height: 1.5;
-              color: #374151;
-            }
+            .progress-info {
+              margin-top: 12px;
 
-            .rejection-reason {
-              border-left-color: #ef4444;
-              background: #fef2f2;
-            }
-          }
-        }
-
-        .form-group {
-          margin-bottom: 20px;
-
-          label {
-            display: block;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 8px;
-            font-size: 14px;
-          }
-
-          .form-control {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: border-color 0.2s ease;
-
-            &:focus {
-              outline: none;
-              border-color: $primary;
-              box-shadow: 0 0 0 3px rgba($primary, 0.1);
-            }
-          }
-        }
-
-        .disbursement-info {
-          p {
-            margin-bottom: 16px;
-            color: #374151;
-            font-size: 14px;
-          }
-
-          .info-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #e5e7eb;
-
-            &:last-child {
-              border-bottom: none;
-            }
-
-            label {
-              font-weight: 600;
-              color: #64748b;
-              font-size: 14px;
-            }
-
-            span {
-              font-size: 14px;
-              color: #1e293b;
-
-              &.amount {
-                font-weight: 600;
-                color: #059669;
-              }
-            }
-          }
-        }
-
-        .modal-actions {
-          display: flex;
-          gap: 12px;
-          justify-content: flex-end;
-          margin-top: 24px;
-          padding-top: 24px;
-          border-top: 1px solid #e5e7eb;
-
-          .btn {
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-
-            &.btn-primary {
-              background: $primary;
-              color: white;
-
-              &:hover:not(:disabled) {
-                background: #d93e0f;
-              }
-
-              &:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-              }
-            }
-
-            &.btn-secondary {
-              background: #f3f4f6;
-              color: #374151;
-
-              &:hover {
+              .progress-bar {
+                width: 100%;
+                height: 8px;
                 background: #e5e7eb;
+                border-radius: 4px;
+                overflow: hidden;
+                margin-bottom: 8px;
+
+                .progress-fill {
+                  height: 100%;
+                  background: $primary;
+                  transition: width 0.3s ease;
+                }
+              }
+
+              .progress-text {
+                font-size: 12px;
+                color: #64748b;
+                font-weight: 500;
               }
             }
           }
@@ -481,16 +437,16 @@
       }
     }
 
-      .dropdown-menu {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background: white;
-        border: 1px solid #e5e7eb;
-        border-radius: 8px;
-        min-width: 180px;
-        z-index: 50;
-        display: none;
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      min-width: 180px;
+      z-index: 50;
+      display: none;
 
       &.show {
         display: block;
@@ -508,6 +464,14 @@
 
         &:hover {
           background: #f9fafb;
+        }
+
+        &.text-warning {
+          color: #f59e0b;
+
+          &:hover {
+            background: #fffbeb;
+          }
         }
 
         &.text-danger {
@@ -528,7 +492,7 @@
 
 // Responsive design
 @media (max-width: 768px) {
-  .loan-applications {
+  .active-loans {
     padding: 16px;
 
     .page-header {
@@ -549,7 +513,7 @@
       padding: 10px;
 
       .modal-container {
-        .modal-content .application-info .info-section .info-grid {
+        .modal-content .loan-info .info-section .info-grid {
           grid-template-columns: 1fr;
         }
       }
@@ -558,9 +522,10 @@
 }
 
 @media (max-width: 480px) {
-  .loan-applications {
+  .active-loans {
     .stats-grid {
       grid-template-columns: 1fr;
     }
   }
 }
+
