@@ -363,9 +363,9 @@ export class DisbursementsComponent implements OnInit, OnDestroy {
     this.lenderService.loanApplications$
       .pipe(takeUntil(this.destroy$))
       .subscribe(applications => {
-        this.disbursements = applications
-          .filter(app => app.status === 'approved' || app.status === 'pending')
-          .map(app => this.createDisbursement(app));
+    this.disbursements = applications
+      .filter(app => app.status === 'approved' || app.status === 'under_review' || app.status === 'disbursed')
+      .map(app => this.createDisbursement(app));
         this.calculateStats();
         this.filterDisbursements();
         this.loading = false;
@@ -376,7 +376,7 @@ export class DisbursementsComponent implements OnInit, OnDestroy {
     const statuses: Array<'pending' | 'approved' | 'disbursed'> = ['pending', 'approved', 'disbursed'];
     const methods: Array<'bank_transfer' | 'mobile_money' | 'cash' | 'cheque'> = ['bank_transfer', 'mobile_money', 'cash', 'cheque'];
     
-    const status = application.status === 'approved' ? 'approved' : 'pending';
+    const status = application.status === 'disbursed' ? 'disbursed' : application.status === 'approved' ? 'approved' : 'pending';
     const method = methods[Math.floor(Math.random() * methods.length)];
 
     return {
@@ -386,8 +386,8 @@ export class DisbursementsComponent implements OnInit, OnDestroy {
       borrowerName: application.applicantName,
       borrowerPhone: application.applicantPhone,
       productName: application.productName,
-      approvedAmount: application.requestedAmount,
-      disbursedAmount: status === 'disbursed' ? application.requestedAmount : 0,
+      approvedAmount: application.amount,
+      disbursedAmount: status === 'disbursed' ? application.amount : 0,
       disbursementMethod: method,
       status: status,
       approvedBy: status !== 'pending' ? 'John Doe' : undefined,
