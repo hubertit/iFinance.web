@@ -105,22 +105,39 @@ export class AuthService {
     // Check if user is already logged in
     const storedUser = localStorage.getItem(this.configService.userKey);
     if (storedUser) {
-      this.currentUser = JSON.parse(storedUser);
+      try {
+        this.currentUser = JSON.parse(storedUser);
+      } catch (e) {
+        console.error('Error parsing stored user:', e);
+      }
     }
     
     // Load account data from localStorage
     const storedAccount = localStorage.getItem('ifinance.currentAccount');
     if (storedAccount) {
-      this.currentAccount = JSON.parse(storedAccount);
+      try {
+        this.currentAccount = JSON.parse(storedAccount);
+      } catch (e) {
+        console.error('Error parsing stored account:', e);
+      }
     }
     
     const storedAccounts = localStorage.getItem('ifinance.availableAccounts');
     if (storedAccounts) {
-      this.availableAccounts = JSON.parse(storedAccounts);
+      try {
+        this.availableAccounts = JSON.parse(storedAccounts);
+      } catch (e) {
+        console.error('Error parsing stored accounts:', e);
+      }
     }
     
     // Initialize the BehaviorSubject with current account
     this.currentAccountSubject.next(this.currentAccount);
+  }
+
+  // Check if current user is a lender
+  isLender(): boolean {
+    return this.currentUser?.role === 'lender' || this.currentUser?.accountType === 'lender';
   }
 
   login(identifier: string, password: string): Observable<User> {
@@ -269,10 +286,34 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    // Check localStorage to get the latest login state
+    const loginKey = localStorage.getItem(this.configService.loginKey);
+    const storedUser = localStorage.getItem(this.configService.userKey);
+    
+    if (loginKey === 'true' && storedUser) {
+      // Also update currentUser from localStorage
+      try {
+        this.currentUser = JSON.parse(storedUser);
+      } catch (e) {
+        console.error('Error parsing stored user:', e);
+      }
+      return !!this.currentUser;
+    }
+    
     return !!this.currentUser;
   }
 
   getCurrentUser(): User | null {
+    // Always check localStorage to get the latest user data
+    // This ensures we pick up changes immediately after login
+    const storedUser = localStorage.getItem(this.configService.userKey);
+    if (storedUser) {
+      try {
+        this.currentUser = JSON.parse(storedUser);
+      } catch (e) {
+        console.error('Error parsing stored user:', e);
+      }
+    }
     return this.currentUser;
   }
 
