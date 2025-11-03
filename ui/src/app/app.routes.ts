@@ -31,6 +31,7 @@ import { LenderDashboardComponent } from './features/lender/lender-dashboard/len
 import { LoanApplicationsComponent } from './features/lender/loan-applications/loan-applications.component';
 import { LoanProductsComponent } from './features/lender/loan-products/loan-products.component';
 import { ActiveLoansComponent } from './features/lender/active-loans/active-loans.component';
+import { PortfolioOverviewComponent } from './features/lender/portfolio-overview/portfolio-overview.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -158,6 +159,10 @@ export const routes: Routes = [
       {
         path: 'lender/active-loans',
         component: ActiveLoansComponent
+      },
+      {
+        path: 'lender/portfolio/overview',
+        component: PortfolioOverviewComponent
       },
       {
         path: 'lender/products',
