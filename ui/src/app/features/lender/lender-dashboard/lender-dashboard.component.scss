@@ -25,7 +25,7 @@
 // Stat Cards
 .stat-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 20px;
   border: 1px solid #e2e8f0;
   display: flex;
@@ -71,7 +71,7 @@
 .stat-icon {
   width: 52px;
   height: 52px;
-  border-radius: 12px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,7 +133,7 @@
 
 .chart-container {
   background: white;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 20px;
   border: 1px solid #e2e8f0;
 }
@@ -194,7 +194,7 @@
 // Recent Transactions/Activity
 .recent-transactions {
   background: white;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 20px;
   border: 1px solid #e2e8f0;
   margin-bottom: 24px;
@@ -236,7 +236,7 @@
     align-items: center;
     padding: 16px;
     border: 1px solid #e2e8f0;
-    border-radius: 8px;
+    border-radius: 4px;
     margin-bottom: 12px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -255,7 +255,7 @@
 .transaction-icon {
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: 4px;
   background: rgba(#f24d12, 0.1);
   display: flex;
   align-items: center;
@@ -315,7 +315,7 @@
 
 .skeleton-stat-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 20px;
   border: 1px solid #e2e8f0;
   display: flex;
@@ -326,7 +326,7 @@
 .skeleton-stat-icon {
   width: 52px;
   height: 52px;
-  border-radius: 12px;
+  border-radius: 6px;
   background: #e2e8f0;
   animation: pulse 1.5s ease-in-out infinite;
 }
@@ -379,7 +379,7 @@
 
 .skeleton-chart-container {
   background: white;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 20px;
   border: 1px solid #e2e8f0;
 }
@@ -416,13 +416,13 @@
   height: 290px;
   width: 100%;
   background: #f8fafc;
-  border-radius: 8px;
+  border-radius: 4px;
   animation: pulse 1.5s ease-in-out infinite;
 }
 
 .skeleton-recent-activity {
   background: white;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 20px;
   border: 1px solid #e2e8f0;
   margin-bottom: 24px;
@@ -462,13 +462,13 @@
   align-items: center;
   padding: 16px;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .skeleton-activity-icon {
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: 4px;
   background: #e2e8f0;
   margin-right: 16px;
   animation: pulse 1.5s ease-in-out infinite;
@@ -523,7 +523,7 @@
 
 .error-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 32px;
   border: 1px solid #e2e8f0;
   text-align: center;
@@ -555,7 +555,7 @@
   .btn-primary,
   .btn-secondary {
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 4px;
     font-weight: 600;
     cursor: pointer;
     border: none;
