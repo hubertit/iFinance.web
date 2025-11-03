@@ -51,6 +51,7 @@ import { InterestRatesComponent } from './features/lender/interest-rates/interes
 import { FeeManagementComponent } from './features/lender/fee-management/fee-management.component';
 import { AccountingComponent } from './features/lender/accounting/accounting.component';
 import { LoanReportsComponent } from './features/lender/loan-reports/loan-reports.component';
+import { PerformanceReportsComponent } from './features/lender/performance-reports/performance-reports.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -258,6 +259,10 @@ export const routes: Routes = [
       {
         path: 'lender/reports/loans',
         component: LoanReportsComponent
+      },
+      {
+        path: 'lender/reports/performance',
+        component: PerformanceReportsComponent
       },
       {
         path: 'lender/products',
