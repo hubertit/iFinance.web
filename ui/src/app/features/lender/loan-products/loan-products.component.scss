@@ -50,10 +50,10 @@
         align-items: center;
         gap: 8px;
         padding: 12px 20px;
-        background: $primary;
+        background: #e6704f;
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: 2px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -83,7 +83,7 @@
 
     .stat-card {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
       display: flex;
@@ -100,7 +100,7 @@
       .stat-icon {
         width: 48px;
         height: 48px;
-        border-radius: 6px;
+        border-radius: 3px;
         background: #fef2f2;
         display: flex;
         align-items: center;
@@ -134,7 +134,7 @@
 
   .card {
     background: white;
-    border-radius: 6px;
+    border-radius: 3px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border: 1px solid #e2e8f0;
     overflow: hidden;
@@ -160,7 +160,7 @@
           background: #f1f5f9;
           color: #64748b;
           padding: 4px 8px;
-          border-radius: 6px;
+          border-radius: 3px;
           font-size: 12px;
           font-weight: 500;
         }
@@ -188,7 +188,7 @@
 
     .modal-container {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       max-width: 800px;
       width: 100%;
       max-height: 90vh;
@@ -214,7 +214,7 @@
           border: none;
           cursor: pointer;
           padding: 8px;
-          border-radius: 6px;
+          border-radius: 3px;
           color: #64748b;
           transition: all 0.2s ease;
 
@@ -250,14 +250,14 @@
             width: 100%;
             padding: 10px 12px;
             border: 1px solid #d1d5db;
-            border-radius: 6px;
+            border-radius: 3px;
             font-size: 14px;
             background: white;
             transition: border-color 0.2s ease;
 
             &:focus {
               outline: none;
-              border-color: #f24d12;
+              border-color: #e6704f;
               box-shadow: 0 0 0 3px rgba(242, 77, 18, 0.1);
             }
 
@@ -282,7 +282,7 @@
         .validation-summary {
           background: #fef2f2;
           border: 1px solid #fecaca;
-          border-radius: 4px;
+          border-radius: 2px;
           padding: 16px;
           margin-bottom: 20px;
 
@@ -327,7 +327,7 @@
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
-            border-radius: 6px;
+            border-radius: 3px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -345,7 +345,7 @@
           }
 
           .btn-primary {
-            background: #f24d12;
+            background: #e6704f;
             color: white;
 
             &:hover:not(:disabled) {
@@ -381,7 +381,7 @@
       background: none;
       border: 1px solid #d1d5db;
       padding: 6px 12px;
-      border-radius: 6px;
+      border-radius: 3px;
       cursor: pointer;
       transition: all 0.2s ease;
 
@@ -401,7 +401,7 @@
       right: 0;
       background: white;
       border: 1px solid #e5e7eb;
-      border-radius: 4px;
+      border-radius: 2px;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
       min-width: 180px;
       z-index: 50;

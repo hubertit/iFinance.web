@@ -25,7 +25,7 @@
 // Stat Cards
 .stat-card {
   background: white;
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 16px;
   border: 1px solid #e2e8f0;
   display: flex;
@@ -42,28 +42,28 @@
   &.portfolio {
     .stat-icon {
       background: #fef2f2;
-      color: #f24d12;
+      color: #e6704f;
     }
   }
 
   &.applications {
     .stat-icon {
       background: #fef2f2;
-      color: #f24d12;
+      color: #e6704f;
     }
   }
 
   &.disbursements {
     .stat-icon {
       background: #fef2f2;
-      color: #f24d12;
+      color: #e6704f;
     }
   }
 
   &.repayments {
     .stat-icon {
       background: #fef2f2;
-      color: #f24d12;
+      color: #e6704f;
     }
   }
 }
@@ -71,7 +71,7 @@
 .stat-icon {
   width: 52px;
   height: 52px;
-  border-radius: 6px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,7 +103,7 @@
     font-size: 12px;
 
     .success {
-      color: #059669;
+      color: #20a085;
       font-weight: 500;
     }
 
@@ -133,7 +133,7 @@
 
 .chart-container {
   background: white;
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 16px;
   border: 1px solid #e2e8f0;
 }
@@ -161,7 +161,7 @@
   padding: 6px 12px;
   border: 1px solid #e2e8f0;
   background: white;
-  border-radius: 6px;
+  border-radius: 3px;
   font-size: 12px;
   font-weight: 500;
   color: #64748b;
@@ -169,13 +169,13 @@
   transition: all 0.2s ease;
 
   &:hover {
-    border-color: #f24d12;
-    color: #f24d12;
+    border-color: #e6704f;
+    color: #e6704f;
   }
 
   &.active {
-    background: #f24d12;
-    border-color: #f24d12;
+    background: #e6704f;
+    border-color: #e6704f;
     color: white;
   }
 }
@@ -194,7 +194,7 @@
 // Recent Transactions/Activity
 .recent-transactions {
   background: white;
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 16px;
   border: 1px solid #e2e8f0;
   margin-bottom: 16px;
@@ -217,7 +217,7 @@
 .view-all-btn {
   background: none;
   border: none;
-  color: #f24d12;
+  color: #e6704f;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -225,7 +225,7 @@
   transition: color 0.2s ease;
 
   &:hover {
-    color: #d93e0f;
+    color: #d0653a;
     text-decoration: underline;
   }
 }
@@ -236,7 +236,7 @@
     align-items: center;
     padding: 16px;
     border: 1px solid #e2e8f0;
-    border-radius: 4px;
+    border-radius: 2px;
     margin-bottom: 12px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -255,13 +255,13 @@
 .transaction-icon {
   width: 40px;
   height: 40px;
-  border-radius: 4px;
-  background: rgba(#f24d12, 0.1);
+  border-radius: 2px;
+  background: rgba(#e6704f, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 16px;
-  color: #f24d12;
+  color: #e6704f;
 }
 
 .transaction-details {
@@ -286,7 +286,7 @@
   color: #1e293b;
 
   &.positive {
-    color: #059669;
+    color: #20a085;
   }
 
   &.negative {
@@ -315,7 +315,7 @@
 
 .skeleton-stat-card {
   background: white;
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 16px;
   border: 1px solid #e2e8f0;
   display: flex;
@@ -326,7 +326,7 @@
 .skeleton-stat-icon {
   width: 52px;
   height: 52px;
-  border-radius: 6px;
+  border-radius: 3px;
   background: #e2e8f0;
   animation: pulse 1.5s ease-in-out infinite;
 }
@@ -339,7 +339,7 @@
   width: 100px;
   height: 14px;
   background: #e2e8f0;
-  border-radius: 4px;
+  border-radius: 2px;
   margin-bottom: 8px;
   animation: pulse 1.5s ease-in-out infinite;
 }
@@ -348,7 +348,7 @@
   width: 150px;
   height: 28px;
   background: #e2e8f0;
-  border-radius: 4px;
+  border-radius: 2px;
   margin-bottom: 8px;
   animation: pulse 1.5s ease-in-out infinite;
 }
@@ -362,7 +362,7 @@
   width: 80px;
   height: 12px;
   background: #e2e8f0;
-  border-radius: 4px;
+  border-radius: 2px;
   animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -379,7 +379,7 @@
 
 .skeleton-chart-container {
   background: white;
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 16px;
   border: 1px solid #e2e8f0;
 }
@@ -395,7 +395,7 @@
   width: 200px;
   height: 18px;
   background: #e2e8f0;
-  border-radius: 4px;
+  border-radius: 2px;
   animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -408,7 +408,7 @@
   width: 40px;
   height: 28px;
   background: #e2e8f0;
-  border-radius: 6px;
+  border-radius: 3px;
   animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -416,13 +416,13 @@
   height: 290px;
   width: 100%;
   background: #f8fafc;
-  border-radius: 4px;
+  border-radius: 2px;
   animation: pulse 1.5s ease-in-out infinite;
 }
 
 .skeleton-recent-activity {
   background: white;
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 16px;
   border: 1px solid #e2e8f0;
   margin-bottom: 16px;
@@ -439,7 +439,7 @@
   width: 150px;
   height: 18px;
   background: #e2e8f0;
-  border-radius: 4px;
+  border-radius: 2px;
   animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -447,7 +447,7 @@
   width: 80px;
   height: 14px;
   background: #e2e8f0;
-  border-radius: 4px;
+  border-radius: 2px;
   animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -462,13 +462,13 @@
   align-items: center;
   padding: 16px;
   border: 1px solid #e2e8f0;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .skeleton-activity-icon {
   width: 40px;
   height: 40px;
-  border-radius: 4px;
+  border-radius: 2px;
   background: #e2e8f0;
   margin-right: 16px;
   animation: pulse 1.5s ease-in-out infinite;
@@ -482,7 +482,7 @@
   width: 200px;
   height: 14px;
   background: #e2e8f0;
-  border-radius: 4px;
+  border-radius: 2px;
   margin-bottom: 8px;
   animation: pulse 1.5s ease-in-out infinite;
 }
@@ -491,7 +491,7 @@
   width: 120px;
   height: 12px;
   background: #e2e8f0;
-  border-radius: 4px;
+  border-radius: 2px;
   animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -499,7 +499,7 @@
   width: 100px;
   height: 16px;
   background: #e2e8f0;
-  border-radius: 4px;
+  border-radius: 2px;
   animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -523,7 +523,7 @@
 
 .error-card {
   background: white;
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 32px;
   border: 1px solid #e2e8f0;
   text-align: center;
@@ -555,7 +555,7 @@
   .btn-primary,
   .btn-secondary {
     padding: 10px 20px;
-    border-radius: 4px;
+    border-radius: 2px;
     font-weight: 600;
     cursor: pointer;
     border: none;
@@ -563,11 +563,11 @@
   }
 
   .btn-primary {
-    background: #f24d12;
+    background: #e6704f;
     color: white;
 
     &:hover {
-      background: #d93e0f;
+      background: #d0653a;
     }
   }
 

@@ -44,7 +44,7 @@
         background: #f3f4f6;
         color: #374151;
         border: 1px solid #e5e7eb;
-        border-radius: 4px;
+        border-radius: 2px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -68,7 +68,7 @@
 
     .summary-card {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
       text-align: center;
@@ -91,7 +91,7 @@
   .filters-section {
     background: white;
     padding: 16px;
-    border-radius: 6px;
+    border-radius: 3px;
     border: 1px solid #e2e8f0;
     margin-bottom: 16px;
 
@@ -113,7 +113,7 @@
           width: 100%;
           padding: 10px 12px;
           border: 1px solid #d1d5db;
-          border-radius: 4px;
+          border-radius: 2px;
           font-size: 14px;
           background: white;
           transition: border-color 0.2s ease;
@@ -136,7 +136,7 @@
 
   .reports-section {
     background: white;
-    border-radius: 6px;
+    border-radius: 3px;
     padding: 16px;
     border: 1px solid #e2e8f0;
 
@@ -157,7 +157,7 @@
         background: #f1f5f9;
         color: #64748b;
         padding: 4px 8px;
-        border-radius: 4px;
+        border-radius: 2px;
         font-size: 12px;
         font-weight: 500;
       }
@@ -166,7 +166,7 @@
     .reports-list {
       .report-card {
         background: #f8fafc;
-        border-radius: 6px;
+        border-radius: 3px;
         padding: 16px;
         border: 1px solid #e2e8f0;
         margin-bottom: 16px;
@@ -177,11 +177,11 @@
         }
 
         &.submitted {
-          border-left-color: #3b82f6;
+          border-left-color: #6ba0e8;
         }
 
         &.approved {
-          border-left-color: #059669;
+          border-left-color: #20a085;
         }
 
         &.rejected {
@@ -216,7 +216,7 @@
               .regulatory-body, .frequency {
                 font-size: 12px;
                 padding: 2px 8px;
-                border-radius: 4px;
+                border-radius: 2px;
                 font-weight: 500;
               }
 
@@ -234,7 +234,7 @@
 
           .report-status {
             padding: 4px 12px;
-            border-radius: 4px;
+            border-radius: 2px;
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
@@ -246,12 +246,12 @@
 
             &.submitted {
               background: #dbeafe;
-              color: #3b82f6;
+              color: #6ba0e8;
             }
 
             &.approved {
               background: #d1fae5;
-              color: #059669;
+              color: #20a085;
             }
 
             &.rejected {
@@ -290,7 +290,7 @@
               background: #fee2e2;
               color: #dc2626;
               padding: 2px 8px;
-              border-radius: 4px;
+              border-radius: 2px;
               font-size: 11px;
               font-weight: 600;
               margin-left: 8px;
@@ -308,7 +308,7 @@
               padding: 6px 12px;
               border: 1px solid #d1d5db;
               background: white;
-              border-radius: 4px;
+              border-radius: 2px;
               font-size: 12px;
               font-weight: 500;
               color: #374151;

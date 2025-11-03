@@ -38,7 +38,7 @@
 
     .builder-section, .templates-section {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
 
@@ -80,7 +80,7 @@
             width: 100%;
             padding: 10px 12px;
             border: 1px solid #d1d5db;
-            border-radius: 4px;
+            border-radius: 2px;
             font-size: 14px;
             background: white;
             transition: border-color 0.2s ease;
@@ -148,7 +148,7 @@
             gap: 8px;
             padding: 12px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 2px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -164,11 +164,11 @@
           }
 
           .btn-primary {
-            background: $primary;
+            background: #e6704f;
             color: white;
 
             &:hover:not(:disabled) {
-              background: #d93e0f;
+              background: #d0653a;
             }
           }
 
@@ -191,7 +191,7 @@
           gap: 12px;
           padding: 12px;
           border: 1px solid #e2e8f0;
-          border-radius: 6px;
+          border-radius: 3px;
           margin-bottom: 12px;
           background: #f8fafc;
           cursor: pointer;
@@ -209,7 +209,7 @@
           .template-icon {
             width: 40px;
             height: 40px;
-            border-radius: 4px;
+            border-radius: 2px;
             background: white;
             display: flex;
             align-items: center;
@@ -249,7 +249,7 @@
               padding: 4px;
               color: #64748b;
               cursor: pointer;
-              border-radius: 4px;
+              border-radius: 2px;
               transition: all 0.2s ease;
 
               &:hover {

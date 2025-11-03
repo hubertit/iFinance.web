@@ -51,7 +51,7 @@
         gap: 8px;
         padding: 12px 20px;
         border: none;
-        border-radius: 4px;
+        border-radius: 2px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -62,11 +62,11 @@
       }
 
       .btn-primary {
-        background: $primary;
+        background: #e6704f;
         color: white;
 
         &:hover {
-          background: #d93e0f;
+          background: #d0653a;
         }
       }
 
@@ -94,7 +94,7 @@
 
     .stat-card {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
       display: flex;
@@ -104,7 +104,7 @@
       .stat-icon {
         width: 48px;
         height: 48px;
-        border-radius: 4px;
+        border-radius: 2px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -117,12 +117,12 @@
 
         &.approved {
           background: #dbeafe;
-          color: #3b82f6;
+          color: #6ba0e8;
         }
 
         &.disbursed {
           background: #d1fae5;
-          color: #059669;
+          color: #20a085;
         }
 
         &.today {
@@ -153,7 +153,7 @@
   .filters-section {
     background: white;
     padding: 16px;
-    border-radius: 6px;
+    border-radius: 3px;
     border: 1px solid #e2e8f0;
     margin-bottom: 16px;
 
@@ -175,7 +175,7 @@
           width: 100%;
           padding: 10px 12px;
           border: 1px solid #d1d5db;
-          border-radius: 4px;
+          border-radius: 2px;
           font-size: 14px;
           background: white;
           transition: border-color 0.2s ease;
@@ -198,7 +198,7 @@
 
   .card {
     background: white;
-    border-radius: 6px;
+    border-radius: 3px;
     border: 1px solid #e2e8f0;
     overflow: hidden;
 
@@ -223,7 +223,7 @@
           background: #f1f5f9;
           color: #64748b;
           padding: 4px 8px;
-          border-radius: 4px;
+          border-radius: 2px;
           font-size: 12px;
           font-weight: 500;
         }
@@ -251,7 +251,7 @@
 
     .modal-container {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       max-width: 600px;
       width: 100%;
       max-height: 90vh;
@@ -276,7 +276,7 @@
           border: none;
           cursor: pointer;
           padding: 8px;
-          border-radius: 4px;
+          border-radius: 2px;
           color: #64748b;
           transition: all 0.2s ease;
 
@@ -327,7 +327,7 @@
               width: 100%;
               padding: 10px 12px;
               border: 1px solid #d1d5db;
-              border-radius: 4px;
+              border-radius: 2px;
               font-size: 14px;
               background: white;
               transition: border-color 0.2s ease;
@@ -364,7 +364,7 @@
             gap: 8px;
             padding: 12px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 2px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -375,11 +375,11 @@
           }
 
           .btn-primary {
-            background: $primary;
+            background: #e6704f;
             color: white;
 
             &:hover {
-              background: #d93e0f;
+              background: #d0653a;
             }
           }
 
@@ -411,7 +411,7 @@
       background: none;
       border: 1px solid #d1d5db;
       padding: 6px 12px;
-      border-radius: 4px;
+      border-radius: 2px;
       cursor: pointer;
       transition: all 0.2s ease;
 
@@ -431,7 +431,7 @@
       right: 0;
       background: white;
       border: 1px solid #e5e7eb;
-      border-radius: 4px;
+      border-radius: 2px;
       min-width: 200px;
       z-index: 50;
       display: none;

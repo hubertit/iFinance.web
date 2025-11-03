@@ -35,10 +35,10 @@ $font-weight-normal: 400;
 $font-weight-semibold: 600;
 $line-height-base: 1.5;
 
-// Border radius
-$border-radius: 0.25rem;
-$border-radius-lg: 0.5rem;
-$border-radius-sm: 0.2rem;
+// Border radius - reduced for cleaner look
+$border-radius: 0.125rem; // 2px
+$border-radius-lg: 0.1875rem; // 3px
+$border-radius-sm: 0.125rem; // 2px
 
 // Transitions
 $transition-base: all 0.2s ease;

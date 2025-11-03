@@ -49,7 +49,7 @@
         select {
           padding: 10px 12px;
           border: 1px solid #d1d5db;
-          border-radius: 4px;
+          border-radius: 2px;
           font-size: 14px;
           background: white;
           cursor: pointer;
@@ -71,7 +71,7 @@
         background: #f3f4f6;
         color: #374151;
         border: 1px solid #e5e7eb;
-        border-radius: 4px;
+        border-radius: 2px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -103,7 +103,7 @@
 
     .revenue-card {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
       display: flex;
@@ -117,7 +117,7 @@
       .revenue-icon {
         width: 56px;
         height: 56px;
-        border-radius: 4px;
+        border-radius: 2px;
         background: #f8fafc;
         display: flex;
         align-items: center;
@@ -158,7 +158,7 @@
           margin-top: 8px;
 
           &.positive {
-            color: #059669;
+            color: #20a085;
           }
 
           &.negative {
@@ -175,7 +175,7 @@
           margin-top: 8px;
 
           &.up {
-            color: #059669;
+            color: #20a085;
           }
 
           &.down {
@@ -202,7 +202,7 @@
 
     .chart-container {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
 
@@ -244,14 +244,14 @@
 
       .income-card, .metric-card {
         background: white;
-        border-radius: 6px;
+        border-radius: 3px;
         padding: 16px;
         border: 1px solid #e2e8f0;
 
         .income-icon {
           width: 40px;
           height: 40px;
-          border-radius: 4px;
+          border-radius: 2px;
           background: #f8fafc;
           display: flex;
           align-items: center;

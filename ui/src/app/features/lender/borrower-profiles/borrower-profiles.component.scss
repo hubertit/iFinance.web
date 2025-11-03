@@ -51,7 +51,7 @@
         gap: 8px;
         padding: 12px 20px;
         border: none;
-        border-radius: 4px;
+        border-radius: 2px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -62,11 +62,11 @@
       }
 
       .btn-primary {
-        background: $primary;
+        background: #e6704f;
         color: white;
 
         &:hover {
-          background: #d93e0f;
+          background: #d0653a;
         }
       }
 
@@ -85,7 +85,7 @@
   .profile-content {
     .info-card, .chart-card {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       border: 1px solid #e2e8f0;
       margin-bottom: 16px;
       overflow: hidden;
@@ -130,20 +130,20 @@
 
               &.credit-score {
                 font-weight: 600;
-                color: #059669;
+                color: #20a085;
               }
 
               &.risk-badge {
                 display: inline-block;
                 padding: 4px 12px;
-                border-radius: 4px;
+                border-radius: 2px;
                 font-size: 12px;
                 font-weight: 600;
                 text-transform: uppercase;
 
                 &.low {
                   background: #f0fdf4;
-                  color: #059669;
+                  color: #20a085;
                 }
 
                 &.medium {
@@ -174,7 +174,7 @@
 
       .stat-card {
         background: white;
-        border-radius: 6px;
+        border-radius: 3px;
         padding: 16px;
         border: 1px solid #e2e8f0;
         display: flex;
@@ -184,7 +184,7 @@
         .stat-icon {
           width: 48px;
           height: 48px;
-          border-radius: 4px;
+          border-radius: 2px;
           background: #f8fafc;
           display: flex;
           align-items: center;
@@ -212,7 +212,7 @@
 
     .loans-section {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       border: 1px solid #e2e8f0;
       overflow: hidden;
 
@@ -235,7 +235,7 @@
           background: #f1f5f9;
           color: #64748b;
           padding: 4px 8px;
-          border-radius: 4px;
+          border-radius: 2px;
           font-size: 12px;
           font-weight: 500;
         }
@@ -273,14 +273,14 @@
 
           .loan-status {
             padding: 4px 12px;
-            border-radius: 4px;
+            border-radius: 2px;
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
 
             &.active {
               background: #f0fdf4;
-              color: #059669;
+              color: #20a085;
             }
 
             &.completed {
@@ -301,7 +301,7 @@
             padding: 6px 12px;
             background: #f8fafc;
             border: 1px solid #e2e8f0;
-            border-radius: 4px;
+            border-radius: 2px;
             font-size: 12px;
             color: #374151;
             cursor: pointer;
@@ -325,7 +325,7 @@
     justify-content: center;
     padding: 60px 20px;
     background: white;
-    border-radius: 6px;
+    border-radius: 3px;
     border: 1px solid #e2e8f0;
 
     app-feather-icon {

@@ -51,7 +51,7 @@
         gap: 8px;
         padding: 12px 20px;
         border: none;
-        border-radius: 4px;
+        border-radius: 2px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -62,11 +62,11 @@
       }
 
       .btn-primary {
-        background: $primary;
+        background: #e6704f;
         color: white;
 
         &:hover {
-          background: #d93e0f;
+          background: #d0653a;
           transform: translateY(-2px);
         }
       }
@@ -95,7 +95,7 @@
 
     .metric-card {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
       display: flex;
@@ -116,7 +116,7 @@
       .metric-icon {
         width: 56px;
         height: 56px;
-        border-radius: 6px;
+        border-radius: 3px;
         background: #f8fafc;
         display: flex;
         align-items: center;
@@ -155,7 +155,7 @@
           margin-top: 4px;
 
           &.positive {
-            color: #059669;
+            color: #20a085;
           }
 
           &.negative {
@@ -182,7 +182,7 @@
 
     .chart-container {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
       margin-bottom: 16px;
@@ -212,7 +212,7 @@
             padding: 6px 12px;
             border: 1px solid #d1d5db;
             background: white;
-            border-radius: 6px;
+            border-radius: 3px;
             font-size: 12px;
             font-weight: 500;
             color: #64748b;
@@ -225,7 +225,7 @@
             }
 
             &.active {
-              background: $primary;
+              background: #e6704f;
               color: white;
               border-color: $primary;
             }
@@ -261,7 +261,7 @@
 
     .stats-card {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
 
@@ -305,7 +305,7 @@
           .distribution-amount {
             font-size: 16px;
             font-weight: 600;
-            color: #059669;
+            color: #20a085;
             margin-bottom: 8px;
           }
 
@@ -318,7 +318,7 @@
 
             .distribution-fill {
               height: 100%;
-              background: $primary;
+              background: #e6704f;
               border-radius: 3px;
               transition: width 0.3s ease;
             }
@@ -345,7 +345,7 @@
 
             .status-badge {
               padding: 4px 12px;
-              border-radius: 6px;
+              border-radius: 3px;
               font-size: 12px;
               font-weight: 600;
               color: white;
@@ -370,7 +370,7 @@
 
   .kpi-section {
     background: white;
-    border-radius: 6px;
+    border-radius: 3px;
     padding: 16px;
     border: 1px solid #e2e8f0;
     margin-bottom: 20px;
@@ -395,7 +395,7 @@
         text-align: center;
         padding: 16px;
         background: #f8fafc;
-        border-radius: 4px;
+        border-radius: 2px;
 
         .kpi-label {
           font-size: 12px;
@@ -413,7 +413,7 @@
           margin-bottom: 8px;
 
           &.positive {
-            color: #059669;
+            color: #20a085;
           }
 
           &.negative {
@@ -437,7 +437,7 @@
     justify-content: center;
     padding: 60px 20px;
     background: white;
-    border-radius: 6px;
+    border-radius: 3px;
     border: 1px solid #e2e8f0;
 
     app-feather-icon {
@@ -459,16 +459,16 @@
 
     .btn-primary {
       padding: 10px 20px;
-      background: $primary;
+      background: #e6704f;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 3px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
 
       &:hover {
-        background: #d93e0f;
+        background: #d0653a;
       }
     }
   }

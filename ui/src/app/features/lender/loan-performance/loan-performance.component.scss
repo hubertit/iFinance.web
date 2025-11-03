@@ -48,7 +48,7 @@
       .period-select {
         padding: 10px 16px;
         border: 1px solid #d1d5db;
-        border-radius: 4px;
+        border-radius: 2px;
         font-size: 14px;
         background: white;
         color: #374151;
@@ -67,16 +67,16 @@
         align-items: center;
         gap: 8px;
         padding: 12px 20px;
-        background: $primary;
+        background: #e6704f;
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: 2px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
 
         &:hover {
-          background: #d93e0f;
+          background: #d0653a;
           transform: translateY(-2px);
         }
 
@@ -99,7 +99,7 @@
 
     .metric-card {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
       display: flex;
@@ -113,12 +113,12 @@
       }
 
       &.excellent {
-        border-left: 4px solid #059669;
+        border-left: 4px solid #20a085;
         background: white;
       }
 
       &.good {
-        border-left: 4px solid #3b82f6;
+        border-left: 4px solid #6ba0e8;
         background: white;
       }
 
@@ -135,7 +135,7 @@
       .metric-icon {
         width: 56px;
         height: 56px;
-        border-radius: 6px;
+        border-radius: 3px;
         background: #f8fafc;
         display: flex;
         align-items: center;
@@ -150,12 +150,12 @@
 
       &.excellent .metric-icon {
         background: #d1fae5;
-        color: #059669;
+        color: #20a085;
       }
 
       &.good .metric-icon {
         background: #dbeafe;
-        color: #3b82f6;
+        color: #6ba0e8;
       }
 
       &.warning .metric-icon {
@@ -190,7 +190,7 @@
           align-items: center;
           gap: 4px;
           font-size: 12px;
-          color: #059669;
+          color: #20a085;
           font-weight: 500;
 
           app-feather-icon {
@@ -211,7 +211,7 @@
 
     .chart-container {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       padding: 16px;
       border: 1px solid #e2e8f0;
       margin-bottom: 16px;
@@ -274,7 +274,7 @@
 
     .table-card {
       background: white;
-      border-radius: 6px;
+      border-radius: 3px;
       border: 1px solid #e2e8f0;
       overflow: hidden;
 
@@ -357,11 +357,11 @@
                       transition: width 0.3s ease;
 
                       &.excellent {
-                        background: #059669;
+                        background: #20a085;
                       }
 
                       &.good {
-                        background: #3b82f6;
+                        background: #6ba0e8;
                       }
 
                       &.warning {
@@ -377,19 +377,19 @@
 
                 .status-badge {
                   padding: 4px 12px;
-                  border-radius: 6px;
+                  border-radius: 3px;
                   font-size: 12px;
                   font-weight: 600;
                   text-transform: uppercase;
 
                   &.excellent {
                     background: #d1fae5;
-                    color: #059669;
+                    color: #20a085;
                   }
 
                   &.good {
                     background: #dbeafe;
-                    color: #3b82f6;
+                    color: #6ba0e8;
                   }
 
                   &.warning {
@@ -417,7 +417,7 @@
     justify-content: center;
     padding: 60px 20px;
     background: white;
-    border-radius: 6px;
+    border-radius: 3px;
     border: 1px solid #e2e8f0;
 
     app-feather-icon {
@@ -439,16 +439,16 @@
 
     .btn-primary {
       padding: 10px 20px;
-      background: $primary;
+      background: #e6704f;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 3px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
 
       &:hover {
-        background: #d93e0f;
+        background: #d0653a;
       }
     }
   }
