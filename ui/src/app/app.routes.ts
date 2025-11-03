@@ -40,6 +40,7 @@ import { RiskAnalysisComponent } from './features/lender/risk-analysis/risk-anal
 import { KYCVerificationComponent } from './features/lender/kyc-verification/kyc-verification.component';
 import { BorrowersListComponent } from './features/lender/borrowers-list/borrowers-list.component';
 import { BorrowerProfilesComponent } from './features/lender/borrower-profiles/borrower-profiles.component';
+import { BorrowerHistoryComponent } from './features/lender/borrower-history/borrower-history.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -203,6 +204,10 @@ export const routes: Routes = [
       {
         path: 'lender/borrowers/profiles',
         component: BorrowerProfilesComponent
+      },
+      {
+        path: 'lender/borrowers/history',
+        component: BorrowerHistoryComponent
       },
       {
         path: 'lender/products',
