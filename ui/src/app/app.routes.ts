@@ -38,6 +38,7 @@ import { CollectionsComponent } from './features/lender/collections/collections.
 import { CreditScoringComponent } from './features/lender/credit-scoring/credit-scoring.component';
 import { RiskAnalysisComponent } from './features/lender/risk-analysis/risk-analysis.component';
 import { KYCVerificationComponent } from './features/lender/kyc-verification/kyc-verification.component';
+import { BorrowersListComponent } from './features/lender/borrowers-list/borrowers-list.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -193,6 +194,10 @@ export const routes: Routes = [
       {
         path: 'lender/credit/kyc',
         component: KYCVerificationComponent
+      },
+      {
+        path: 'lender/borrowers/list',
+        component: BorrowersListComponent
       },
       {
         path: 'lender/products',
