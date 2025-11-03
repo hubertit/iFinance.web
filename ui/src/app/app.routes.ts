@@ -43,6 +43,7 @@ import { BorrowerProfilesComponent } from './features/lender/borrower-profiles/b
 import { BorrowerHistoryComponent } from './features/lender/borrower-history/borrower-history.component';
 import { AddBorrowerComponent } from './features/lender/add-borrower/add-borrower.component';
 import { DisbursementsComponent } from './features/lender/disbursements/disbursements.component';
+import { RepaymentScheduleComponent } from './features/lender/repayment-schedule/repayment-schedule.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -218,6 +219,10 @@ export const routes: Routes = [
       {
         path: 'lender/disbursements',
         component: DisbursementsComponent
+      },
+      {
+        path: 'lender/repayments/schedule',
+        component: RepaymentScheduleComponent
       },
       {
         path: 'lender/products',
