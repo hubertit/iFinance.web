@@ -34,6 +34,7 @@ import { ActiveLoansComponent } from './features/lender/active-loans/active-loan
 import { PortfolioOverviewComponent } from './features/lender/portfolio-overview/portfolio-overview.component';
 import { LoanPerformanceComponent } from './features/lender/loan-performance/loan-performance.component';
 import { DelinquencyManagementComponent } from './features/lender/delinquency-management/delinquency-management.component';
+import { CollectionsComponent } from './features/lender/collections/collections.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -173,6 +174,10 @@ export const routes: Routes = [
       {
         path: 'lender/portfolio/delinquency',
         component: DelinquencyManagementComponent
+      },
+      {
+        path: 'lender/portfolio/collections',
+        component: CollectionsComponent
       },
       {
         path: 'lender/products',
