@@ -58,10 +58,6 @@ export class NavigationService {
       icon: 'check-circle',
       children: [
         {
-          title: 'Credit Applications',
-          path: 'lender/credit/applications'
-        },
-        {
           title: 'Credit Scoring',
           path: 'lender/credit/scoring'
         },
@@ -126,19 +122,19 @@ export class NavigationService {
       children: [
         {
           title: 'Revenue & Income',
-          path: 'lender/financials/revenue'
+          path: 'lender/revenue'
         },
         {
           title: 'Interest Rates',
-          path: 'lender/financials/interest-rates'
+          path: 'lender/interest-rates'
         },
         {
           title: 'Fee Management',
-          path: 'lender/financials/fees'
+          path: 'lender/fees'
         },
         {
           title: 'Accounting',
-          path: 'lender/financials/accounting'
+          path: 'lender/accounting'
         }
       ]
     },
@@ -173,20 +169,20 @@ export class NavigationService {
       icon: 'settings',
       children: [
         {
-          title: 'Profile',
-          path: 'profile'
-        },
-        {
           title: 'Loan Products',
-          path: 'lender/settings/loan-products'
+          path: 'lender/products'
         },
         {
           title: 'Loan Terms',
-          path: 'lender/settings/loan-terms'
+          path: 'lender/terms'
         },
         {
           title: 'User Management',
-          path: 'lender/settings/users'
+          path: 'lender/users'
+        },
+        {
+          title: 'Profile',
+          path: 'profile'
         },
         {
           title: 'Notifications',

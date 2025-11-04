@@ -56,6 +56,7 @@ import { FinancialReportsComponent } from './features/lender/financial-reports/f
 import { RegulatoryReportsComponent } from './features/lender/regulatory-reports/regulatory-reports.component';
 import { CustomReportsComponent } from './features/lender/custom-reports/custom-reports.component';
 import { LoanTermsComponent } from './features/lender/loan-terms/loan-terms.component';
+import { UserManagementComponent } from './features/lender/user-management/user-management.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -287,6 +288,10 @@ export const routes: Routes = [
       {
         path: 'lender/terms',
         component: LoanTermsComponent
+      },
+      {
+        path: 'lender/users',
+        component: UserManagementComponent
       },
       {
         path: '',
