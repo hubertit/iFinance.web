@@ -20,15 +20,33 @@ export interface Lender {
   avatar?: string;
 }
 
+export type LoanType = 'cash' | 'asset';
+
+export interface AssetCollateral {
+  assetType: 'vehicle' | 'property' | 'equipment' | 'land' | 'machinery' | 'other';
+  assetDescription: string;
+  assetValue: number;
+  valuationDate?: Date;
+  valuationReport?: string; // File path or URL
+  ownershipDocument?: string; // File path or URL
+  registrationNumber?: string; // For vehicles, machinery
+  location?: string; // For property, land
+  condition?: 'excellent' | 'good' | 'fair' | 'poor';
+  insuranceCoverage?: boolean;
+  insuranceDetails?: string;
+}
+
 export interface LoanProduct {
   id: string;
   name: string;
   description: string;
+  loanType: LoanType;
   minAmount: number;
   maxAmount: number;
   interestRate: number;
   termMonths: number;
   requirements: string[];
+  assetRequirements?: string[]; // Additional requirements for asset loans
   isActive: boolean;
   createdAt: Date;
 }
@@ -40,6 +58,7 @@ export interface LoanApplication {
   applicantPhone: string;
   productId: string;
   productName: string;
+  loanType: LoanType;
   amount: number;
   termMonths: number;
   purpose: string;
@@ -47,6 +66,8 @@ export interface LoanApplication {
   creditScore?: number;
   riskLevel: 'low' | 'medium' | 'high';
   documents: string[];
+  // Asset-specific fields
+  collateral?: AssetCollateral;
   submittedAt: Date;
   reviewedAt?: Date;
   approvedAt?: Date;
@@ -74,6 +95,7 @@ export interface ActiveLoan {
   borrowerPhone: string;
   productId: string;
   productName: string;
+  loanType: LoanType;
   principalAmount: number;
   interestRate: number;
   termMonths: number;
@@ -87,6 +109,8 @@ export interface ActiveLoan {
   daysPastDue: number;
   paymentsRemaining: number;
   paymentsCompleted: number;
+  // Asset-specific fields
+  collateral?: AssetCollateral;
 }
 
 @Injectable({
@@ -165,6 +189,7 @@ export class LenderService {
         id: 'PRODUCT-1',
         name: 'Agricultural Development Loan',
         description: 'Low-interest loan for farmers to purchase equipment, seeds, and fertilizers',
+        loanType: 'cash',
         minAmount: 500000,
         maxAmount: 5000000,
         interestRate: 12,
@@ -177,30 +202,75 @@ export class LenderService {
         id: 'PRODUCT-2',
         name: 'Small Business Loan',
         description: 'Working capital loan for small businesses and entrepreneurs',
+        loanType: 'cash',
         minAmount: 1000000,
         maxAmount: 10000000,
         interestRate: 18,
         termMonths: 36,
-        requirements: ['Business registration', 'Bank statements (6 months)', 'Business plan', 'Collateral'],
+        requirements: ['Business registration', 'Bank statements (6 months)', 'Business plan'],
         isActive: true,
         createdAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000)
       },
       {
         id: 'PRODUCT-3',
+        name: 'Asset-Backed Business Loan',
+        description: 'Loan secured by business assets (vehicles, equipment, machinery)',
+        loanType: 'asset',
+        minAmount: 2000000,
+        maxAmount: 20000000,
+        interestRate: 15,
+        termMonths: 36,
+        requirements: ['Business registration', 'Bank statements (6 months)', 'Business plan'],
+        assetRequirements: ['Asset ownership documents', 'Asset valuation report', 'Insurance certificate', 'Asset registration'],
+        isActive: true,
+        createdAt: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: 'PRODUCT-4',
+        name: 'Vehicle Financing',
+        description: 'Loan for purchasing vehicles (cars, motorcycles, trucks)',
+        loanType: 'asset',
+        minAmount: 1000000,
+        maxAmount: 15000000,
+        interestRate: 14,
+        termMonths: 48,
+        requirements: ['Valid NID', 'Valid driving license', 'Income proof'],
+        assetRequirements: ['Vehicle registration documents', 'Vehicle valuation report', 'Insurance certificate', 'Vehicle inspection report'],
+        isActive: true,
+        createdAt: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: 'PRODUCT-5',
+        name: 'Property Mortgage Loan',
+        description: 'Loan secured by real estate property',
+        loanType: 'asset',
+        minAmount: 5000000,
+        maxAmount: 100000000,
+        interestRate: 12,
+        termMonths: 120,
+        requirements: ['Valid NID', 'Income proof', 'Tax clearance certificate'],
+        assetRequirements: ['Property title deed', 'Property valuation report', 'Property tax clearance', 'Land survey report'],
+        isActive: true,
+        createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: 'PRODUCT-6',
         name: 'Education Loan',
         description: 'Student loan for higher education and vocational training',
+        loanType: 'cash',
         minAmount: 200000,
         maxAmount: 2000000,
         interestRate: 10,
         termMonths: 48,
         requirements: ['Admission letter', 'Academic transcripts', 'Parent/Guardian guarantee', 'School fee structure'],
         isActive: true,
-        createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+        createdAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000)
       },
       {
-        id: 'PRODUCT-4',
+        id: 'PRODUCT-7',
         name: 'Micro Loan',
         description: 'Quick access loan for immediate financial needs',
+        loanType: 'cash',
         minAmount: 50000,
         maxAmount: 500000,
         interestRate: 25,
@@ -220,6 +290,7 @@ export class LenderService {
         applicantPhone: '+250788111111',
         productId: 'PRODUCT-1',
         productName: 'Agricultural Development Loan',
+        loanType: 'cash',
         amount: 2000000,
         termMonths: 24,
         purpose: 'Purchase of farming equipment and seeds for maize cultivation',
@@ -237,6 +308,7 @@ export class LenderService {
         applicantPhone: '+250788222222',
         productId: 'PRODUCT-2',
         productName: 'Small Business Loan',
+        loanType: 'cash',
         amount: 5000000,
         termMonths: 36,
         purpose: 'Expansion of retail shop and inventory purchase',
@@ -250,12 +322,43 @@ export class LenderService {
         notes: 'Business shows good growth potential'
       },
       {
+        id: 'APP-2A',
+        applicantId: 'CUST-012',
+        applicantName: 'Peter Nkurunziza',
+        applicantPhone: '+250788888888',
+        productId: 'PRODUCT-4',
+        productName: 'Vehicle Financing',
+        loanType: 'asset',
+        amount: 8000000,
+        termMonths: 48,
+        purpose: 'Purchase of delivery truck for logistics business',
+        status: 'under_review',
+        creditScore: 700,
+        riskLevel: 'low',
+        documents: ['nid_front.jpg', 'driving_license.pdf', 'business_registration.pdf'],
+        collateral: {
+          assetType: 'vehicle',
+          assetDescription: 'Toyota Hilux Double Cab 2024',
+          assetValue: 12000000,
+          valuationDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+          valuationReport: 'vehicle_valuation_report.pdf',
+          ownershipDocument: 'vehicle_ownership.pdf',
+          registrationNumber: 'RAB-2024-ABC-123',
+          condition: 'new',
+          insuranceCoverage: true,
+          insuranceDetails: 'Comprehensive insurance with First Insurance Ltd'
+        },
+        submittedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+        notes: 'Asset well-documented, good loan-to-value ratio'
+      },
+      {
         id: 'APP-3',
         applicantId: 'CUST-003',
-        applicantName: 'Peter Nkurunziza',
+        applicantName: 'Alice Mukamana',
         applicantPhone: '+250788333333',
-        productId: 'PRODUCT-3',
+        productId: 'PRODUCT-6',
         productName: 'Education Loan',
+        loanType: 'cash',
         amount: 1500000,
         termMonths: 48,
         purpose: 'University tuition fees for Computer Science degree',
@@ -267,12 +370,45 @@ export class LenderService {
         notes: 'Student with good academic record'
       },
       {
+        id: 'APP-3A',
+        applicantId: 'CUST-013',
+        applicantName: 'Jean Baptiste Nkurunziza',
+        applicantPhone: '+250788999999',
+        productId: 'PRODUCT-5',
+        productName: 'Property Mortgage Loan',
+        loanType: 'asset',
+        amount: 25000000,
+        termMonths: 120,
+        purpose: 'Construction of commercial building for rental income',
+        status: 'approved',
+        creditScore: 750,
+        riskLevel: 'low',
+        documents: ['nid_front.jpg', 'tax_clearance.pdf', 'income_proof.pdf'],
+        collateral: {
+          assetType: 'property',
+          assetDescription: 'Commercial plot in Kigali CBD, 500 sqm',
+          assetValue: 40000000,
+          valuationDate: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
+          valuationReport: 'property_valuation_report.pdf',
+          ownershipDocument: 'title_deed.pdf',
+          location: 'Kigali, Nyarugenge District, KN 1 Ave',
+          condition: 'excellent',
+          insuranceCoverage: true,
+          insuranceDetails: 'Property insurance with Sonarwa'
+        },
+        submittedAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), // 15 days ago
+        reviewedAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000), // 12 days ago
+        approvedAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000), // 8 days ago
+        notes: 'Excellent collateral, prime location, strong borrower profile'
+      },
+      {
         id: 'APP-4',
         applicantId: 'CUST-004',
-        applicantName: 'Alice Mukamana',
+        applicantName: 'Sarah Mukamana',
         applicantPhone: '+250788444444',
-        productId: 'PRODUCT-4',
+        productId: 'PRODUCT-7',
         productName: 'Micro Loan',
+        loanType: 'cash',
         amount: 200000,
         termMonths: 6,
         purpose: 'Emergency medical expenses for family member',
@@ -291,6 +427,7 @@ export class LenderService {
         applicantPhone: '+250788555555',
         productId: 'PRODUCT-1',
         productName: 'Agricultural Development Loan',
+        loanType: 'cash',
         amount: 3000000,
         termMonths: 24,
         purpose: 'Dairy farming expansion and equipment purchase',
@@ -303,6 +440,39 @@ export class LenderService {
         approvedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000), // 10 days ago
         disbursedAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000), // 8 days ago
         notes: 'Excellent farming track record and collateral'
+      },
+      {
+        id: 'APP-5A',
+        applicantId: 'CUST-014',
+        applicantName: 'Paul Mugenzi',
+        applicantPhone: '+250788101010',
+        productId: 'PRODUCT-3',
+        productName: 'Asset-Backed Business Loan',
+        loanType: 'asset',
+        amount: 12000000,
+        termMonths: 36,
+        purpose: 'Purchase of manufacturing equipment for textile business',
+        status: 'disbursed',
+        creditScore: 720,
+        riskLevel: 'low',
+        documents: ['business_registration.pdf', 'bank_statements.pdf', 'business_plan.pdf'],
+        collateral: {
+          assetType: 'machinery',
+          assetDescription: 'Textile weaving machines (5 units) - Model XYZ 2024',
+          assetValue: 18000000,
+          valuationDate: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000),
+          valuationReport: 'equipment_valuation_report.pdf',
+          ownershipDocument: 'equipment_invoice.pdf',
+          registrationNumber: 'EQ-2024-TXT-001',
+          condition: 'new',
+          insuranceCoverage: true,
+          insuranceDetails: 'Equipment insurance with Prudential Assurance'
+        },
+        submittedAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000), // 25 days ago
+        reviewedAt: new Date(Date.now() - 22 * 24 * 60 * 60 * 1000), // 22 days ago
+        approvedAt: new Date(Date.now() - 18 * 24 * 60 * 60 * 1000), // 18 days ago
+        disbursedAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), // 15 days ago
+        notes: 'High-value asset with good LTV ratio, business shows strong potential'
       }
     ];
 
@@ -317,6 +487,7 @@ export class LenderService {
         borrowerPhone: '+250788555555',
         productId: 'PRODUCT-1',
         productName: 'Agricultural Development Loan',
+        loanType: 'cash',
         principalAmount: 3000000,
         interestRate: 12,
         termMonths: 24,
@@ -332,6 +503,42 @@ export class LenderService {
         paymentsCompleted: 4
       },
       {
+        id: 'LOAN-1A',
+        loanNumber: 'LN-2024-003',
+        applicationId: 'APP-5A',
+        borrowerId: 'CUST-014',
+        borrowerName: 'Paul Mugenzi',
+        borrowerPhone: '+250788101010',
+        productId: 'PRODUCT-3',
+        productName: 'Asset-Backed Business Loan',
+        loanType: 'asset',
+        principalAmount: 12000000,
+        interestRate: 15,
+        termMonths: 36,
+        monthlyPayment: 416667,
+        outstandingBalance: 10833333,
+        totalPaid: 1250000,
+        disbursedAmount: 12000000,
+        disbursedAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000), // 45 days ago
+        nextPaymentDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // 10 days from now
+        status: 'active',
+        daysPastDue: 0,
+        paymentsRemaining: 33,
+        paymentsCompleted: 3,
+        collateral: {
+          assetType: 'machinery',
+          assetDescription: 'Textile weaving machines (5 units) - Model XYZ 2024',
+          assetValue: 18000000,
+          valuationDate: new Date(Date.now() - 65 * 24 * 60 * 60 * 1000),
+          valuationReport: 'equipment_valuation_report.pdf',
+          ownershipDocument: 'equipment_invoice.pdf',
+          registrationNumber: 'EQ-2024-TXT-001',
+          condition: 'new',
+          insuranceCoverage: true,
+          insuranceDetails: 'Equipment insurance with Prudential Assurance'
+        }
+      },
+      {
         id: 'LOAN-2',
         loanNumber: 'LN-2024-002',
         applicationId: 'APP-2',
@@ -340,6 +547,7 @@ export class LenderService {
         borrowerPhone: '+250788222222',
         productId: 'PRODUCT-2',
         productName: 'Small Business Loan',
+        loanType: 'cash',
         principalAmount: 5000000,
         interestRate: 18,
         termMonths: 36,
@@ -363,6 +571,7 @@ export class LenderService {
         borrowerPhone: '+250788666666',
         productId: 'PRODUCT-1',
         productName: 'Agricultural Development Loan',
+        loanType: 'cash',
         principalAmount: 2000000,
         interestRate: 12,
         termMonths: 24,
@@ -384,8 +593,9 @@ export class LenderService {
         borrowerId: 'CUST-011',
         borrowerName: 'Sarah Mukamana',
         borrowerPhone: '+250788777777',
-        productId: 'PRODUCT-4',
+        productId: 'PRODUCT-7',
         productName: 'Micro Loan',
+        loanType: 'cash',
         principalAmount: 500000,
         interestRate: 25,
         termMonths: 6,
