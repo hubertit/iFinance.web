@@ -671,6 +671,19 @@ export class LoanApplicationsComponent implements OnInit, OnDestroy {
     return riskLevel.charAt(0).toUpperCase() + riskLevel.slice(1) + ' Risk';
   }
 
+  formatStatusValue(value: string): string {
+    if (!value) return '';
+    const val = String(value);
+    // Handle snake_case
+    if (val.includes('_')) {
+      return val.split('_').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ');
+    }
+    // Default: capitalize first letter
+    return val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
+  }
+
   getStatusColor(status: string): string {
     return this.lenderService.getStatusColor(status);
   }

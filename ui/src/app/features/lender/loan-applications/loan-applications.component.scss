@@ -405,6 +405,31 @@
                 font-weight: 600;
                 color: #20a085;
               }
+
+              &.loan-type-badge {
+                display: inline-block;
+                padding: 4px 10px;
+                border-radius: 3px;
+                font-size: 12px;
+                font-weight: 600;
+                text-transform: capitalize;
+
+                &.cash {
+                  background: #dbeafe;
+                  color: #1e40af;
+                }
+
+                &.asset {
+                  background: #fef3c7;
+                  color: #92400e;
+                }
+              }
+
+              &.insurance-details {
+                font-size: 12px;
+                color: #64748b;
+                margin-left: 8px;
+              }
             }
           }
         }
