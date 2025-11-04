@@ -237,6 +237,14 @@ import { Subject, takeUntil } from 'rxjs';
               </div>
 
               <div class="form-group">
+                <label for="loanType">Loan Type *</label>
+                <select id="loanType" name="loanType" [(ngModel)]="productData.loanType" required class="form-control">
+                  <option value="cash">Cash Loan</option>
+                  <option value="asset">Asset Loan</option>
+                </select>
+              </div>
+
+              <div class="form-group">
                 <label for="isActive">Status</label>
                 <select id="isActive" name="isActive" [(ngModel)]="productData.isActive" class="form-control">
                   <option [value]="true">Active</option>
@@ -263,15 +271,28 @@ import { Subject, takeUntil } from 'rxjs';
             </div>
 
             <div class="form-group">
-              <label for="requirements">Requirements (one per line)</label>
+              <label for="requirements">General Requirements (one per line)</label>
               <textarea
                 id="requirements"
                 name="requirements"
                 [(ngModel)]="requirementsText"
-                placeholder="Enter requirements, one per line"
+                placeholder="Enter general requirements, one per line"
                 class="form-control"
                 rows="4"
               ></textarea>
+            </div>
+
+            <div class="form-group" *ngIf="productData.loanType === 'asset'">
+              <label for="assetRequirements">Asset-Specific Requirements (one per line)</label>
+              <textarea
+                id="assetRequirements"
+                name="assetRequirements"
+                [(ngModel)]="assetRequirementsText"
+                placeholder="Enter asset-specific requirements (e.g., asset ownership documents, valuation report, insurance certificate)"
+                class="form-control"
+                rows="4"
+              ></textarea>
+              <small class="form-text text-muted">These requirements are specific to asset-backed loans</small>
             </div>
 
             <!-- Validation Summary -->
@@ -321,15 +342,18 @@ export class LoanProductsComponent implements OnInit, OnDestroy {
   productData: Partial<LoanProduct> = {
     name: '',
     description: '',
+    loanType: 'cash',
     minAmount: 0,
     maxAmount: 0,
     interestRate: 0,
     termMonths: 0,
     requirements: [],
+    assetRequirements: [],
     isActive: true
   };
   
   requirementsText = '';
+  assetRequirementsText = '';
   
   // Table
   columns: any[] = [];
@@ -362,6 +386,7 @@ export class LoanProductsComponent implements OnInit, OnDestroy {
   private initializeColumns() {
     this.columns = [
       { key: 'name', title: 'Product Name', type: 'text', sortable: true },
+      { key: 'loanType', title: 'Loan Type', type: 'text', sortable: true },
       { key: 'description', title: 'Description', type: 'text', sortable: false },
       { key: 'minAmount', title: 'Min Amount', type: 'currency', sortable: true },
       { key: 'maxAmount', title: 'Max Amount', type: 'currency', sortable: true },
@@ -418,14 +443,17 @@ export class LoanProductsComponent implements OnInit, OnDestroy {
     this.productData = {
       name: '',
       description: '',
+      loanType: 'cash',
       minAmount: 0,
       maxAmount: 0,
       interestRate: 0,
       termMonths: 0,
       requirements: [],
+      assetRequirements: [],
       isActive: true
     };
     this.requirementsText = '';
+    this.assetRequirementsText = '';
   }
 
   // Product actions
@@ -440,6 +468,7 @@ export class LoanProductsComponent implements OnInit, OnDestroy {
     this.isEditing = true;
     this.productData = { ...product };
     this.requirementsText = product.requirements.join('\n');
+    this.assetRequirementsText = product.assetRequirements?.join('\n') || '';
     this.showProductModal = true;
   }
 
@@ -470,7 +499,10 @@ export class LoanProductsComponent implements OnInit, OnDestroy {
     // Prepare product data
     const productToSave = {
       ...this.productData,
-      requirements: this.requirementsText.split('\n').filter(req => req.trim())
+      requirements: this.requirementsText.split('\n').filter(req => req.trim()),
+      assetRequirements: this.productData.loanType === 'asset' 
+        ? this.assetRequirementsText.split('\n').filter(req => req.trim())
+        : undefined
     };
     
     if (this.isEditing) {

@@ -97,6 +97,12 @@ export interface TableColumn {
                       {{ formatStatusValue(item[col.key]) }}
                     </span>
                   </ng-container>
+                  <ng-container *ngSwitchCase="'currency'">
+                    {{ formatCurrency(item[col.key]) }}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'percentage'">
+                    {{ item[col.key] }}%
+                  </ng-container>
                   <ng-container *ngSwitchCase="'custom'">
                     <ng-container *ngIf="col.template && typeof col.template === 'function'">
                       <span [innerHTML]="col.template(item, i)"></span>
@@ -321,5 +327,17 @@ export class DataTableComponent implements AfterContentInit, OnChanges {
     
     // Default: capitalize first letter
     return val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
+  }
+
+  formatCurrency(value: any): string {
+    if (value === null || value === undefined) return '';
+    const numValue = typeof value === 'string' ? parseFloat(value) : value;
+    if (isNaN(numValue)) return String(value);
+    return new Intl.NumberFormat('en-RW', {
+      style: 'currency',
+      currency: 'RWF',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(numValue);
   }
 }

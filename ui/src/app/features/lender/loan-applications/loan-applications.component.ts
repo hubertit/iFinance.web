@@ -51,6 +51,15 @@ import { Subject, takeUntil } from 'rxjs';
               <option value="high">High Risk</option>
             </select>
           </div>
+
+          <div class="filter-group">
+            <label for="loanTypeFilter">Loan Type</label>
+            <select id="loanTypeFilter" [(ngModel)]="selectedLoanType" (change)="filterApplications()">
+              <option value="">All Types</option>
+              <option value="cash">Cash Loan</option>
+              <option value="asset">Asset Loan</option>
+            </select>
+          </div>
           
           <div class="filter-group">
             <label for="searchInput">Search</label>
@@ -221,6 +230,12 @@ import { Subject, takeUntil } from 'rxjs';
                     <span>{{ selectedApplication.productName }}</span>
                   </div>
                   <div class="info-item">
+                    <label>Loan Type:</label>
+                    <span class="loan-type-badge" [class.cash]="selectedApplication.loanType === 'cash'" [class.asset]="selectedApplication.loanType === 'asset'">
+                      {{ selectedApplication.loanType === 'cash' ? 'Cash Loan' : 'Asset Loan' }}
+                    </span>
+                  </div>
+                  <div class="info-item">
                     <label>Amount:</label>
                     <span class="amount">{{ formatCurrency(selectedApplication.amount) }}</span>
                   </div>
@@ -231,6 +246,47 @@ import { Subject, takeUntil } from 'rxjs';
                   <div class="info-item">
                     <label>Purpose:</label>
                     <span>{{ selectedApplication.purpose }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-section" *ngIf="selectedApplication.loanType === 'asset' && selectedApplication.collateral">
+                <h4>Asset Collateral Information</h4>
+                <div class="info-grid">
+                  <div class="info-item">
+                    <label>Asset Type:</label>
+                    <span>{{ formatStatusValue(selectedApplication.collateral.assetType) }}</span>
+                  </div>
+                  <div class="info-item">
+                    <label>Asset Description:</label>
+                    <span>{{ selectedApplication.collateral.assetDescription }}</span>
+                  </div>
+                  <div class="info-item">
+                    <label>Asset Value:</label>
+                    <span class="amount">{{ formatCurrency(selectedApplication.collateral.assetValue) }}</span>
+                  </div>
+                  <div class="info-item" *ngIf="selectedApplication.collateral.registrationNumber">
+                    <label>Registration Number:</label>
+                    <span>{{ selectedApplication.collateral.registrationNumber }}</span>
+                  </div>
+                  <div class="info-item" *ngIf="selectedApplication.collateral.location">
+                    <label>Location:</label>
+                    <span>{{ selectedApplication.collateral.location }}</span>
+                  </div>
+                  <div class="info-item" *ngIf="selectedApplication.collateral.condition">
+                    <label>Condition:</label>
+                    <span>{{ formatStatusValue(selectedApplication.collateral.condition) }}</span>
+                  </div>
+                  <div class="info-item" *ngIf="selectedApplication.collateral.insuranceCoverage">
+                    <label>Insurance:</label>
+                    <span class="badge badge-approved">Yes</span>
+                    <span *ngIf="selectedApplication.collateral.insuranceDetails" class="insurance-details">
+                      - {{ selectedApplication.collateral.insuranceDetails }}
+                    </span>
+                  </div>
+                  <div class="info-item" *ngIf="selectedApplication.collateral.valuationDate">
+                    <label>Valuation Date:</label>
+                    <span>{{ formatDate(selectedApplication.collateral.valuationDate) }}</span>
                   </div>
                 </div>
               </div>
@@ -368,6 +424,7 @@ export class LoanApplicationsComponent implements OnInit, OnDestroy {
   // Filters
   selectedStatus = '';
   selectedRiskLevel = '';
+  selectedLoanType = '';
   searchTerm = '';
   
   // Stats
@@ -402,6 +459,7 @@ export class LoanApplicationsComponent implements OnInit, OnDestroy {
   private initializeColumns() {
     this.columns = [
       { key: 'applicantName', title: 'Applicant', type: 'text', sortable: true },
+      { key: 'loanType', title: 'Loan Type', type: 'text', sortable: true },
       { key: 'productName', title: 'Product', type: 'text', sortable: true },
       { key: 'amount', title: 'Amount', type: 'currency', sortable: true },
       { key: 'termMonths', title: 'Term (Months)', type: 'number', sortable: true },
@@ -442,6 +500,11 @@ export class LoanApplicationsComponent implements OnInit, OnDestroy {
     // Filter by risk level
     if (this.selectedRiskLevel) {
       filtered = filtered.filter(app => app.riskLevel === this.selectedRiskLevel);
+    }
+
+    // Filter by loan type
+    if (this.selectedLoanType) {
+      filtered = filtered.filter(app => app.loanType === this.selectedLoanType);
     }
 
     // Filter by search term
