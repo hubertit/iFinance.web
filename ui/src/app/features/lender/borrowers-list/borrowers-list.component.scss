@@ -92,7 +92,7 @@
 
       &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        /* Removed - using border instead */
       }
 
       .stat-icon {
@@ -253,7 +253,7 @@
       min-width: 180px;
       z-index: 50;
       display: none;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      /* Removed - using border instead */
 
       &.show {
         display: block;

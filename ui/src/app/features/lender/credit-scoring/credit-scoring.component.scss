@@ -105,7 +105,7 @@
 
       &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        /* Removed - using border instead */
       }
 
       &.excellent {
@@ -335,6 +335,7 @@
     .modal-container {
       background: white;
       border-radius: 3px;
+      border: 1px solid #e2e8f0;
       max-width: 700px;
       width: 100%;
       max-height: 90vh;
@@ -576,7 +577,7 @@
       min-width: 180px;
       z-index: 50;
       display: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      /* Removed - using border instead */
 
       &.show {
         display: block;

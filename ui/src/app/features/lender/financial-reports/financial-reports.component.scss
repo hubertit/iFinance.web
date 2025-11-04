@@ -198,7 +198,7 @@
           background: white;
           border-color: $primary;
           transform: translateY(-2px);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          /* Removed - using border instead */
         }
 
         .statement-icon {

@@ -78,7 +78,7 @@
 .data-table-wrapper {
   background: white;
   border-radius: 3px;
-  box-shadow: $box-shadow-sm;
+  border: 1px solid #e2e8f0;
   overflow: visible; // Allow dropdowns to show outside
 }
 

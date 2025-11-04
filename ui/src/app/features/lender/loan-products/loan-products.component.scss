@@ -189,11 +189,11 @@
     .modal-container {
       background: white;
       border-radius: 3px;
+      border: 1px solid #e2e8f0;
       max-width: 800px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
       .modal-header {
         display: flex;
