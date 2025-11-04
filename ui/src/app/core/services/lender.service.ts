@@ -344,7 +344,7 @@ export class LenderService {
           valuationReport: 'vehicle_valuation_report.pdf',
           ownershipDocument: 'vehicle_ownership.pdf',
           registrationNumber: 'RAB-2024-ABC-123',
-          condition: 'new',
+          condition: 'excellent',
           insuranceCoverage: true,
           insuranceDetails: 'Comprehensive insurance with First Insurance Ltd'
         },
@@ -464,7 +464,7 @@ export class LenderService {
           valuationReport: 'equipment_valuation_report.pdf',
           ownershipDocument: 'equipment_invoice.pdf',
           registrationNumber: 'EQ-2024-TXT-001',
-          condition: 'new',
+          condition: 'excellent',
           insuranceCoverage: true,
           insuranceDetails: 'Equipment insurance with Prudential Assurance'
         },
@@ -533,7 +533,7 @@ export class LenderService {
           valuationReport: 'equipment_valuation_report.pdf',
           ownershipDocument: 'equipment_invoice.pdf',
           registrationNumber: 'EQ-2024-TXT-001',
-          condition: 'new',
+          condition: 'excellent',
           insuranceCoverage: true,
           insuranceDetails: 'Equipment insurance with Prudential Assurance'
         }
