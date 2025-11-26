@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { FeatherIconComponent } from '../feather-icon/feather-icon.component';
 import { WalletService, Wallet } from '../../../core/services/wallet.service';
 
@@ -9,134 +9,163 @@ import { WalletService, Wallet } from '../../../core/services/wallet.service';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, FeatherIconComponent],
   template: `
-    <div class="modal-overlay" (click)="onOverlayClick($event)">
-      <div class="modal-container">
-        <div class="modal-header">
-          <h3>View Statements</h3>
-          <button class="close-btn" (click)="close()">
-            <app-feather-icon name="x" size="20px"></app-feather-icon>
-          </button>
-        </div>
+    <!-- Modal -->
+    <div class="modal fade" [class.show]="isVisible" [style.display]="isVisible ? 'block' : 'none'" 
+         tabindex="-1" role="dialog" [attr.aria-hidden]="!isVisible">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h5 class="modal-title">View Statements</h5>
+            <button type="button" class="btn-close-custom" (click)="onClose()" aria-label="Close">
+              <app-feather-icon name="x" size="18px"></app-feather-icon>
+            </button>
+          </div>
 
-        <div class="modal-body">
-          <form [formGroup]="statementForm" (ngSubmit)="onSubmit()">
-            <!-- Wallet Selection -->
-            <div class="form-group">
-              <label>Select Wallet</label>
-              <select formControlName="walletId" class="form-control">
-                <option value="">All Wallets</option>
-                <option *ngFor="let wallet of wallets" [value]="wallet.id">
-                  {{ wallet.name }}
-                </option>
-              </select>
-            </div>
-
-            <!-- Date Range -->
-            <div class="form-group">
-              <label>Period</label>
-              <div class="period-options">
-                <button 
-                  type="button" 
-                  class="period-btn" 
-                  [class.active]="selectedPeriod === '7d'"
-                  (click)="selectPeriod('7d')">
-                  Last 7 Days
-                </button>
-                <button 
-                  type="button" 
-                  class="period-btn" 
-                  [class.active]="selectedPeriod === '30d'"
-                  (click)="selectPeriod('30d')">
-                  Last 30 Days
-                </button>
-                <button 
-                  type="button" 
-                  class="period-btn" 
-                  [class.active]="selectedPeriod === '90d'"
-                  (click)="selectPeriod('90d')">
-                  Last 90 Days
-                </button>
-                <button 
-                  type="button" 
-                  class="period-btn" 
-                  [class.active]="selectedPeriod === 'custom'"
-                  (click)="selectPeriod('custom')">
-                  Custom
-                </button>
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form [formGroup]="statementForm" (ngSubmit)="onSubmit()" novalidate>
+              <!-- Wallet Selection -->
+              <div class="mb-3">
+                <label for="walletId" class="form-label">
+                  <app-feather-icon name="credit-card" size="16px" class="me-1"></app-feather-icon>
+                  Select Wallet
+                </label>
+                <select id="walletId" formControlName="walletId" class="form-select">
+                  <option value="">All Wallets</option>
+                  <option *ngFor="let wallet of wallets" [value]="wallet.id">
+                    {{ wallet.name }}
+                  </option>
+                </select>
               </div>
-            </div>
 
-            <!-- Custom Date Range -->
-            <div class="date-range" *ngIf="selectedPeriod === 'custom'">
-              <div class="form-group">
-                <label>From Date</label>
-                <input 
-                  type="date" 
-                  formControlName="fromDate" 
-                  class="form-control date-input">
+              <!-- Date Range -->
+              <div class="mb-3">
+                <label class="form-label">
+                  <app-feather-icon name="calendar" size="16px" class="me-1"></app-feather-icon>
+                  Period
+                </label>
+                <div class="period-options">
+                  <button 
+                    type="button" 
+                    class="period-btn" 
+                    [class.active]="selectedPeriod === '7d'"
+                    (click)="selectPeriod('7d')">
+                    Last 7 Days
+                  </button>
+                  <button 
+                    type="button" 
+                    class="period-btn" 
+                    [class.active]="selectedPeriod === '30d'"
+                    (click)="selectPeriod('30d')">
+                    Last 30 Days
+                  </button>
+                  <button 
+                    type="button" 
+                    class="period-btn" 
+                    [class.active]="selectedPeriod === '90d'"
+                    (click)="selectPeriod('90d')">
+                    Last 90 Days
+                  </button>
+                  <button 
+                    type="button" 
+                    class="period-btn" 
+                    [class.active]="selectedPeriod === 'custom'"
+                    (click)="selectPeriod('custom')">
+                    Custom
+                  </button>
+                </div>
               </div>
-              <div class="form-group">
-                <label>To Date</label>
-                <input 
-                  type="date" 
-                  formControlName="toDate" 
-                  class="form-control date-input">
-              </div>
-            </div>
 
-            <!-- Format Selection -->
-            <div class="form-group">
-              <label>Export Format</label>
-              <div class="format-options">
-                <button 
-                  type="button" 
-                  class="format-btn" 
-                  [class.active]="selectedFormat === 'pdf'"
-                  (click)="selectedFormat = 'pdf'">
-                  <app-feather-icon name="file-text" size="20px"></app-feather-icon>
-                  <span>PDF</span>
-                </button>
-                <button 
-                  type="button" 
-                  class="format-btn" 
-                  [class.active]="selectedFormat === 'excel'"
-                  (click)="selectedFormat = 'excel'">
-                  <app-feather-icon name="grid" size="20px"></app-feather-icon>
-                  <span>Excel</span>
-                </button>
-                <button 
-                  type="button" 
-                  class="format-btn" 
-                  [class.active]="selectedFormat === 'csv'"
-                  (click)="selectedFormat = 'csv'">
-                  <app-feather-icon name="file" size="20px"></app-feather-icon>
-                  <span>CSV</span>
-                </button>
+              <!-- Custom Date Range -->
+              <div class="date-range" *ngIf="selectedPeriod === 'custom'">
+                <div class="mb-3">
+                  <label for="fromDate" class="form-label">From Date</label>
+                  <input 
+                    type="date"
+                    id="fromDate" 
+                    formControlName="fromDate" 
+                    class="form-control">
+                </div>
+                <div class="mb-3">
+                  <label for="toDate" class="form-label">To Date</label>
+                  <input 
+                    type="date"
+                    id="toDate" 
+                    formControlName="toDate" 
+                    class="form-control">
+                </div>
               </div>
-            </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn-secondary" (click)="close()">Cancel</button>
-              <button type="submit" class="btn-primary" [disabled]="isLoading">
-                <app-feather-icon name="download" size="16px" *ngIf="!isLoading"></app-feather-icon>
-                <span *ngIf="isLoading">Generating...</span>
-                <span *ngIf="!isLoading">Download Statement</span>
-              </button>
-            </div>
-          </form>
+              <!-- Format Selection -->
+              <div class="mb-3">
+                <label class="form-label">
+                  <app-feather-icon name="file" size="16px" class="me-1"></app-feather-icon>
+                  Export Format
+                </label>
+                <div class="format-options">
+                  <button 
+                    type="button" 
+                    class="format-btn" 
+                    [class.active]="selectedFormat === 'pdf'"
+                    (click)="selectedFormat = 'pdf'">
+                    <app-feather-icon name="file-text" size="20px"></app-feather-icon>
+                    <span>PDF</span>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="format-btn" 
+                    [class.active]="selectedFormat === 'excel'"
+                    (click)="selectedFormat = 'excel'">
+                    <app-feather-icon name="grid" size="20px"></app-feather-icon>
+                    <span>Excel</span>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="format-btn" 
+                    [class.active]="selectedFormat === 'csv'"
+                    (click)="selectedFormat = 'csv'">
+                    <app-feather-icon name="file" size="20px"></app-feather-icon>
+                    <span>CSV</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="onClose()" [disabled]="isLoading">
+              Cancel
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-primary" 
+              (click)="onSubmit()"
+              [disabled]="isLoading">
+              <app-feather-icon name="download" size="16px" *ngIf="!isLoading" class="me-1"></app-feather-icon>
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1" role="status"></span>
+              {{ isLoading ? 'Generating...' : 'Download Statement' }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop fade" [class.show]="isVisible" *ngIf="isVisible" (click)="onBackdropClick()"></div>
   `,
   styleUrls: ['./view-statements-modal.component.scss']
 })
-export class ViewStatementsModalComponent implements OnInit {
-  @Output() modalClosed = new EventEmitter<void>();
-  @Output() statementGenerated = new EventEmitter<any>();
+export class ViewStatementsModalComponent implements OnInit, OnChanges {
+  @Input() isVisible = false;
+  @Input() isLoading = false;
+  
+  @Output() close = new EventEmitter<void>();
+  @Output() save = new EventEmitter<any>();
 
   statementForm: FormGroup;
   wallets: Wallet[] = [];
-  isLoading = false;
   selectedPeriod = '30d';
   selectedFormat = 'pdf';
 
@@ -156,6 +185,18 @@ export class ViewStatementsModalComponent implements OnInit {
     this.setDefaultDates();
   }
 
+  ngOnChanges() {
+    if (this.isVisible) {
+      this.resetForm();
+    }
+  }
+
+  private resetForm() {
+    this.selectedPeriod = '30d';
+    this.selectedFormat = 'pdf';
+    this.setDefaultDates();
+  }
+
   loadWallets() {
     this.walletService.wallets$.subscribe(wallets => {
       this.wallets = wallets;
@@ -167,6 +208,7 @@ export class ViewStatementsModalComponent implements OnInit {
     const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
     
     this.statementForm.patchValue({
+      walletId: '',
       fromDate: thirtyDaysAgo.toISOString().split('T')[0],
       toDate: today.toISOString().split('T')[0]
     });
@@ -198,29 +240,20 @@ export class ViewStatementsModalComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isLoading = true;
-
-    // Simulate API call / file generation
-    setTimeout(() => {
-      this.isLoading = false;
-      this.statementGenerated.emit({
-        ...this.statementForm.value,
-        format: this.selectedFormat,
-        period: this.selectedPeriod
-      });
-      // In real implementation, this would trigger a file download
-      this.close();
-    }, 2000);
+    this.save.emit({
+      ...this.statementForm.value,
+      format: this.selectedFormat,
+      period: this.selectedPeriod
+    });
   }
 
-  onOverlayClick(event: MouseEvent) {
-    if ((event.target as HTMLElement).classList.contains('modal-overlay')) {
-      this.close();
+  onBackdropClick() {
+    if (!this.isLoading) {
+      this.onClose();
     }
   }
 
-  close() {
-    this.modalClosed.emit();
+  onClose() {
+    this.close.emit();
   }
 }
-

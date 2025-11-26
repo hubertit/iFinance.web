@@ -1,145 +1,191 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FeatherIconComponent } from '../feather-icon/feather-icon.component';
 import { WalletService, Wallet } from '../../../core/services/wallet.service';
-
-type WithdrawDestination = 'bank' | 'momo';
 
 @Component({
   selector: 'app-withdraw-modal',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, FeatherIconComponent],
   template: `
-    <div class="modal-overlay" (click)="onOverlayClick($event)">
-      <div class="modal-container">
-        <div class="modal-header">
-          <h3>Withdraw</h3>
-          <button class="close-btn" (click)="close()">
-            <app-feather-icon name="x" size="20px"></app-feather-icon>
-          </button>
-        </div>
+    <!-- Modal -->
+    <div class="modal fade" [class.show]="isVisible" [style.display]="isVisible ? 'block' : 'none'" 
+         tabindex="-1" role="dialog" [attr.aria-hidden]="!isVisible">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h5 class="modal-title">Withdraw</h5>
+            <button type="button" class="btn-close-custom" (click)="onClose()" aria-label="Close">
+              <app-feather-icon name="x" size="18px"></app-feather-icon>
+            </button>
+          </div>
 
-        <div class="modal-body">
-          <form [formGroup]="withdrawForm" (ngSubmit)="onSubmit()">
-            <!-- From Wallet -->
-            <div class="form-group">
-              <label>From Wallet</label>
-              <select formControlName="walletId" class="form-control">
-                <option value="">Select wallet</option>
-                <option *ngFor="let wallet of wallets" [value]="wallet.id">
-                  {{ wallet.name }} ({{ formatCurrency(wallet.balance) }})
-                </option>
-              </select>
-              <div class="error-message" *ngIf="withdrawForm.get('walletId')?.touched && withdrawForm.get('walletId')?.errors?.['required']">
-                Please select a wallet
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form [formGroup]="withdrawForm" (ngSubmit)="onSubmit()" novalidate>
+              <!-- From Wallet -->
+              <div class="mb-3">
+                <label for="walletId" class="form-label required">
+                  <app-feather-icon name="credit-card" size="16px" class="me-1"></app-feather-icon>
+                  From Wallet
+                </label>
+                <select 
+                  id="walletId"
+                  formControlName="walletId" 
+                  class="form-select"
+                  [class.is-invalid]="withdrawForm.get('walletId')?.touched && withdrawForm.get('walletId')?.invalid">
+                  <option value="">Select wallet</option>
+                  <option *ngFor="let wallet of wallets" [value]="wallet.id">
+                    {{ wallet.name }} ({{ formatCurrency(wallet.balance) }})
+                  </option>
+                </select>
+                <div *ngIf="withdrawForm.get('walletId')?.touched && withdrawForm.get('walletId')?.errors?.['required']" class="invalid-feedback">
+                  Please select a wallet
+                </div>
               </div>
-            </div>
 
-            <!-- Amount -->
-            <div class="form-group">
-              <label>Amount</label>
-              <div class="input-with-icon">
-                <app-feather-icon name="dollar-sign" size="16px"></app-feather-icon>
+              <!-- Amount -->
+              <div class="mb-3">
+                <label for="amount" class="form-label required">
+                  <app-feather-icon name="dollar-sign" size="16px" class="me-1"></app-feather-icon>
+                  Amount
+                </label>
                 <input 
-                  type="number" 
+                  type="number"
+                  id="amount" 
                   formControlName="amount" 
                   placeholder="Enter amount"
-                  class="form-control">
-              </div>
-              <div class="error-message" *ngIf="withdrawForm.get('amount')?.touched && withdrawForm.get('amount')?.errors?.['required']">
-                Amount is required
-              </div>
-              <div class="error-message" *ngIf="withdrawForm.get('amount')?.touched && withdrawForm.get('amount')?.errors?.['min']">
-                Amount must be greater than 0
-              </div>
-            </div>
-
-            <!-- Destination Type -->
-            <div class="form-group">
-              <label>Destination</label>
-              <select formControlName="destinationType" class="form-control" (change)="onDestinationChange()">
-                <option value="bank">Bank Account</option>
-                <option value="momo">Mobile Money</option>
-              </select>
-            </div>
-
-            <!-- Bank Fields -->
-            <ng-container *ngIf="withdrawForm.get('destinationType')?.value === 'bank'">
-              <div class="form-group">
-                <label>Bank Name</label>
-                <select formControlName="bankName" class="form-control">
-                  <option value="">Select bank</option>
-                  <option *ngFor="let bank of banks" [value]="bank">{{ bank }}</option>
-                </select>
-                <div class="error-message" *ngIf="withdrawForm.get('bankName')?.touched && withdrawForm.get('bankName')?.errors?.['required']">
-                  Please select a bank
+                  class="form-control"
+                  [class.is-invalid]="withdrawForm.get('amount')?.touched && withdrawForm.get('amount')?.invalid">
+                <div *ngIf="withdrawForm.get('amount')?.touched && withdrawForm.get('amount')?.errors?.['required']" class="invalid-feedback">
+                  Amount is required
+                </div>
+                <div *ngIf="withdrawForm.get('amount')?.touched && withdrawForm.get('amount')?.errors?.['min']" class="invalid-feedback">
+                  Amount must be greater than 0
                 </div>
               </div>
 
-              <div class="form-group">
-                <label>Account Number</label>
-                <div class="input-with-icon">
-                  <app-feather-icon name="hash" size="16px"></app-feather-icon>
+              <!-- Destination Type -->
+              <div class="mb-3">
+                <label for="destinationType" class="form-label">
+                  <app-feather-icon name="navigation" size="16px" class="me-1"></app-feather-icon>
+                  Destination
+                </label>
+                <select 
+                  id="destinationType"
+                  formControlName="destinationType" 
+                  class="form-select" 
+                  (change)="onDestinationChange()">
+                  <option value="bank">Bank Account</option>
+                  <option value="momo">Mobile Money</option>
+                </select>
+              </div>
+
+              <!-- Bank Fields -->
+              <ng-container *ngIf="withdrawForm.get('destinationType')?.value === 'bank'">
+                <div class="mb-3">
+                  <label for="bankName" class="form-label required">
+                    <app-feather-icon name="home" size="16px" class="me-1"></app-feather-icon>
+                    Bank Name
+                  </label>
+                  <select 
+                    id="bankName"
+                    formControlName="bankName" 
+                    class="form-select"
+                    [class.is-invalid]="withdrawForm.get('bankName')?.touched && withdrawForm.get('bankName')?.invalid">
+                    <option value="">Select bank</option>
+                    <option *ngFor="let bank of banks" [value]="bank">{{ bank }}</option>
+                  </select>
+                  <div *ngIf="withdrawForm.get('bankName')?.touched && withdrawForm.get('bankName')?.errors?.['required']" class="invalid-feedback">
+                    Please select a bank
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="accountNumber" class="form-label required">
+                    <app-feather-icon name="hash" size="16px" class="me-1"></app-feather-icon>
+                    Account Number
+                  </label>
                   <input 
-                    type="text" 
+                    type="text"
+                    id="accountNumber" 
                     formControlName="accountNumber" 
                     placeholder="Enter bank account number"
-                    class="form-control">
+                    class="form-control"
+                    [class.is-invalid]="withdrawForm.get('accountNumber')?.touched && withdrawForm.get('accountNumber')?.invalid">
+                  <div *ngIf="withdrawForm.get('accountNumber')?.touched && withdrawForm.get('accountNumber')?.errors?.['required']" class="invalid-feedback">
+                    Account number is required
+                  </div>
                 </div>
-                <div class="error-message" *ngIf="withdrawForm.get('accountNumber')?.touched && withdrawForm.get('accountNumber')?.errors?.['required']">
-                  Account number is required
+              </ng-container>
+
+              <!-- Mobile Money Fields -->
+              <ng-container *ngIf="withdrawForm.get('destinationType')?.value === 'momo'">
+                <div class="mb-3">
+                  <label for="momoProvider" class="form-label">
+                    <app-feather-icon name="smartphone" size="16px" class="me-1"></app-feather-icon>
+                    Provider
+                  </label>
+                  <select id="momoProvider" formControlName="momoProvider" class="form-select">
+                    <option value="MTN">MTN Mobile Money</option>
+                    <option value="Airtel">Airtel Money</option>
+                  </select>
                 </div>
-              </div>
-            </ng-container>
 
-            <!-- Mobile Money Fields -->
-            <ng-container *ngIf="withdrawForm.get('destinationType')?.value === 'momo'">
-              <div class="form-group">
-                <label>Provider</label>
-                <select formControlName="momoProvider" class="form-control">
-                  <option value="MTN">MTN Mobile Money</option>
-                  <option value="Airtel">Airtel Money</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Phone Number</label>
-                <div class="input-with-icon">
-                  <app-feather-icon name="phone" size="16px"></app-feather-icon>
+                <div class="mb-3">
+                  <label for="phoneNumber" class="form-label required">
+                    <app-feather-icon name="phone" size="16px" class="me-1"></app-feather-icon>
+                    Phone Number
+                  </label>
                   <input 
-                    type="tel" 
+                    type="tel"
+                    id="phoneNumber" 
                     formControlName="phoneNumber" 
                     placeholder="e.g., 0788123456"
-                    class="form-control">
+                    class="form-control"
+                    [class.is-invalid]="withdrawForm.get('phoneNumber')?.touched && withdrawForm.get('phoneNumber')?.invalid">
+                  <div *ngIf="withdrawForm.get('phoneNumber')?.touched && withdrawForm.get('phoneNumber')?.errors?.['required']" class="invalid-feedback">
+                    Phone number is required
+                  </div>
                 </div>
-                <div class="error-message" *ngIf="withdrawForm.get('phoneNumber')?.touched && withdrawForm.get('phoneNumber')?.errors?.['required']">
-                  Phone number is required
-                </div>
-              </div>
-            </ng-container>
+              </ng-container>
+            </form>
+          </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn-secondary" (click)="close()">Cancel</button>
-              <button type="submit" class="btn-primary" [disabled]="isLoading || withdrawForm.invalid">
-                <span *ngIf="isLoading">Processing...</span>
-                <span *ngIf="!isLoading">Submit</span>
-              </button>
-            </div>
-          </form>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="onClose()" [disabled]="isLoading">
+              Cancel
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-primary" 
+              (click)="onSubmit()"
+              [disabled]="isLoading || withdrawForm.invalid">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1" role="status"></span>
+              {{ isLoading ? 'Processing...' : 'Submit' }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop fade" [class.show]="isVisible" *ngIf="isVisible" (click)="onBackdropClick()"></div>
   `,
   styleUrls: ['./withdraw-modal.component.scss']
 })
-export class WithdrawModalComponent implements OnInit {
-  @Output() modalClosed = new EventEmitter<void>();
-  @Output() withdrawCompleted = new EventEmitter<any>();
+export class WithdrawModalComponent implements OnInit, OnChanges {
+  @Input() isVisible = false;
+  @Input() isLoading = false;
+  
+  @Output() close = new EventEmitter<void>();
+  @Output() save = new EventEmitter<any>();
 
   withdrawForm: FormGroup;
   wallets: Wallet[] = [];
-  isLoading = false;
 
   banks = [
     'Bank of Kigali',
@@ -167,6 +213,24 @@ export class WithdrawModalComponent implements OnInit {
   ngOnInit() {
     this.loadWallets();
     this.onDestinationChange();
+  }
+
+  ngOnChanges() {
+    if (this.isVisible) {
+      this.resetForm();
+    }
+  }
+
+  private resetForm() {
+    this.withdrawForm.reset({
+      destinationType: 'bank',
+      momoProvider: 'MTN'
+    });
+    this.onDestinationChange();
+    if (this.wallets.length > 0) {
+      const defaultWallet = this.wallets.find(w => w.isDefault) || this.wallets[0];
+      this.withdrawForm.patchValue({ walletId: defaultWallet.id });
+    }
   }
 
   loadWallets() {
@@ -207,25 +271,16 @@ export class WithdrawModalComponent implements OnInit {
 
   onSubmit() {
     if (this.withdrawForm.invalid) return;
-
-    this.isLoading = true;
-
-    // Simulate API call
-    setTimeout(() => {
-      this.isLoading = false;
-      this.withdrawCompleted.emit(this.withdrawForm.value);
-      this.close();
-    }, 1500);
+    this.save.emit(this.withdrawForm.value);
   }
 
-  onOverlayClick(event: MouseEvent) {
-    if ((event.target as HTMLElement).classList.contains('modal-overlay')) {
-      this.close();
+  onBackdropClick() {
+    if (!this.isLoading) {
+      this.onClose();
     }
   }
 
-  close() {
-    this.modalClosed.emit();
+  onClose() {
+    this.close.emit();
   }
 }
-

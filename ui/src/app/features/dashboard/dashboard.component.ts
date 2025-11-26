@@ -373,39 +373,39 @@ export interface ChartOptions {
       </app-add-supplier-modal>
 
       <app-send-money-modal 
-        *ngIf="showSendMoneyModal"
-        (moneySent)="onMoneySent($event)"
-        (modalClosed)="showSendMoneyModal = false">
+        [isVisible]="showSendMoneyModal"
+        (save)="onMoneySent($event)"
+        (close)="showSendMoneyModal = false">
       </app-send-money-modal>
 
       <app-request-money-modal 
-        *ngIf="showRequestMoneyModal"
-        (requestCreated)="onRequestCreated($event)"
-        (modalClosed)="showRequestMoneyModal = false">
+        [isVisible]="showRequestMoneyModal"
+        (save)="onRequestCreated($event)"
+        (close)="showRequestMoneyModal = false">
       </app-request-money-modal>
 
       <app-topup-wallet-modal 
-        *ngIf="showTopupModal"
-        (topupCompleted)="onTopupCompleted($event)"
-        (modalClosed)="showTopupModal = false">
+        [isVisible]="showTopupModal"
+        (save)="onTopupCompleted($event)"
+        (close)="showTopupModal = false">
       </app-topup-wallet-modal>
 
       <app-withdraw-modal 
-        *ngIf="showWithdrawModal"
-        (withdrawCompleted)="onWithdrawCompleted($event)"
-        (modalClosed)="showWithdrawModal = false">
+        [isVisible]="showWithdrawModal"
+        (save)="onWithdrawCompleted($event)"
+        (close)="showWithdrawModal = false">
       </app-withdraw-modal>
 
       <app-pay-bills-modal 
-        *ngIf="showPayBillsModal"
-        (billPaid)="onBillPaid($event)"
-        (modalClosed)="showPayBillsModal = false">
+        [isVisible]="showPayBillsModal"
+        (save)="onBillPaid($event)"
+        (close)="showPayBillsModal = false">
       </app-pay-bills-modal>
 
       <app-view-statements-modal 
-        *ngIf="showStatementsModal"
-        (statementGenerated)="onStatementGenerated($event)"
-        (modalClosed)="showStatementsModal = false">
+        [isVisible]="showStatementsModal"
+        (save)="onStatementGenerated($event)"
+        (close)="showStatementsModal = false">
       </app-view-statements-modal>
     </div>
   `,
