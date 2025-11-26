@@ -26,7 +26,7 @@
 // Stat Cards
 .stat-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   border: 1px solid #e2e8f0;
   display: flex;
@@ -71,7 +71,7 @@
 .stat-icon {
   width: 52px;
   height: 52px;
-  border-radius: 12px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,7 +213,7 @@
 
 .chart-container {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   border: 1px solid #e2e8f0;
 }
@@ -268,7 +268,7 @@
 // Recent Activity
 .recent-activity {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   border: 1px solid #e2e8f0;
 }
@@ -463,7 +463,7 @@
 
 .skeleton-stat-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   border: 1px solid #e2e8f0;
   display: flex;
@@ -474,7 +474,7 @@
     @extend .skeleton-loader;
     width: 52px;
     height: 52px;
-    border-radius: 12px;
+    border-radius: 8px;
     flex-shrink: 0;
   }
 
@@ -523,7 +523,7 @@
 
 .skeleton-chart-container {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   border: 1px solid #e2e8f0;
 
@@ -604,7 +604,7 @@
 // Skeleton Recent Activity
 .skeleton-recent-activity {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   border: 1px solid #e2e8f0;
 
@@ -681,10 +681,10 @@
   min-height: 200px;
   padding: 40px 20px;
 
-  .loading-card {
+    .loading-card {
     text-align: center;
     background: white;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 40px;
     border: 1px solid #e2e8f0;
 
@@ -725,7 +725,7 @@
     right: 0;
     bottom: 0;
     background: rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
+    border-radius: 8px;
     z-index: 10;
   }
   
@@ -831,7 +831,7 @@
 // Recent Transactions
 .recent-transactions {
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1px solid #e2e8f0;
   overflow: hidden;
   margin-top: 24px;

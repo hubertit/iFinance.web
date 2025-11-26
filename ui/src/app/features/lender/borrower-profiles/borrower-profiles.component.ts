@@ -213,6 +213,7 @@ export class BorrowerProfilesComponent implements OnInit, OnDestroy {
   private loadBorrowerProfile(borrowerId: string) {
     this.isLoading = true;
 
+    // Get borrower data from loans (generated from DJYH API)
     this.lenderService.activeLoans$
       .pipe(takeUntil(this.destroy$))
       .subscribe(loans => {
@@ -220,13 +221,23 @@ export class BorrowerProfilesComponent implements OnInit, OnDestroy {
         
         if (borrowerLoans.length > 0) {
           const loan = borrowerLoans[0];
+          
+          // Try to get email from loan applications (from DJYH API)
+          let borrowerEmail: string | undefined;
+          this.lenderService.loanApplications$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(applications => {
+              const borrowerApp = applications.find(app => app.applicantId === borrowerId);
+              // Email is not stored in applications, will show N/A
+            });
+          
           this.borrowerData = {
             id: borrowerId,
-            name: loan.borrowerName,
-            phone: loan.borrowerPhone,
-            email: `${loan.borrowerName.toLowerCase().replace(' ', '.')}@email.com`,
-            address: 'Kigali, Rwanda',
-            creditScore: 650 + Math.floor(Math.random() * 150),
+            name: loan.borrowerName, // From DJYH API
+            phone: loan.borrowerPhone, // From DJYH API
+            email: borrowerEmail, // Will be N/A if not available from API
+            address: 'N/A', // Address not stored in loans, would need to fetch from borrowers list
+            creditScore: 650, // Default credit score (all borrowers have same risk)
             riskLevel: loan.daysPastDue > 60 ? 'high' : loan.daysPastDue > 30 ? 'medium' : 'low',
             totalBorrowed: borrowerLoans.reduce((sum, l) => sum + l.disbursedAmount, 0),
             totalPaid: borrowerLoans.reduce((sum, l) => sum + l.totalPaid, 0),

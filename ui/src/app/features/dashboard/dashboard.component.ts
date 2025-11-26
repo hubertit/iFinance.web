@@ -8,6 +8,12 @@ import { WalletService } from '../../core/services/wallet.service';
 import { FeatherIconComponent } from '../../shared/components/feather-icon/feather-icon.component';
 import { AddCustomerModalComponent } from '../../shared/components/add-customer-modal/add-customer-modal.component';
 import { AddSupplierModalComponent } from '../../shared/components/add-supplier-modal/add-supplier-modal.component';
+import { SendMoneyModalComponent } from '../../shared/components/send-money-modal/send-money-modal.component';
+import { RequestMoneyModalComponent } from '../../shared/components/request-money-modal/request-money-modal.component';
+import { TopupWalletModalComponent } from '../../shared/components/topup-wallet-modal/topup-wallet-modal.component';
+import { WithdrawModalComponent } from '../../shared/components/withdraw-modal/withdraw-modal.component';
+import { PayBillsModalComponent } from '../../shared/components/pay-bills-modal/pay-bills-modal.component';
+import { ViewStatementsModalComponent } from '../../shared/components/view-statements-modal/view-statements-modal.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import {
   ApexNonAxisChartSeries,
@@ -48,7 +54,20 @@ export interface ChartOptions {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, FeatherIconComponent, AddCustomerModalComponent, AddSupplierModalComponent, NgApexchartsModule],
+  imports: [
+    CommonModule, 
+    RouterModule, 
+    FeatherIconComponent, 
+    AddCustomerModalComponent, 
+    AddSupplierModalComponent, 
+    SendMoneyModalComponent,
+    RequestMoneyModalComponent,
+    TopupWalletModalComponent,
+    WithdrawModalComponent,
+    PayBillsModalComponent,
+    ViewStatementsModalComponent,
+    NgApexchartsModule
+  ],
   template: `
     <div class="dashboard-container">
 
@@ -352,6 +371,42 @@ export interface ChartOptions {
         (supplierAdded)="onSupplierAdded($event)"
         (modalClosed)="closeAddSupplierModal()">
       </app-add-supplier-modal>
+
+      <app-send-money-modal 
+        *ngIf="showSendMoneyModal"
+        (moneySent)="onMoneySent($event)"
+        (modalClosed)="showSendMoneyModal = false">
+      </app-send-money-modal>
+
+      <app-request-money-modal 
+        *ngIf="showRequestMoneyModal"
+        (requestCreated)="onRequestCreated($event)"
+        (modalClosed)="showRequestMoneyModal = false">
+      </app-request-money-modal>
+
+      <app-topup-wallet-modal 
+        *ngIf="showTopupModal"
+        (topupCompleted)="onTopupCompleted($event)"
+        (modalClosed)="showTopupModal = false">
+      </app-topup-wallet-modal>
+
+      <app-withdraw-modal 
+        *ngIf="showWithdrawModal"
+        (withdrawCompleted)="onWithdrawCompleted($event)"
+        (modalClosed)="showWithdrawModal = false">
+      </app-withdraw-modal>
+
+      <app-pay-bills-modal 
+        *ngIf="showPayBillsModal"
+        (billPaid)="onBillPaid($event)"
+        (modalClosed)="showPayBillsModal = false">
+      </app-pay-bills-modal>
+
+      <app-view-statements-modal 
+        *ngIf="showStatementsModal"
+        (statementGenerated)="onStatementGenerated($event)"
+        (modalClosed)="showStatementsModal = false">
+      </app-view-statements-modal>
     </div>
   `,
   styleUrls: ['./dashboard.component.scss']
@@ -371,6 +426,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   // Modal state
   showAddCustomerModal = false;
   showAddSupplierModal = false;
+  showSendMoneyModal = false;
+  showRequestMoneyModal = false;
+  showTopupModal = false;
+  showWithdrawModal = false;
+  showPayBillsModal = false;
+  showStatementsModal = false;
   
   // Dynamic data properties
   retryCount = 0;
@@ -693,30 +754,55 @@ export class DashboardComponent implements OnInit, OnDestroy {
   quickAction(action: string) {
     switch(action) {
       case 'send-money':
-        // Navigate to transactions screen for sending money
-        this.router.navigate(['/transactions']);
+        this.showSendMoneyModal = true;
         break;
       case 'request-money':
-        // Navigate to transactions screen for requesting money
-        this.router.navigate(['/transactions']);
+        this.showRequestMoneyModal = true;
         break;
       case 'top-up':
-        // Navigate to ikofi (wallets) for top-up
-        this.router.navigate(['/ikofi']);
+        this.showTopupModal = true;
         break;
       case 'withdraw':
-        // Navigate to ikofi (wallets) for withdrawal
-        this.router.navigate(['/ikofi']);
+        this.showWithdrawModal = true;
         break;
       case 'pay-bills':
-        // Navigate to bills/payments screen
-        this.router.navigate(['/transactions']);
+        this.showPayBillsModal = true;
         break;
       case 'view-statements':
-        // Navigate to statements/reports screen
-        this.router.navigate(['/transactions']);
+        this.showStatementsModal = true;
         break;
     }
+  }
+
+  /**
+   * Quick action modal callbacks
+   */
+  onMoneySent(data: any) {
+    console.log('Money sent:', data);
+    this.refreshDashboard();
+  }
+
+  onRequestCreated(data: any) {
+    console.log('Request created:', data);
+  }
+
+  onTopupCompleted(data: any) {
+    console.log('Topup completed:', data);
+    this.refreshDashboard();
+  }
+
+  onWithdrawCompleted(data: any) {
+    console.log('Withdraw completed:', data);
+    this.refreshDashboard();
+  }
+
+  onBillPaid(data: any) {
+    console.log('Bill paid:', data);
+    this.refreshDashboard();
+  }
+
+  onStatementGenerated(data: any) {
+    console.log('Statement generated:', data);
   }
 
   /**

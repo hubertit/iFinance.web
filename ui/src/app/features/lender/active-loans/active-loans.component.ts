@@ -2,9 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FeatherIconComponent } from '../../../shared/components/feather-icon/feather-icon.component';
 import { DataTableComponent } from '../../../shared/components/data-table/data-table.component';
 import { LenderService, ActiveLoan } from '../../../core/services/lender.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -325,7 +327,11 @@ export class ActiveLoansComponent implements OnInit, OnDestroy {
   totalPages = 1;
   openDropdownId: string | null = null;
 
-  constructor(private lenderService: LenderService) {}
+  constructor(
+    private lenderService: LenderService,
+    private authService: AuthService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.initializeColumns();
@@ -355,13 +361,76 @@ export class ActiveLoansComponent implements OnInit, OnDestroy {
   private loadLoans() {
     this.loading = true;
     
+    // Check if loans exist, if not, fetch borrowers and generate loans
+    const currentLoans = this.lenderService.getActiveLoans();
+    if (currentLoans.length === 0) {
+      // No loans yet, fetch borrowers from API and generate loans
+      this.fetchBorrowersAndGenerateLoans();
+    } else {
+      // Loans exist, use them
+      this.loans = currentLoans;
+      this.filterLoans();
+      this.calculateStats();
+      this.loading = false;
+    }
+
+    // Subscribe to loan updates
     this.lenderService.activeLoans$
       .pipe(takeUntil(this.destroy$))
       .subscribe(loans => {
-        this.loans = loans;
-        this.filterLoans();
-        this.calculateStats();
-        this.loading = false;
+        if (loans.length > 0) {
+          this.loans = loans;
+          this.filterLoans();
+          this.calculateStats();
+          this.loading = false;
+        }
+      });
+  }
+
+  /**
+   * Fetch borrowers from DJYH API and generate loans
+   */
+  private fetchBorrowersAndGenerateLoans() {
+    const token = this.authService.getToken();
+    if (!token) {
+      console.error('🔧 ActiveLoansComponent: No authentication token found.');
+      this.loading = false;
+      return;
+    }
+
+    const apiUrl = '/djyh-api/api/v1/users/dcc?limit=500';
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    this.http.get<any>(apiUrl, { headers })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          let apiUsers: any[] = [];
+          if (response?.success && response?.data && Array.isArray(response.data)) {
+            apiUsers = response.data;
+          } else if (response && Array.isArray(response)) {
+            apiUsers = response;
+          }
+
+          if (apiUsers.length > 0) {
+            // Generate loans from borrowers
+            const borrowersForLoans = apiUsers.map((user: any) => ({
+              id: user.id || '',
+              name: user.name || 'Unknown',
+              phone: user.phone || '',
+              email: user.email || ''
+            }));
+            this.lenderService.generateLoansFromBorrowers(borrowersForLoans);
+            console.log(`✅ ActiveLoansComponent: Generated ${borrowersForLoans.length * 2} loans from ${borrowersForLoans.length} borrowers`);
+          }
+        },
+        error: (error) => {
+          console.error('❌ ActiveLoansComponent: Error fetching borrowers:', error);
+          this.loading = false;
+        }
       });
   }
 
@@ -415,13 +484,15 @@ export class ActiveLoansComponent implements OnInit, OnDestroy {
   }
 
   private calculateStats() {
+    // Calculate stats from real loan data (from DJYH API borrowers)
+    const activeLoans = this.loans.filter(loan => loan.status === 'active');
+    const overdueLoans = this.loans.filter(loan => loan.daysPastDue > 0);
+    
     this.stats = {
-      activeLoans: this.loans.filter(loan => loan.status === 'active').length,
+      activeLoans: activeLoans.length,
       totalPortfolio: this.loans.reduce((sum, loan) => sum + loan.outstandingBalance, 0),
-      overdueLoans: this.loans.filter(loan => loan.daysPastDue > 0).length,
-      overdueAmount: this.loans
-        .filter(loan => loan.daysPastDue > 0)
-        .reduce((sum, loan) => sum + loan.monthlyPayment, 0),
+      overdueLoans: overdueLoans.length,
+      overdueAmount: overdueLoans.reduce((sum, loan) => sum + loan.outstandingBalance, 0), // Total overdue amount
       totalCollections: this.loans.reduce((sum, loan) => sum + loan.totalPaid, 0)
     };
   }

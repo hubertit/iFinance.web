@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
+import { LenderService, ActiveLoan } from '../../../core/services/lender.service';
 import { FeatherIconComponent } from '../../../shared/components/feather-icon/feather-icon.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import {
@@ -98,7 +100,7 @@ export interface LenderDashboardData {
           </div>
         </div>
 
-        <!-- Pending Applications -->
+        <!-- Applications -->
         <div class="stat-card applications" (click)="navigateToApplications()">
           <div class="stat-icon">
             <app-feather-icon name="file-text" size="18px"></app-feather-icon>
@@ -106,10 +108,10 @@ export interface LenderDashboardData {
           <div class="stat-details">
             <div class="stat-title">Applications</div>
             <div class="stat-numbers">
-              <div class="main-stat">{{ dashboardData.summary.applications.pending + dashboardData.summary.applications.underReview }}</div>
+              <div class="main-stat">{{ dashboardData.summary.applications.approved }}</div>
               <div class="sub-stats">
-                <span class="success">{{ dashboardData.summary.applications.underReview }} Under Review</span>
-                <span class="volume">{{ dashboardData.summary.applications.pending }} Pending</span>
+                <span class="success">{{ dashboardData.summary.applications.approved }} Approved & Disbursed</span>
+                <span class="volume">{{ dashboardData.summary.applications.pending + dashboardData.summary.applications.underReview }} Pending/Review</span>
               </div>
             </div>
           </div>
@@ -318,7 +320,9 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private lenderService: LenderService,
+    private http: HttpClient
   ) {
     this.initializeCharts();
     this.initializeDonutChart();
@@ -334,96 +338,165 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Load dashboard data with mock data for now
+   * Load dashboard data from actual API borrowers
    */
   loadDashboardData() {
     this.isLoading = true;
     this.errorMessage = null;
 
-    // Simulate API call with mock data
-    setTimeout(() => {
-      this.dashboardData = this.getMockLenderData();
+    // Check if loans exist, if not, fetch borrowers and generate loans
+    const currentLoans = this.lenderService.getActiveLoans();
+    if (currentLoans.length === 0) {
+      // No loans yet, fetch borrowers from API and generate loans
+      this.fetchBorrowersAndGenerateLoans();
+    } else {
+      // Loans exist, use them
+      this.dashboardData = this.calculateDashboardDataFromLoans(currentLoans);
       this.updateChartData();
       this.isLoading = false;
       this.lastUpdated = new Date();
-    }, 1000);
+    }
+
+    // Subscribe to loan updates
+    this.lenderService.activeLoans$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(loans => {
+        if (loans.length > 0) {
+          this.dashboardData = this.calculateDashboardDataFromLoans(loans);
+          this.updateChartData();
+          this.isLoading = false;
+          this.lastUpdated = new Date();
+        }
+      });
   }
 
   /**
-   * Get mock lender dashboard data
+   * Fetch borrowers from DJYH API and generate loans
    */
-  private getMockLenderData(): LenderDashboardData {
+  private fetchBorrowersAndGenerateLoans() {
+    const token = this.authService.getToken();
+    if (!token) {
+      console.error('🔧 LenderDashboard: No authentication token found.');
+      this.isLoading = false;
+      this.errorMessage = 'Please login to view dashboard data.';
+      return;
+    }
+
+    const apiUrl = '/djyh-api/api/v1/users/dcc?limit=500';
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    this.http.get<any>(apiUrl, { headers })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          let apiUsers: any[] = [];
+          if (response?.success && response?.data && Array.isArray(response.data)) {
+            apiUsers = response.data;
+          } else if (response && Array.isArray(response)) {
+            apiUsers = response;
+          }
+
+          if (apiUsers.length > 0) {
+            // Generate loans from borrowers
+            const borrowersForLoans = apiUsers.map((user: any) => ({
+              id: user.id || '',
+              name: user.name || 'Unknown',
+              phone: user.phone || '',
+              email: user.email || ''
+            }));
+            this.lenderService.generateLoansFromBorrowers(borrowersForLoans);
+            console.log(`✅ LenderDashboard: Generated ${borrowersForLoans.length * 2} loans from ${borrowersForLoans.length} borrowers`);
+          }
+        },
+        error: (error) => {
+          console.error('❌ LenderDashboard: Error fetching borrowers:', error);
+          this.isLoading = false;
+          this.errorMessage = 'Failed to load dashboard data. Please try again.';
+        }
+      });
+  }
+
+  /**
+   * Calculate dashboard data from actual loans (generated from DJYH API borrowers)
+   */
+  private calculateDashboardDataFromLoans(loans: ActiveLoan[]): LenderDashboardData {
+    // Group loans by borrower to get unique borrowers
+    const borrowerMap = new Map<string, { name: string, loans: ActiveLoan[] }>();
+    loans.forEach(loan => {
+      if (!borrowerMap.has(loan.borrowerId)) {
+        borrowerMap.set(loan.borrowerId, { name: loan.borrowerName, loans: [] });
+      }
+      borrowerMap.get(loan.borrowerId)!.loans.push(loan);
+    });
+
+    const totalBorrowers = borrowerMap.size;
+    const totalActiveLoans = loans.filter(l => l.status === 'active').length;
+    const overdueLoans = loans.filter(l => l.daysPastDue > 0).length;
+    const totalPortfolio = loans.reduce((sum, loan) => sum + loan.outstandingBalance, 0);
+    const totalDisbursed = loans.reduce((sum, loan) => sum + loan.disbursedAmount, 0);
+    const totalCollected = loans.reduce((sum, loan) => sum + loan.totalPaid, 0);
+    const totalOverdue = loans
+      .filter(l => l.daysPastDue > 0)
+      .reduce((sum, loan) => sum + loan.outstandingBalance, 0);
+
+    // Calculate this month's disbursements
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const thisMonthDisbursed = loans
+      .filter(loan => loan.disbursedAt && new Date(loan.disbursedAt) >= startOfMonth)
+      .reduce((sum, loan) => sum + loan.disbursedAmount, 0);
+
+    // Get applications data from real applications (synchronous)
+    // All applications are approved and disbursed
+    const applications = this.lenderService.getLoanApplications();
+    const applicationsData = {
+      pending: applications.filter(app => app.status === 'pending').length,
+      underReview: applications.filter(app => app.status === 'under_review').length,
+      approved: applications.filter(app => app.status === 'approved' || app.status === 'disbursed').length, // Include disbursed as approved
+      rejected: applications.filter(app => app.status === 'rejected').length
+    };
+
+    // Get recent activities from actual loans (sorted by disbursement date)
+    const recentActivities = Array.from(borrowerMap.values())
+      .map((borrower) => ({
+        id: `activity-${borrower.loans[0]?.borrowerId}`,
+        type: 'disbursement' as const,
+        borrower: borrower.name,
+        amount: borrower.loans.reduce((sum, loan) => sum + loan.disbursedAmount, 0), // Total for borrower
+        status: 'completed' as const,
+        date: borrower.loans[0]?.disbursedAt?.toISOString() || new Date().toISOString()
+      }))
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, 5);
+
     return {
       summary: {
         portfolio: {
-          total: 125000000,
-          active: 284,
-          overdue: 12
+          total: totalPortfolio,
+          active: totalActiveLoans,
+          overdue: overdueLoans
         },
-        applications: {
-          pending: 23,
-          underReview: 15,
-          approved: 342,
-          rejected: 45
-        },
+        applications: applicationsData,
         disbursements: {
-          total: 245000000,
-          thisMonth: 18500000,
-          growth: 18.5
+          total: totalDisbursed,
+          thisMonth: thisMonthDisbursed,
+          growth: 0 // No growth yet (new program)
         },
         repayments: {
-          collected: 89200000,
-          overdue: 3400000,
-          collectionRate: 92.5
+          collected: totalCollected,
+          overdue: totalOverdue,
+          collectionRate: totalDisbursed > 0 ? (totalCollected / totalDisbursed) * 100 : 0
         }
       },
-      recentActivities: [
-        {
-          id: '1',
-          type: 'application',
-          borrower: 'Jean Baptiste',
-          amount: 500000,
-          status: 'under_review',
-          date: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
-        },
-        {
-          id: '2',
-          type: 'disbursement',
-          borrower: 'Marie Claire',
-          amount: 750000,
-          status: 'completed',
-          date: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString()
-        },
-        {
-          id: '3',
-          type: 'repayment',
-          borrower: 'François',
-          amount: 125000,
-          status: 'completed',
-          date: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString()
-        },
-        {
-          id: '4',
-          type: 'application',
-          borrower: 'Immaculée',
-          amount: 300000,
-          status: 'approved',
-          date: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString()
-        },
-        {
-          id: '5',
-          type: 'repayment',
-          borrower: 'Théophile',
-          amount: 200000,
-          status: 'completed',
-          date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-        }
-      ]
+      recentActivities: recentActivities
     };
   }
 
   /**
-   * Initialize chart options
+   * Initialize chart options with real data from loans
    */
   initializeCharts() {
     const categories = Array.from({length: 30}, (_, i) => {
@@ -431,17 +504,18 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
       return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     });
 
+    // Initialize with empty data, will be populated from real loans
     this.chartOptions = {
       series: [
         {
           name: 'Disbursements',
           type: 'area',
-          data: Array.from({length: 30}, () => Math.floor(Math.random() * 2000000) + 500000)
+          data: Array.from({length: 30}, () => 0)
         },
         {
           name: 'Repayments',
           type: 'area',
-          data: Array.from({length: 30}, () => Math.floor(Math.random() * 1500000) + 400000)
+          data: Array.from({length: 30}, () => 0)
         }
       ],
       chart: {
@@ -495,11 +569,12 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialize donut chart
+   * Initialize donut chart with real data
    */
   initializeDonutChart() {
+    // Initialize with empty data, will be populated from real loans
     this.donutChartOptions = {
-      series: [180, 45, 342, 12],
+      series: [0, 0, 0, 0], // Will be updated from actual loan data
       chart: {
         type: 'donut',
         height: 300,
@@ -568,34 +643,126 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Update chart data
+   * Update chart data from real loans
    */
   updateChartData() {
-    if (!this.dashboardData) return;
-    
-    // Chart data will be updated based on period selection
+    // Update charts with real data from loans
+    this.updateChartFromLoans('30D');
     this.updateDonutChartData();
   }
 
   /**
-   * Update donut chart data
+   * Update chart from actual loan data
    */
-  updateDonutChartData() {
-    if (!this.dashboardData) return;
+  private updateChartFromLoans(period: string = '30D') {
+    this.lenderService.activeLoans$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(loans => {
+        let categories: string[];
+        let days: number;
+        
+        switch(period) {
+          case '7D':
+            days = 7;
+            categories = Array.from({length: days}, (_, i) => {
+              const date = new Date(Date.now() - (days - 1 - i) * 24 * 60 * 60 * 1000);
+              return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+            break;
+          case '90D':
+            days = 12; // 12 weeks
+            categories = Array.from({length: days}, (_, i) => `Week ${i + 1}`);
+            break;
+          default: // 30D
+            days = 30;
+            categories = Array.from({length: days}, (_, i) => {
+              const date = new Date(Date.now() - (days - 1 - i) * 24 * 60 * 60 * 1000);
+              return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+        }
 
-    const active = this.dashboardData.summary.portfolio.active;
-    const overdue = this.dashboardData.summary.portfolio.overdue;
-    const completed = this.dashboardData.summary.applications.approved;
-    const defaulted = Math.floor(overdue * 0.5);
+        // Group disbursements and repayments by date
+        const disbursementsByDate = new Map<string, number>();
+        const repaymentsByDate = new Map<string, number>();
 
-    this.donutChartOptions = {
-      ...this.donutChartOptions,
-      series: [active, overdue, completed, defaulted]
-    };
+        loans.forEach(loan => {
+          // Disbursements
+          if (loan.disbursedAt) {
+            const disbursedDate = new Date(loan.disbursedAt);
+            const dateKey = period === '90D' 
+              ? this.getWeekKey(disbursedDate)
+              : disbursedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            
+            if (categories.includes(dateKey)) {
+              const current = disbursementsByDate.get(dateKey) || 0;
+              disbursementsByDate.set(dateKey, current + loan.disbursedAmount);
+            }
+          }
+
+          // Repayments (if any payments were made)
+          // For now, all repayments are 0, but structure is ready for when payments start
+          if (loan.totalPaid > 0) {
+            // Would need payment history to group by date
+            // For now, repayments are 0
+          }
+        });
+
+        // Create data arrays matching categories
+        const disbursementsData = categories.map(date => disbursementsByDate.get(date) || 0);
+        const repaymentsData = categories.map(() => 0); // No repayments yet
+
+        this.chartOptions = {
+          ...this.chartOptions,
+          series: [
+            {
+              name: 'Disbursements',
+              type: 'area',
+              data: disbursementsData
+            },
+            {
+              name: 'Repayments',
+              type: 'area',
+              data: repaymentsData
+            }
+          ],
+          xaxis: {
+            categories: categories
+          }
+        };
+      });
   }
 
   /**
-   * Update chart based on period
+   * Get week key for 90D period
+   */
+  private getWeekKey(date: Date): string {
+    const startOfYear = new Date(date.getFullYear(), 0, 1);
+    const days = Math.floor((date.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000));
+    const weekNumber = Math.ceil((days + startOfYear.getDay() + 1) / 7);
+    return `Week ${weekNumber}`;
+  }
+
+  /**
+   * Update donut chart data from actual loans (DJYH API borrowers)
+   */
+  updateDonutChartData() {
+    this.lenderService.activeLoans$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(loans => {
+        const active = loans.filter(l => l.status === 'active').length;
+        const overdue = loans.filter(l => l.daysPastDue > 0).length;
+        const completed = loans.filter(l => l.status === 'completed').length;
+        const defaulted = loans.filter(l => l.status === 'defaulted').length;
+
+        this.donutChartOptions = {
+          ...this.donutChartOptions,
+          series: [active, overdue, completed, defaulted]
+        };
+      });
+  }
+
+  /**
+   * Update chart based on period using real loan data
    */
   updateChart(period: string, event?: Event) {
     document.querySelectorAll('.chart-controls button').forEach(btn => btn.classList.remove('active'));
@@ -603,59 +770,8 @@ export class LenderDashboardComponent implements OnInit, OnDestroy {
       event.target.classList.add('active');
     }
 
-    let categories: string[];
-    let disbursementsData: number[];
-    let repaymentsData: number[];
-
-    switch(period) {
-      case '7D':
-        categories = Array.from({length: 7}, (_, i) => {
-          const date = new Date(Date.now() - (6 - i) * 24 * 60 * 60 * 1000);
-          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        });
-        disbursementsData = Array.from({length: 7}, () => Math.floor(Math.random() * 3000000) + 1000000);
-        repaymentsData = Array.from({length: 7}, () => Math.floor(Math.random() * 2500000) + 800000);
-        break;
-      case '30D':
-        categories = Array.from({length: 30}, (_, i) => {
-          const date = new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000);
-          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        });
-        disbursementsData = Array.from({length: 30}, () => Math.floor(Math.random() * 2000000) + 500000);
-        repaymentsData = Array.from({length: 30}, () => Math.floor(Math.random() * 1500000) + 400000);
-        break;
-      case '90D':
-        categories = Array.from({length: 12}, (_, i) => `Week ${i + 1}`);
-        disbursementsData = Array.from({length: 12}, () => Math.floor(Math.random() * 15000000) + 8000000);
-        repaymentsData = Array.from({length: 12}, () => Math.floor(Math.random() * 12000000) + 6000000);
-        break;
-      default:
-        categories = Array.from({length: 30}, (_, i) => {
-          const date = new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000);
-          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        });
-        disbursementsData = Array.from({length: 30}, () => Math.floor(Math.random() * 2000000) + 500000);
-        repaymentsData = Array.from({length: 30}, () => Math.floor(Math.random() * 1500000) + 400000);
-    }
-    
-    this.chartOptions = {
-      ...this.chartOptions,
-      series: [
-        {
-          name: 'Disbursements',
-          type: 'area',
-          data: disbursementsData
-        },
-        {
-          name: 'Repayments',
-          type: 'area',
-          data: repaymentsData
-        }
-      ],
-      xaxis: {
-        categories: categories
-      }
-    };
+    // Update chart with real data for the selected period
+    this.updateChartFromLoans(period);
   }
 
   /**

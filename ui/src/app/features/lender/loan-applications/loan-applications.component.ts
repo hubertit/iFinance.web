@@ -2,9 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FeatherIconComponent } from '../../../shared/components/feather-icon/feather-icon.component';
 import { DataTableComponent } from '../../../shared/components/data-table/data-table.component';
 import { LenderService, LoanApplication } from '../../../core/services/lender.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -27,8 +29,16 @@ import { Subject, takeUntil } from 'rxjs';
         </div>
       </div>
 
+      <!-- Skeleton Loader for Filters -->
+      <div class="skeleton-filters-section" *ngIf="loading">
+        <div class="skeleton-filter-group" *ngFor="let i of [1,2,3,4]">
+          <div class="skeleton-filter-label"></div>
+          <div class="skeleton-filter-input"></div>
+        </div>
+      </div>
+
       <!-- Filters -->
-      <div class="filters-section">
+      <div class="filters-section" *ngIf="!loading">
         <div class="filters-grid">
           <div class="filter-group">
             <label for="statusFilter">Status</label>
@@ -74,8 +84,19 @@ import { Subject, takeUntil } from 'rxjs';
         </div>
       </div>
 
+      <!-- Skeleton Loader for Stats -->
+      <div class="skeleton-stats-grid" *ngIf="loading">
+        <div class="skeleton-stat-card" *ngFor="let i of [1,2,3,4]">
+          <div class="skeleton-stat-icon"></div>
+          <div class="skeleton-stat-content">
+            <div class="skeleton-stat-value"></div>
+            <div class="skeleton-stat-label"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- Stats Cards -->
-      <div class="stats-grid">
+      <div class="stats-grid" *ngIf="!loading">
         <div class="stat-card">
           <div class="stat-icon pending">
             <app-feather-icon name="clock" size="20px"></app-feather-icon>
@@ -117,8 +138,28 @@ import { Subject, takeUntil } from 'rxjs';
         </div>
       </div>
 
+      <!-- Skeleton Loader for Table -->
+      <div class="card" *ngIf="loading">
+        <div class="card-header">
+          <div class="card-title-section">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-badge"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="skeleton-table">
+            <div class="skeleton-table-header">
+              <div class="skeleton-header-cell" *ngFor="let i of [1,2,3,4,5,6,7,8]"></div>
+            </div>
+            <div class="skeleton-table-row" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
+              <div class="skeleton-cell" *ngFor="let j of [1,2,3,4,5,6,7,8]"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Applications Table -->
-      <div class="card">
+      <div class="card" *ngIf="!loading">
         <div class="card-header">
           <div class="card-title-section">
             <h3>Loan Applications</h3>
@@ -137,7 +178,7 @@ import { Subject, takeUntil } from 'rxjs';
             [pageSize]="pageSize"
             [totalPages]="totalPages"
             [totalItems]="filteredApplications.length"
-            [loading]="loading"
+            [loading]="false"
             (onSort)="handleSort($event)"
             (onPageChange)="handlePageChange($event)"
             (onPageSizeChange)="handlePageSizeChange($event)">
@@ -443,7 +484,11 @@ export class LoanApplicationsComponent implements OnInit, OnDestroy {
   totalPages = 1;
   openDropdownId: string | null = null;
 
-  constructor(private lenderService: LenderService) {}
+  constructor(
+    private lenderService: LenderService,
+    private authService: AuthService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.initializeColumns();
@@ -472,13 +517,76 @@ export class LoanApplicationsComponent implements OnInit, OnDestroy {
   private loadApplications() {
     this.loading = true;
     
+    // Check if applications exist, if not, fetch borrowers and generate loans/applications
+    const currentApplications = this.lenderService.getLoanApplications();
+    if (currentApplications.length === 0) {
+      // No applications yet, fetch borrowers from API and generate loans/applications
+      this.fetchBorrowersAndGenerateApplications();
+    } else {
+      // Applications exist, use them
+      this.applications = currentApplications;
+      this.filterApplications();
+      this.calculateStats();
+      this.loading = false;
+    }
+
+    // Subscribe to application updates
     this.lenderService.loanApplications$
       .pipe(takeUntil(this.destroy$))
       .subscribe(applications => {
-        this.applications = applications;
-        this.filterApplications();
-        this.calculateStats();
-        this.loading = false;
+        if (applications.length > 0) {
+          this.applications = applications;
+          this.filterApplications();
+          this.calculateStats();
+          this.loading = false;
+        }
+      });
+  }
+
+  /**
+   * Fetch borrowers from DJYH API and generate loans/applications
+   */
+  private fetchBorrowersAndGenerateApplications() {
+    const token = this.authService.getToken();
+    if (!token) {
+      console.error('🔧 LoanApplicationsComponent: No authentication token found.');
+      this.loading = false;
+      return;
+    }
+
+    const apiUrl = '/djyh-api/api/v1/users/dcc?limit=500';
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    this.http.get<any>(apiUrl, { headers })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          let apiUsers: any[] = [];
+          if (response?.success && response?.data && Array.isArray(response.data)) {
+            apiUsers = response.data;
+          } else if (response && Array.isArray(response)) {
+            apiUsers = response;
+          }
+
+          if (apiUsers.length > 0) {
+            // Generate loans and applications from borrowers
+            const borrowersForLoans = apiUsers.map((user: any) => ({
+              id: user.id || '',
+              name: user.name || 'Unknown',
+              phone: user.phone || '',
+              email: user.email || ''
+            }));
+            this.lenderService.generateLoansFromBorrowers(borrowersForLoans);
+            console.log(`✅ LoanApplicationsComponent: Generated ${borrowersForLoans.length * 2} applications from ${borrowersForLoans.length} borrowers`);
+          }
+        },
+        error: (error) => {
+          console.error('❌ LoanApplicationsComponent: Error fetching borrowers:', error);
+          this.loading = false;
+        }
       });
   }
 
@@ -522,10 +630,12 @@ export class LoanApplicationsComponent implements OnInit, OnDestroy {
   }
 
   private calculateStats() {
+    // Calculate stats from real application data (from DJYH API borrowers)
+    // All applications are approved and disbursed
     this.stats = {
       pending: this.applications.filter(app => app.status === 'pending').length,
       underReview: this.applications.filter(app => app.status === 'under_review').length,
-      approved: this.applications.filter(app => app.status === 'approved').length,
+      approved: this.applications.filter(app => app.status === 'approved' || app.status === 'disbursed').length, // Include disbursed as approved
       rejected: this.applications.filter(app => app.status === 'rejected').length
     };
   }

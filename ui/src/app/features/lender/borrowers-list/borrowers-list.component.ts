@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FeatherIconComponent } from '../../../shared/components/feather-icon/feather-icon.component';
 import { DataTableComponent } from '../../../shared/components/data-table/data-table.component';
 import { LenderService, ActiveLoan, LoanApplication } from '../../../core/services/lender.service';
-import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 
 export interface Borrower {
@@ -48,7 +49,7 @@ export interface Borrower {
       </div>
 
       <!-- Stats Cards -->
-      <div class="stats-grid" *ngIf="borrowers.length > 0">
+      <div class="stats-grid" *ngIf="!loading && borrowers.length > 0">
         <div class="stat-card">
           <div class="stat-icon">
             <app-feather-icon name="users" size="20px"></app-feather-icon>
@@ -90,8 +91,19 @@ export interface Borrower {
         </div>
       </div>
 
+      <!-- Skeleton Loader for Stats -->
+      <div class="skeleton-stats-grid" *ngIf="loading">
+        <div class="skeleton-stat-card" *ngFor="let i of [1,2,3,4]">
+          <div class="skeleton-stat-icon"></div>
+          <div class="skeleton-stat-content">
+            <div class="skeleton-stat-value"></div>
+            <div class="skeleton-stat-label"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- Filters -->
-      <div class="filters-section">
+      <div class="filters-section" *ngIf="!loading">
         <div class="filters-grid">
           <div class="filter-group">
             <label for="riskFilter">Risk Level</label>
@@ -126,8 +138,28 @@ export interface Borrower {
         </div>
       </div>
 
+      <!-- Skeleton Loader for Table -->
+      <div class="card" *ngIf="loading">
+        <div class="card-header">
+          <div class="card-title-section">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-badge"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="skeleton-table">
+            <div class="skeleton-table-header">
+              <div class="skeleton-header-cell" *ngFor="let i of [1,2,3,4,5,6,7]"></div>
+            </div>
+            <div class="skeleton-table-row" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
+              <div class="skeleton-cell" *ngFor="let j of [1,2,3,4,5,6,7]"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Borrowers Table -->
-      <div class="card">
+      <div class="card" *ngIf="!loading">
         <div class="card-header">
           <div class="card-title-section">
             <h3>All Borrowers</h3>
@@ -146,7 +178,7 @@ export interface Borrower {
             [pageSize]="pageSize"
             [totalPages]="totalPages"
             [totalItems]="filteredBorrowers.length"
-            [loading]="loading"
+            [loading]="false"
             (onSort)="handleSort($event)"
             (onPageChange)="handlePageChange($event)"
             (onPageSizeChange)="handlePageSizeChange($event)">
@@ -218,7 +250,9 @@ export class BorrowersListComponent implements OnInit, OnDestroy {
 
   constructor(
     private lenderService: LenderService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -240,7 +274,6 @@ export class BorrowersListComponent implements OnInit, OnDestroy {
       { key: 'totalLoans', title: 'Total Loans', type: 'number', sortable: true },
       { key: 'activeLoans', title: 'Active', type: 'number', sortable: true },
       { key: 'outstandingBalance', title: 'Outstanding', type: 'currency', sortable: true },
-      { key: 'creditScore', title: 'Credit Score', type: 'number', sortable: true },
       { key: 'riskLevel', title: 'Risk Level', type: 'status', sortable: true }
     ];
   }
@@ -248,14 +281,136 @@ export class BorrowersListComponent implements OnInit, OnDestroy {
   private loadBorrowers() {
     this.loading = true;
 
-    this.lenderService.activeLoans$
+    // Get token from auth service
+    const token = this.authService.getToken();
+    if (!token) {
+      console.error('🔧 BorrowersListComponent: No authentication token found. Please login first.');
+      this.loading = false;
+      // Fallback to extracting from loans if no token
+      this.lenderService.activeLoans$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(loans => {
+          this.borrowers = this.extractBorrowersFromLoans(loans);
+          this.calculateStats();
+          this.filterBorrowers();
+        });
+      return;
+    }
+
+    console.log('🔧 BorrowersListComponent: Fetching borrowers with token:', token.substring(0, 20) + '...');
+
+    // Fetch borrowers from DJYH API
+    const apiUrl = '/djyh-api/api/v1/users/dcc?limit=500';
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    console.log('🔧 BorrowersListComponent: Calling API:', apiUrl);
+
+    this.http.get<any>(apiUrl, { headers })
       .pipe(takeUntil(this.destroy$))
-      .subscribe(loans => {
-        this.borrowers = this.extractBorrowersFromLoans(loans);
-        this.calculateStats();
-        this.filterBorrowers();
-        this.loading = false;
+      .subscribe({
+        next: (response) => {
+          console.log('🔧 BorrowersListComponent: API response received:', {
+            success: response?.success,
+            dataLength: response?.data?.length,
+            message: response?.message
+          });
+          
+          // Map API response to Borrower interface
+          // API returns: { success: true, data: [...], meta: {...}, message: "..." }
+          let apiUsers: any[] = [];
+          if (response?.success && response?.data && Array.isArray(response.data)) {
+            apiUsers = response.data;
+            this.borrowers = apiUsers.map((user: any) => this.mapApiUserToBorrower(user));
+            console.log(`✅ BorrowersListComponent: Successfully loaded ${this.borrowers.length} borrowers from API`);
+          } else if (response && Array.isArray(response)) {
+            // Fallback: if response is directly an array
+            apiUsers = response;
+            this.borrowers = apiUsers.map((user: any) => this.mapApiUserToBorrower(user));
+            console.log(`✅ BorrowersListComponent: Loaded ${this.borrowers.length} borrowers (array format)`);
+          } else {
+            console.warn('⚠️ BorrowersListComponent: Unexpected API response structure:', response);
+            this.borrowers = [];
+          }
+          
+          // Generate loans and applications for all DJYH borrowers
+          // All borrowers have 2 loans: Phones (100k) and Startup Capital (150k), all approved
+          if (apiUsers.length > 0) {
+            const borrowersForLoans = apiUsers.map((user: any) => ({
+              id: user.id || '',
+              name: user.name || 'Unknown',
+              phone: user.phone || '',
+              email: user.email || ''
+            }));
+            this.lenderService.generateLoansFromBorrowers(borrowersForLoans);
+            console.log(`✅ BorrowersListComponent: Generated ${borrowersForLoans.length * 2} loans (${borrowersForLoans.length} borrowers × 2 loans each)`);
+          }
+          
+          this.calculateStats();
+          this.filterBorrowers();
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('❌ BorrowersListComponent: Error fetching borrowers:', {
+            status: error?.status,
+            statusText: error?.statusText,
+            message: error?.message,
+            error: error?.error
+          });
+          this.loading = false;
+          // Fallback to extracting from loans if API fails
+          console.log('🔧 BorrowersListComponent: Falling back to loans data...');
+          this.lenderService.activeLoans$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(loans => {
+              this.borrowers = this.extractBorrowersFromLoans(loans);
+              this.calculateStats();
+              this.filterBorrowers();
+            });
+        }
       });
+  }
+
+  private mapApiUserToBorrower(user: any): Borrower {
+    // Build address from location fields
+    const addressParts = [
+      user.sector,
+      user.district,
+      user.province
+    ].filter(Boolean);
+    const address = addressParts.length > 0 ? addressParts.join(', ') : '';
+
+    // Loan products breakdown:
+    // - Phones: 100,000 RWF
+    // - Startup Capital: 150,000 RWF
+    // Total: 250,000 RWF
+    const phoneLoanAmount = 100000; // 100k RWF
+    const startupCapitalAmount = 150000; // 150k RWF
+    const totalLoanAmount = phoneLoanAmount + startupCapitalAmount; // 250k RWF
+    const loanProducts = 2; // Phones + Startup Capital
+    const totalPaid = 0; // None has paid yet
+    const outstandingBalance = totalLoanAmount; // Full amount outstanding since none paid
+
+    return {
+      id: user.id || '',
+      name: user.name || 'Unknown',
+      phone: user.phone || '',
+      email: user.email || '',
+      address: address,
+      totalLoans: loanProducts, // 2 loan products (Phones: 100k, Startup Capital: 150k)
+      activeLoans: loanProducts, // All borrowers are active
+      completedLoans: 0,
+      defaultedLoans: 0,
+      totalBorrowed: totalLoanAmount, // 250k RWF (100k phones + 150k startup capital)
+      totalPaid: totalPaid, // None has paid yet
+      outstandingBalance: outstandingBalance, // Full amount outstanding (no interest, no late fees)
+      creditScore: 650, // Default value
+      riskLevel: 'low' as 'low' | 'medium' | 'high', // Default risk level
+      registeredAt: user.createdAt ? new Date(user.createdAt) : new Date(),
+      lastLoanDate: new Date('2024-12-01') // Will start paying by 1st December
+    };
   }
 
   private extractBorrowersFromLoans(loans: ActiveLoan[]): Borrower[] {
