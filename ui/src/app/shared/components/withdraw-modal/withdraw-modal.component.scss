@@ -133,14 +133,19 @@
   }
 }
 
-.btn-secondary {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  color: #64748b;
+.btn-outline-danger {
+  background-color: transparent;
+  border: 1px solid #dc3545;
+  color: #dc3545;
 
   &:hover:not(:disabled) {
-    background-color: #f1f5f9;
-    color: #1e293b;
+    background-color: #dc3545;
+    color: #fff;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 

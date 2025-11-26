@@ -1,11 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeatherIconComponent } from '../../shared/components/feather-icon/feather-icon.component';
+import { SendMoneyModalComponent } from '../../shared/components/send-money-modal/send-money-modal.component';
+import { RequestMoneyModalComponent } from '../../shared/components/request-money-modal/request-money-modal.component';
+import { TopupWalletModalComponent } from '../../shared/components/topup-wallet-modal/topup-wallet-modal.component';
+import { WithdrawModalComponent } from '../../shared/components/withdraw-modal/withdraw-modal.component';
 
 @Component({
   selector: 'app-ikofi',
   standalone: true,
-  imports: [CommonModule, FeatherIconComponent],
+  imports: [
+    CommonModule, 
+    FeatherIconComponent,
+    SendMoneyModalComponent,
+    RequestMoneyModalComponent,
+    TopupWalletModalComponent,
+    WithdrawModalComponent
+  ],
   template: `
     <div class="ikofi-container">
       <!-- Header -->
@@ -132,6 +143,31 @@ import { FeatherIconComponent } from '../../shared/components/feather-icon/feath
           </div>
         </div>
       </div>
+
+      <!-- Modals -->
+      <app-send-money-modal 
+        [isVisible]="showSendMoneyModal"
+        (save)="onMoneySent($event)"
+        (close)="showSendMoneyModal = false">
+      </app-send-money-modal>
+
+      <app-request-money-modal 
+        [isVisible]="showRequestMoneyModal"
+        (save)="onRequestCreated($event)"
+        (close)="showRequestMoneyModal = false">
+      </app-request-money-modal>
+
+      <app-topup-wallet-modal 
+        [isVisible]="showTopupModal"
+        (save)="onTopupCompleted($event)"
+        (close)="showTopupModal = false">
+      </app-topup-wallet-modal>
+
+      <app-withdraw-modal 
+        [isVisible]="showWithdrawModal"
+        (save)="onWithdrawCompleted($event)"
+        (close)="showWithdrawModal = false">
+      </app-withdraw-modal>
     </div>
   `,
   styleUrls: ['./ikofi.component.scss']
@@ -141,6 +177,12 @@ export class IkofiComponent implements OnInit {
   loanBalance = 1500000;
   activePolicies = 3;
   monthlyPayments = 450000;
+
+  // Modal state
+  showSendMoneyModal = false;
+  showRequestMoneyModal = false;
+  showTopupModal = false;
+  showWithdrawModal = false;
 
   recentTransactions = [
     {
@@ -170,43 +212,56 @@ export class IkofiComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    // Load financial data
     this.loadFinancialData();
   }
 
   createWallet() {
     console.log('Create wallet clicked');
-    // TODO: Implement wallet creation logic
-    // This could open a modal or navigate to a wallet creation form
     alert('Wallet creation feature coming soon!');
   }
 
   quickAction(action: string) {
-    console.log('Quick action triggered:', action);
-    // TODO: Implement quick action logic
     switch(action) {
       case 'pay':
-        // Navigate to payment form
+        this.showSendMoneyModal = true;
         break;
       case 'request':
-        // Navigate to request money form
+        this.showRequestMoneyModal = true;
         break;
       case 'top-up':
-        // Navigate to top up form
+        this.showTopupModal = true;
         break;
       case 'withdraw':
-        // Navigate to withdrawal form
+        this.showWithdrawModal = true;
         break;
     }
   }
 
+  onMoneySent(data: any) {
+    console.log('Money sent:', data);
+    this.showSendMoneyModal = false;
+  }
+
+  onRequestCreated(data: any) {
+    console.log('Request created:', data);
+    this.showRequestMoneyModal = false;
+  }
+
+  onTopupCompleted(data: any) {
+    console.log('Topup completed:', data);
+    this.showTopupModal = false;
+  }
+
+  onWithdrawCompleted(data: any) {
+    console.log('Withdraw completed:', data);
+    this.showWithdrawModal = false;
+  }
+
   navigateToService(service: string) {
     console.log('Navigate to service:', service);
-    // TODO: Implement navigation to specific service
   }
 
   loadFinancialData() {
-    // TODO: Load real financial data from API
     console.log('Loading financial data...');
   }
 

@@ -136,7 +136,8 @@ interface BillCategory {
 
           <!-- Modal Footer -->
           <div class="modal-footer" *ngIf="selectedCategory">
-            <button type="button" class="btn btn-secondary" (click)="onClose()" [disabled]="isLoading">
+            <button type="button" class="btn btn-outline-danger" (click)="onClose()" [disabled]="isLoading">
+              <app-feather-icon name="x" size="16px" class="me-1"></app-feather-icon>
               Cancel
             </button>
             <button 

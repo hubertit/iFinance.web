@@ -50,7 +50,10 @@ import { WalletService, Wallet } from '../../../core/services/wallet.service';
               <p class="hint">Check your phone for a mobile money prompt and confirm the payment.</p>
 
               <div class="confirm-actions">
-                <button type="button" class="btn btn-secondary" (click)="showConfirmation = false">Cancel</button>
+                <button type="button" class="btn btn-outline-danger" (click)="showConfirmation = false">
+                  <app-feather-icon name="x" size="16px" class="me-1"></app-feather-icon>
+                  Cancel
+                </button>
                 <button type="button" class="btn btn-primary" (click)="confirmPayment()" [disabled]="isProcessing">
                   <span *ngIf="isProcessing" class="spinner-border spinner-border-sm me-1" role="status"></span>
                   {{ isProcessing ? 'Processing...' : "I've Confirmed" }}
@@ -147,7 +150,8 @@ import { WalletService, Wallet } from '../../../core/services/wallet.service';
 
           <!-- Modal Footer -->
           <div class="modal-footer" *ngIf="!showConfirmation">
-            <button type="button" class="btn btn-secondary" (click)="onClose()" [disabled]="isLoading">
+            <button type="button" class="btn btn-outline-danger" (click)="onClose()" [disabled]="isLoading">
+              <app-feather-icon name="x" size="16px" class="me-1"></app-feather-icon>
               Cancel
             </button>
             <button 
