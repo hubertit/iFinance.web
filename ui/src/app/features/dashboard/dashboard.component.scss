@@ -36,6 +36,8 @@
   cursor: pointer;
 
   &:hover {
+    background: rgba($primary, 0.08);
+    border-color: transparent;
     transform: translateY(-2px);
   }
 
@@ -150,7 +152,8 @@
     color: inherit;
 
     &:hover {
-      border-color: $primary;
+      background: rgba($primary, 0.04);
+      border-color: transparent;
       transform: translateY(-2px);
     }
 

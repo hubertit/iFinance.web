@@ -127,9 +127,9 @@
     color: inherit;
 
     &:hover {
-      border-color: $primary;
+      background: rgba($primary, 0.04);
+      border-color: transparent;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba($primary, 0.15);
     }
 
     &:active {
@@ -192,9 +192,9 @@
   gap: 16px;
 
   &:hover {
+    background: rgba($primary, 0.08);
+    border-color: transparent;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-color: $primary;
   }
 
   .service-icon {
